@@ -1,0 +1,8 @@
+// 全局样式
+@import "./_variable.scss";
+@import "./foo.scss";
+
+p.global-p{
+  background: tomato;
+  color: $theme-color;
+}

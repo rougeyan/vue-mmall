@@ -99,20 +99,44 @@
         >
       </li>
     </ul>
+    <div class="test-btn" @click="login">login</div>
+    <div class="test-btn" @click="logout">logout</div>
+    <p class="global-p"> 我是一个p标签文本</p>
   </div>
 </template>
 
 <script>
+import {user_login,user_logout} from '@/api/userApi'
 export default {
   name: "HelloWorld",
   props: {
     msg: String
+  },
+  created() {
+  },
+  methods: {
+    login(){
+      user_login({
+        "password": "admin",
+        "username": "admin"
+        }).then(res=>{
+        console.log(res)
+      })
+    },
+    logout(){
+      user_logout().then(res=>{
+        console.log(res.data)
+      })
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+// 单独引入样式
+/* @import "@/assets/scss/foo.scss"; */
+
 h3 {
   margin: 40px 0 0;
 }
