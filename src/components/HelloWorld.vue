@@ -99,14 +99,20 @@
         >
       </li>
     </ul>
-    <div class="test-btn" @click="login">login</div>
-    <div class="test-btn" @click="logout">logout</div>
+    <div class="test-btn">login</div>
+    <br>
+    <div class="test-btn">logout</div>
+    <br>
+    <div class="test-btn">getUserinfo</div>
+    <br>
+    <div>test test test test</div>
     <p class="global-p"> 我是一个p标签文本</p>
   </div>
 </template>
 
 <script>
-import {user_login,user_logout} from '@/api/userApi'
+import {user_login,user_logout,user_getUserInfo} from '@/api/userApi'
+import {tese_api} from '@/api/testApi'
 export default {
   name: "HelloWorld",
   props: {
@@ -115,19 +121,6 @@ export default {
   created() {
   },
   methods: {
-    login(){
-      user_login({
-        "password": "admin",
-        "username": "admin"
-        }).then(res=>{
-        console.log(res)
-      })
-    },
-    logout(){
-      user_logout().then(res=>{
-        console.log(res.data)
-      })
-    }
   }
 };
 </script>

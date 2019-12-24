@@ -4,6 +4,9 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 // [参考自:为views文件夹下的vue文件自动生成路由](https://github.com/Caaalabash/vue-blog/blob/publish/frontend/src/router.js)
+
+// https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-not-found-%E8%B7%AF%E7%94%B1
+
 /**
  * 为views文件夹下的vue文件自动生成路由, 规则 ≈ Nuxt
  * 1. 基础路由: 路径 = views目录下文件的相对路径, index.vue将被视作 /
@@ -11,12 +14,18 @@ Vue.use(Router)
  * 3. 嵌套路由: 添加一个vue文件的同时添加一个与该文件同名的目录用于存放子视图组件
  * @param {Boolean} options.processAllIndex 是否处理文件路径中的index, 默认false
  */
+/**
+ * 这里可以进阶 
+ * filterRouterName 通过匹配对应的 文件名 取过滤 从而不引入对应的路由;
+ */
+
 function generateRoute(options = {
   processAllIndex: true
 }) {
-  const requireContext = require.context('./views', true, /\.vue$/, 'lazy')
+   // 相对路径src下的view目录 './../views';
+  const requireContext = require.context('./../views', true, /\.vue$/, 'lazy')
   const vueFileList = requireContext.keys().map(filename => filename.slice(1))            // ['/a/b/c.vue']
-
+  console.log(vueFileList);
   const getFilePath = filename => filename.replace(/\.\w+$/, '')                          // '/a/b/c'
   const getFileName = filename => filename.replace(/(.*\/)*([^.]+).*/ig, '$2')            // 'c'
   const flat = arr => arr.reduce((acc, val) =>                                            // 拍平routes
@@ -46,7 +55,8 @@ function generateRoute(options = {
       path: filePath,
       component: () => import(`@/views${filename}`),
       children: [],
-      props: true
+      props: false, // [布尔模式 :](https://router.vuejs.org/zh/guide/essentials/passing-props.html#%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%BC%8F) 如果 props 被设置为 true，route.params 将会被设置为组件属性。
+      meta: { requiresAuth: 'haha' }
     }
 
     if (!parentFileExist) {
@@ -63,16 +73,17 @@ function generateRoute(options = {
 const basicRoute = [
   {
     path: '/',
-    redirect: '/Calabash'
+    redirect: '/Home'
   }
 ]
-
+const processRoutes = basicRoute.concat(generateRoute(), { path: '*', redirect: '/error?code=404' })
+console.log(processRoutes)
 const router = new Router({
   // Vue scrollBehavior 滚动行为
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }
   },
-  routes: basicRoute.concat(generateRoute(), { path: '*', redirect: '/error?code=404' }),
+  routes: processRoutes,
   mode: 'history'
 })
 

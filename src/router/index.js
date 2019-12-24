@@ -1,3 +1,4 @@
+// 旧式代码 源vue-router的代码
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
