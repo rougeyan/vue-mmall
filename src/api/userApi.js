@@ -75,7 +75,7 @@ export function user_checkValid(params){
   })
 }
 // 获取校验问题;
-export function user_forgetGetQuestiopn(params){
+export function user_forgetGetQuestion(params){
   let url =  BASE_HEAD + PATH_FORGET_GET_QUESTION;
   return new Promise(function(resolve,reject){
     axios.post(url,params).then(res => {
@@ -107,7 +107,7 @@ export function user_forgetResetPassword(params){
     });
   })
 }
-
+// 登陆状态下 修改密码;
 export function user_resetPassword(params){
   let url =  BASE_HEAD + PATH_RESET_PASSWORD;
   return new Promise(function(resolve,reject){
@@ -118,6 +118,7 @@ export function user_resetPassword(params){
     });
   })
 }
+// 登陆状态下 更新个人信息
 export function user_updateInfo(params){
   let url =  BASE_HEAD + PATH_UPDATE_INFO;
   return new Promise(function(resolve,reject){

@@ -69,9 +69,9 @@ module.exports = {
     // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
     proxy: {
       '/api': {
-        // target: 'http://192.168.1.209:10751/', // Dev环境
-        // target: 'http://192.168.1.238:10751/', // Test环境
-        // target: 'http://192.168.1.215:10751/', // Rls环境
+        // target: 'http://192.168.1.209:10751/', // Dev环境(生产环境)
+        // target: 'http://192.168.1.238:10751/', // uat环境(测试环境)
+        // target: 'http://192.168.1.215:10751/', // Rls环境)(...)
         target: 'http://localhost:8081/', // 正式环境
         ws: true,
         changeOrigin: true,

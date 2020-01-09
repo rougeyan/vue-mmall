@@ -4,9 +4,9 @@
     例如 会员中心下应该有 > 我的订单, 我的收获地址 ..
     -->
     <ul>
-      <li v-for="(value,key) in navList" :key="key">
-        <div v-if="value.render" class="wrap">
-          <span>{{value.label}}</span>
+      <li v-for="(navitem,navIdx) in navList" :key="navitem.enkey">
+        <div v-if="navitem.render" class="wrap">
+          <span>{{navitem.label}}</span>
         </div>
       </li>
     </ul>
@@ -15,20 +15,25 @@
 
 <script>
 
-const defaultNav = {
-    login:{
-      label:"登陆",render:true,router: "./user/login",children:[]},
-    regist:{
-      label:"注册",render:true,router: "./user/register",children:[]},
-    shoppingCart:{
-      label:"购物车",render:true,router:"./user/shoppingCart",children:[]},
-    myOrders:{
-      label:"我的订单",render:true,router:"./user/myOrder",children:[]},
-    menberCenter:{
-      label:"会员中心",render:true,router:"./menber/*",children:[]},
-    aboutAuthor:{
-      label:"关于我",render:true,router:"./about",children:[]}
-  }
+const defaultNav = [{
+    enkey: 'login',
+    label:"登陆",render:true,router: "./user/login",children:[]},
+  {
+    enkey: 'regist',
+    label:"注册",render:true,router: "./user/register",children:[]},
+  {
+    enkey: 'shoppingCart',
+    label:"购物车",render:true,router:"./user/shoppingCart",children:[]},
+  {
+    enkey: 'myOrders',
+    label:"我的订单",render:true,router:"./user/myOrder",children:[]},
+  {
+    enkey: 'menberCenter',
+    label:"会员中心",render:true,router:"./menber/*",children:[]},
+  {
+    enkey: 'aboutAuthor',
+    label:"关于我",render:true,router:"./about",children:[]}
+  ]
 
 export default {
   name: "TopNavBar",
