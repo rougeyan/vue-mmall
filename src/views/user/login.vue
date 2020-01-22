@@ -5,23 +5,25 @@
       <form>
         <ul>
           <li>
-            <label :class="{'nessary':userName.nessary}">用户名：</label>
-            <input type="text" placeholder="请输入用户名" v-model="userName.value" 
-            @blur="blurCheck('userName')"/>
-            <div class="error-tips" v-if="userName.tips">{{userName.tips}}</div>
+            <formInput 
+              v-model="userName" 
+              label="用户名"
+              :blurCheckRules ="['isBlank']">
+            </formInput>
           </li>
           <li>
-            <label :class="{'nessary':userPwd.nessary}">密码：</label>
-            <input type="password" placeholder="请输入密码" v-model="userPwd.value" @blur="blurCheck('userPwd')" />
-            <div class="error-tips" v-if="userPwd.tips">{{userPwd.tips}}</div>
+            <formInput 
+              v-model="userPwd" 
+              label="密码"
+              :blurCheckRules ="['isBlank']">
+            </formInput>
           </li>
           <li>
-            <formItemLi 
-              v-model="usertest.value" 
-              @blur="handlerbbb"
-              :disabled="false"
+            <!-- <formInput 
+              v-model="usertestvalue" 
+              @blur="handlerbbblur"
               :inputCheckRules="['isBlank','isEmail','userCheckValid']">
-            </formItemLi></li>
+            </formInput></li> -->
           <li>
             <img :src="imgsrc" alt="">
           </li>
@@ -43,29 +45,16 @@ import {user_login,
         user_getUserInfo} from '@/api/userApi'
 import {tese_api} from '@/api/testApi.js';
 import {formMixin} from '@/common/formMixin';
-import formItemLi from '@/components/formItemLi';
-
-const formData = {
-  userName: { // 账号
-    value: undefined,
-    blurCheckRulesType: ['isBlank',]
-  },
-  userPwd: { // 密码
-    value: undefined,
-    blurCheckRulesType: ['isBlank']
-  },
-  usertest: { // 密码
-    value: 'originalText',
-    blurCheckRulesType: ['isBlank']
-  }
-}
+import formInput from '@/components/formInput';
 export default {
-  mixins: [formMixin(formData)],
   data() {
     return {
+      userName: undefined,
+      userPwd: undefined,
+      btnLock: false, // 按钮锁 防止多次提交;
       bdTitle: '登陆',
-      btnLock: false, // 防止多次提交;
-      imgsrc: `/api/code/get_verify_image_code.do?timestamp=${new Date().getTime()}`
+      imgsrc: `/api/code/get_verify_image_code.do?timestamp=${new Date().getTime()}`,
+      usertestvalue:''
     }
   },
   created() {
@@ -77,8 +66,8 @@ export default {
       self.btnLock = true;
       // 做非空校验
       user_login({
-        "username": self.userName.value,
-        "password": self.userPwd.value
+        "username": self.userName,
+        "password": self.userPwd
         }).then(res=>{
         self.btnLock = false;
         if(res.status == 0){
@@ -108,12 +97,12 @@ export default {
     testUserTest(){
       console.log(this.usertest);
     },
-    handlerbbb(e){
+    handlerbbblur(e){
       console.log(e);
     }
   },
   components: {
-    formItemLi
+    formInput
   },
 }
 </script>

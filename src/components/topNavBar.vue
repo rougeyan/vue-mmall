@@ -1,8 +1,5 @@
 <template>
   <div class="top-nav-bar">
-    <!-- 这里引入递归 导航 
-    例如 会员中心下应该有 > 我的订单, 我的收获地址 ..
-    -->
     <ul>
       <li v-for="(navitem,navIdx) in navList" :key="navitem.enkey">
         <div v-if="navitem.render" class="wrap">

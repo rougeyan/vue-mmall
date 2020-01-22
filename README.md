@@ -358,10 +358,10 @@ this.$emit('blur',...args)
 向上传递触发 handlerbbb的方法()
 
 ```html
-  <formItemLi 
+  <formInput 
     v-model="usertest.value"
     @blur="handlerbbb"
-  ></formItemLi>
+  ></formInput>
   <script>
   // 这个监听器的事件是在父组件定义的;
   handlerbbb(args){
@@ -370,4 +370,31 @@ this.$emit('blur',...args)
   }
   </script>
 ```
+### 关于自定义组件的自定义属性
 
+[自定义组件 v-mode 及属性](https://blog.csdn.net/weixin_30706691/article/details/98916849)
+
+属性是有区分动态属性跟静态属性的
+```html
+<component
+  v-model = "label"
+  :label = "varLable"
+  label = "lable"
+></componet>
+
+label 同事都是由`props`上面接收;
+```
+
+### 关于slot 的理解
+[vue 里面的slot属性](https://blog.csdn.net/weixin_41646716/article/details/80450873)
+在一些自定义标签中内部想假如插槽
+```html
+<component
+  v-model = "label"
+  :label = "varLable"
+  label = "lable"
+>
+// 我需要在这里插入我需要的东西
+<>
+</componet>
+```

@@ -34,7 +34,6 @@ export const promisifyArrayMethods = function(val,arr){
 // 校验队列结果
 export const promiseAllCheckedResult = function(arr){
   return Promise.all(arr).then(res=>{
-    console.log(res)
     return res
   },err=>{
     console.log(err)

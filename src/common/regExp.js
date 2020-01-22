@@ -32,6 +32,7 @@ export const regMethods = {
   }
 };
 // 校验方法(异步)
+// 请求服务器, 例如模糊匹配..用户名校验等等
 export const asyncMethods = {
   userCheckValid: function(val){
     return user_checkValid({

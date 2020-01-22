@@ -1,6 +1,6 @@
 <template>
   <div class="formItem-InputBd">
-    <label :class="{'nessary':nessary}">测试对话框：</label>
+    <label :class="{'nessary':nessary}">{{label}}：</label>
     <input 
       type="text"
       placeholder="请输入" 
@@ -22,6 +22,10 @@ export default {
   name: 'myFormInput',
   props:{
     "value":[String,Number],
+    "label": {
+      type: String,
+      default: "label"
+    },
     "nessary":{
       type: Boolean,
       default: true
