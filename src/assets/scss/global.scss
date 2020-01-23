@@ -43,6 +43,9 @@ p{
   margin: 0;
 }
 
+.clearfix:after {content:"\200B"; display:block; height:0; clear:both; }
+.clearfix { zoom:1; }
+
 
 
 // ============
@@ -61,6 +64,8 @@ p.title{
 }
 
 .img-wrap{
+  width: 200px;
+  height: 200px;
   img{
     width: 100%;
     height: 100%;

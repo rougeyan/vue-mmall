@@ -1,7 +1,7 @@
 <template>
   <div class="top-nav-bar">
     <ul>
-      <li v-for="(navitem,navIdx) in navList" :key="navitem.enkey">
+      <li class="nav-item-wrap" v-for="(navitem,navIdx) in navList" :key="navitem.enkey">
         <div v-if="navitem.render" class="wrap">
           <span>{{navitem.label}}</span>
         </div>
@@ -24,12 +24,12 @@ const defaultNav = [{
   {
     enkey: 'myOrders',
     label:"我的订单",render:true,router:"./user/myOrder",children:[]},
-  {
-    enkey: 'menberCenter',
-    label:"会员中心",render:true,router:"./menber/*",children:[]},
-  {
-    enkey: 'aboutAuthor',
-    label:"关于我",render:true,router:"./about",children:[]}
+  // {
+  //   enkey: 'menberCenter',
+  //   label:"会员中心",render:true,router:"./menber/*",children:[]},
+  // {
+  //   enkey: 'aboutAuthor',
+  //   label:"关于我",render:true,router:"./about",children:[]}
   ]
 
 export default {
@@ -53,5 +53,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  @import '@/assets/scss/topNavBar';
 </style>
