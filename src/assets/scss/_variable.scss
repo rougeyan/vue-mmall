@@ -3,3 +3,26 @@ $c-text-w: #ffffff;
 $c-text-E: #ECECEC;
 $c-content-w: 1205PX;
 $c-content-m: 375px;
+
+
+$tc: #42b983;
+$normal-text-color: #42b983;
+$hover-tc: #09f;
+$border-color: #42b983;;
+
+@mixin global-border {
+  border-radius: 4px;
+  border: 1px solid $border-color;
+}
+
+@mixin hover-able{
+  cursor: pointer;
+}
+@mixin text-hover-dif{
+  &:hover{
+    background-color: $hover-tc;
+    border-radius: 4px;
+    border: 1px solid $hover-tc;
+    color: #fff;
+  }
+}

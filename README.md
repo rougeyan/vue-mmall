@@ -332,6 +332,9 @@ methods: {
   updataData(key,val){
     // this.$emit('change', val)
     this.$emit('input', val); // v-model语法糖 监听 
+
+
+    // v-on:input="mes= $event.target.value"
   },
   handleInput($event){
     console.log('onhandleInput');

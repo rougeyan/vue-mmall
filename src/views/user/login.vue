@@ -25,6 +25,7 @@
               :inputCheckRules="['isBlank','isEmail','userCheckValid']">
             </formInput></li> -->
           <li>
+            <span>验证码:</span>
             <img :src="imgsrc" alt="">
           </li>
         </ul>

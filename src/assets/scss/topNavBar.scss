@@ -1,76 +1,52 @@
-// topNavBar 顶部头
-.top-nav-bar{
-
-}
-.nav-item-wrap{
-  display:inline-block;
-  cursor: pointer;
-  padding: 4px 16px;
-  height: 32px;
-  &:hover{
-    background: #09f;
-    color:#fff;
-  }
-}
-// 全局搜索框
-.home-search-wrap{
-  input{
-    display: inline-block;
-    height: 30px;
-    margin-right: 20px;
-    border: 1px solid #f55;
-    padding-left: 15px;
-    border-radius: 2px;
-  }
-  .home-search{
-    border-color: #f55; 
-  }
-}
-
+// 分类
 .category-wrap{
-  width: 300px;
-  .category-1-wrap{
-    border: 1px solid #999;
-    .category-1-item{
-
-    }
+  width: 480px;
+  height: 200px;
+  .category-1st-wrap{
+    @include global-border;
+    padding: 6px;
   }
-  .category-2-wrap{
+  .category-2nd-wrap{
     overflow: hidden;
     width: 100%;
     height: 20px;
-    .category-2-item{
-      display: inline-block;
-      vertical-align: top;
-      margin-right: 20px;
-      color: #09f;
-    }
+  }
+  .category-2nd-item{
+    @include hover-able;
+    @include text-hover-dif;
+    display: inline-block;
+    padding: 1px 3px;
+    vertical-align: top;
+    margin-right: 20px;
+    color: $normal-text-color;
   }
 }
-
 
 // 楼层
 .home-floor{
   width: 1200px;
   overflow: hidden;
-  height: 270px;
-  .floor-title{
-    font-size: 24px;
-    font-weight: bold;
-  }
+  height: 320px;
+  margin: 0 auto;  
   .floor-products-wrap{
 
   }
   .product-item{
     background: #fff;
     padding: 20px;
+    margin: 0 60px 20px 0;
     position: relative;
     float: left;
     &:hover{
-      background: #aaa;
+      cursor: pointer;
+      background: $tc;
+      color: #fff;
     }
   }
 }
+
+
+
 // 搜说过滤条件
 .filter-products-wrap{
   border-top: 2px solid #000;
@@ -92,10 +68,13 @@
   }
 }
 
+
+
 //  产品详情
 .product-msg-wrap{
   .pmsg-header{
     font-size: 0;
+    width: 800px;
   }
   .msg-head-l,.msg-head-r{
     font-size: 14px;
@@ -104,9 +83,11 @@
   }
   .msg-head-l{
     width: 500px;
+    height: 580px;;
   }
   .msg-head-r{
-    width: 600px;
+    width: 300px;
+    height: 580px;;
     background: #eee;
   }
 }
@@ -153,3 +134,33 @@
 
 
 //  产品详情  end
+
+
+// 购物车选项
+
+.shopping-cart-list-wrap{
+  
+}
+
+
+.bd-title{
+  border-bottom: 4px solid $tc;
+  margin-bottom: 4px;
+}
+
+// 预下单页
+.shipping-selector{
+  .shipping-bd{
+    .shipping-list{
+
+    }
+    .shipping-item{
+      width: 300px;
+      height: 120px;
+      margin-right: 20px;
+      display: inline-block;
+      padding: 8px;
+      @include global-border;
+    }
+  }
+}

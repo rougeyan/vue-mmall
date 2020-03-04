@@ -1,10 +1,13 @@
 <template>
   <div class="home">
-    <top-nav-bar />
-    <global-search />
+    <global-head>
+      <slot slot="global-h-breadCrumb">
+        <p>分类 13855252522@test987.com</p>
+      </slot>
+    </global-head>
     <home-category />
     <!-- // 楼层速览 -->
-    <!-- <home-floor v-for="item in 3"/> -->
+    <home-floor v-for="item in 3"/>
     <global-footer></global-footer>
     <!-- <HelloWorld /> -->
   </div>
@@ -12,19 +15,16 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-import TopNavBar from "@/components/topNavBar.vue";
-import GlobalSearch from "@/components/globalSearch.vue"
-import HomeCategory from "@/components/homeCategory.vue"
-import HomeFloor from "@/components/homeFloor.vue"
-import GlobalFooter from "@/components/globalFooter.vue"
+import GlobalHead from "@/components/global/globalHead.vue"
+import HomeCategory from "@/components/home/homeCategory.vue"
+import HomeFloor from "@/components/home/homeFloor.vue"
+import GlobalFooter from "@/components/global/globalFooter.vue"
 
 export default {
   name: "home",
+  
   components: {
-    HelloWorld,
-    "top-nav-bar": TopNavBar,
-    "global-search" : GlobalSearch,
+    "global-head" : GlobalHead,
     "global-footer" : GlobalFooter,
     "home-category":HomeCategory,
     "home-floor": HomeFloor

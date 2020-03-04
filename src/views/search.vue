@@ -1,27 +1,19 @@
 <template>
   <div class="home">
-    <top-nav-bar />
-    <global-search />
-    <breadcrumb />
+    <global-head />
     <filter-products/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-import TopNavBar from "@/components/topNavBar.vue";
-import GlobalSearch from "@/components/globalSearch.vue"
-import Breadcrumb from "@/components/breadcrumb.vue"
-import FilterProducts from "@/components/filterProducts.vue"
 
+import GlobalHead from "@/components/global/globalHead.vue"
+import FilterProducts from "@/components/search/filterProducts.vue"
 export default {
   name: "home",
   components: {
-    HelloWorld,
-    "top-nav-bar": TopNavBar,
-    "global-search" : GlobalSearch,
-    "breadcrumb" : Breadcrumb,
+    "global-head" : GlobalHead,
     "filter-products":FilterProducts
   }
 };
