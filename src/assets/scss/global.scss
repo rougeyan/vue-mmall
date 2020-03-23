@@ -1,3 +1,24 @@
+
+.global-title{
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom: 2px solid $border-color;
+  margin-bottom: 4px;
+}
+.global-bd{
+  background-color: #fff;
+  border-color: #fff;
+  padding: 20px;
+  width: 100%;
+}
+
+.page-wrap{
+  width: 1200px;
+  min-height: 200px;
+  margin: 0 auto;
+}
+
+
 //全局 头部导航
 .global-nav-bar{
   background-color: $tc;
@@ -13,7 +34,6 @@
     color:#fff;
   }
 }
-
 // 全局搜索框
 .global-search-wrap{
   height: 64px;
@@ -31,5 +51,32 @@
   }
   .input-wrap{
     width: 600px;
+  }
+}
+
+.bd-products-wrap{
+  ul{
+    li{
+      float: left;
+      width: 270px;
+      cursor: pointer;
+      margin: 0 20px 20px 0;
+      text-align: center;
+      &:nth-child(4n){
+        margin-right: 0;
+      }
+      &:hover{
+        background: #999;
+      }
+    }
+  }
+}
+
+
+// 
+.global-prod-sketch{
+  .sketch-name{
+    text-align: center;
+    font-size: 20px;
   }
 }

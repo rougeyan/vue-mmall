@@ -18,3 +18,7 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+  @import '@/assets/scss/page/productDesc.scss';
+</style>

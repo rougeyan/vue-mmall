@@ -1,15 +1,10 @@
 <template>
-    <div class="global-title">
-      {{title}}
-    </div>
+    <div class="pmsg-footer">pmsg-footer</div>
 </template>
 
 <script>
 export default {
     props: {
-      'title': {
-        type: String,
-      }
     },
     data() {
         return {
@@ -29,3 +24,7 @@ export default {
     },
 }
 </script>
+
+<style scoped lang="scss">
+
+</style>

@@ -6,6 +6,7 @@
       </slot>
     </global-head>
     <home-category />
+    <home-swpier />
     <!-- // 楼层速览 -->
     <home-floor v-for="item in 3"/>
     <global-footer></global-footer>
@@ -17,6 +18,7 @@
 // @ is an alias to /src
 import GlobalHead from "@/components/global/globalHead.vue"
 import HomeCategory from "@/components/home/homeCategory.vue"
+import HomeSwiper from "@/components/home/homeSwiper.vue"
 import HomeFloor from "@/components/home/homeFloor.vue"
 import GlobalFooter from "@/components/global/globalFooter.vue"
 
@@ -27,7 +29,11 @@ export default {
     "global-head" : GlobalHead,
     "global-footer" : GlobalFooter,
     "home-category":HomeCategory,
+    "home-swpier": HomeSwiper,
     "home-floor": HomeFloor
   }
 };
 </script>
+<style lang="scss">
+  @import '@/assets/scss/page/homePage.scss';
+</style>

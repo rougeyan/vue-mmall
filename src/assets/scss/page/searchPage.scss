@@ -1,0 +1,18 @@
+// 搜说过滤条件
+.bd-products-wrap{
+  ul{
+    li{
+      float: left;
+      width: 270px;
+      cursor: pointer;
+      margin: 0 20px 20px 0;
+      text-align: center;
+      &:nth-child(4n){
+        margin-right: 0;
+      }
+      &:hover{
+        background: #999;
+      }
+    }
+  }
+}

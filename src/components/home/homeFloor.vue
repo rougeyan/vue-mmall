@@ -1,12 +1,9 @@
 <template>
-  <div class="home-floor">
-      <globalTitle title="主标题"></globalTitle>
-    <ul class="floor-products-wrap clearfix">
-      <li class="product-item" v-for="item in 10">
-        <div class="product-title">产品名称</div>
-        <div class="img-wrap">
-          <img src="https://file.gzl.cn/group1/M00/27/45/wKkBH14FpGCARlBGAAEYP7peC2Q148_300X200.jpg" alt="">
-        </div>
+  <div class="category-floor">
+    <globalTitle title="主标题"></globalTitle>
+    <ul class="clearfix">
+      <li class="category-item" v-for="item in 5">
+        <globalProdsketch />
       </li>
     </ul>
   </div>
@@ -27,7 +24,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-  @import '@/assets/scss/topNavBar';
-</style>

@@ -31,5 +31,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/user/loginPage.scss';
+  @import '@/assets/scss/page/loginPage.scss';
 </style>

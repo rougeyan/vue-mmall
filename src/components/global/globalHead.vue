@@ -18,7 +18,7 @@
 <script>
 // @ is an alias to /src
 import GlobalNavBar from "@/components/global/item/global-h-bar.vue";
-import GlobalSearch from "@/components/global/globalSearch.vue"
+import GlobalSearch from "@/components/global/item/global-h-search.vue"
 import Breadcrumb from "@/components/common/breadcrumb.vue"
 
 export default {

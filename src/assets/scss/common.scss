@@ -1,8 +1,18 @@
 // 全局样式
 @import "./_variable.scss";
 @import "./normalize.css";
-// 
 @import "./global.scss";
+
+// 页面样式注意事项:
+/*
+  对于page内的css不在此地方引用 
+  在views下的router里面的style标签引用
+  example: (..view/user)
+  <style lang="scss">
+    @import '@/assets/scss/page/loginPage.scss';
+  </style>
+*/
+
 
 *{
   box-sizing: border-box;
@@ -43,10 +53,13 @@ p{
   margin: 0;
 }
 
+// 清除浮动
 .clearfix:after {content:"\200B"; display:block; height:0; clear:both; }
 .clearfix { zoom:1; }
 
-// 图片外层
+
+// 通用项... 
+// 图片外层 
 .img-wrap{
   width: 200px;
   height: 200px;
@@ -56,6 +69,7 @@ p{
     height: 100%;
   }
 }
+
 // 输入框外层
 .input-wrap{
   display: inline-block;
@@ -77,10 +91,7 @@ p{
 }
 
 
-
-
-
-
+// flex 布局
 .flex{
   display: flex;
   justify-content: center;
@@ -88,24 +99,4 @@ p{
 }
 .flex-item{
   flex: 1;
-}
-
-.global-title{
-  font-size: 24px;
-  font-weight: bold;
-  border-bottom: 2px solid $border-color;
-  margin-bottom: 4px;
-}
-.global-bd{
-  @include global-border;
-  background-color: #fff;
-  border-color: #fff;
-  padding: 12px 20px;
-  width: 100%;
-}
-
-.page-wrap{
-  width: 1200px;
-  min-height: 200px;
-  margin: 0 auto;
 }

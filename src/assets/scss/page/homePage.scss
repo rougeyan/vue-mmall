@@ -1,0 +1,42 @@
+// 分类
+.category-wrap{
+  width: 480px;
+  height: 200px;
+  .category-1st-wrap{
+    @include global-border;
+    padding: 6px;
+  }
+  .category-2nd-wrap{
+    overflow: hidden;
+    width: 100%;
+    height: 20px;
+  }
+  .category-2nd-item{
+    @include hover-able;
+    @include text-hover-dif;
+    display: inline-block;
+    padding: 1px 3px;
+    vertical-align: top;
+    margin-right: 20px;
+    color: $normal-text-color;
+  }
+}
+
+// 楼层
+.category-floor{
+  width: 1200px;
+  overflow: hidden;
+  height: 350px;
+  .category-item{
+    background: #fff;
+    padding: 20px;
+    margin: 0 60px 20px 0;
+    position: relative;
+    float: left;
+    &:hover{
+      cursor: pointer;
+      background: $tc;
+      color: #fff;
+    }
+  }
+}
