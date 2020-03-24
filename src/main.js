@@ -4,8 +4,8 @@ import router from "./router/routerDefencer";
 import store from "./store";
 import "@/assets/scss/common.scss"
 
-// 一劳永逸的通用组件注册
-import '@/components/common.js'
+// 自动通用组件注册
+import '@/components/autoRegistComponents.js'
 
 Vue.config.productionTip = false;
 

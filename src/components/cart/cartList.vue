@@ -1,56 +1,47 @@
 <template>
-<!-- <table border="1">
-  <tr>
-    <th>Month</th>
-    <th>Savings</th>
-  </tr>
-  <tr>
-    <td>January</td>
-    <td>$100</td>
-  </tr>
-</table> -->
-  <div class="shopping-cart-list-wrap">
-    <table>
+  <div class="shopping-cartlist-wrap">
+    <table border="1px" cellspacing="0">
       <!-- 表头 -->
-      <tr class="cart-table-head">
-        <th>全选</th>
+      <tr class="table-head">
+        <th>全选
+          <input type="checkbox"/>
+        </th>
         <th>商品信息</th>
         <th>单价</th>
         <th>数量</th>
         <th>合计</th>
         <th>操作</th>
       </tr>
-      <!-- <ul class="> -->
-      <tr class="cart-table-ctx-item">
-        <td><input type="checkbox"/></td>
+      <!-- 内容 -->
+      <tr class="table-ctx-item" v-for="(item,idx) in cartList" :key="idx">
+        <td><input type="checkbox" :checked="item.selected == 1?'checked':''" /></td>
         <td>
-          <div class="shopMin-pig img-wrap">
-            <img src="https://file.gzl.cn/group1/M00/24/BB/wKkBHlzbsAyASxCFAADuICL3d0U715_300X200.jpg" alt="">
+          <div class="prod-msg">
+            <div class="img-wrap">
+              <img :src="item.prodImg" alt="">
             </div>
-            <span>	【测试学习使用】【mayi摄影】Canon/佳能 PowerShot SX620 HS高清长焦数码照相机</span>
+            <div class="description">{{item.desc}}</div>
+          </div>
         </td>
-        <td><div class="single-price">￥1888</div></td>
-        <td><div class="num-selector">- 1 +</div></td>
-        <td><div class="total-price">1888</div></td>
-        <td><div class="operater">删除</div></td>
+        <td><div class="single-price">￥{{item.price}}</div></td>
+        <td><div class="num-selector">
+          <input v-model="item.selectedNum" type="number"></div></td>
+        <td><div class="total-price">{{item.price*item.selectedNum}}</div></td>
+        <td><div class="delete-cart-item">删除</div></td>
       </tr>
-        <div class="cart-table-ctx">
+        <div class="table-ctx">
         </div>
-        <!-- <li class="cart-table-ctx-item">
-        </li> -->
-      <!-- </ul> -->
     </table>
-    <div class="shoping-cart-operator">
-      <ul class="operator-wrap">
-        <li>
-          <input type="checkbox"/>
-          <span>全选</span>
-        </li>
-        <li>删除选中</li>
-        <li>总价: 1888</li>
-      </ul>
+    
+    <div class="operator-wrap">
+      <div>
+        <input type="checkbox"/>
+        <span>全选</span>
+      </div>
+      <div>删除选中</div>
+      <div>总价: 1888</div>
       <button>去结算</button>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -60,6 +51,21 @@ export default {
     },
     data() {
         return {
+          cartList: [{
+          "selected": 0, // 已选未选
+          "prodImg": "https://file.gzl.cn/group1/M00/24/BB/wKkBHlzbsAyASxCFAADuICL3d0U715_300X200.jpg",
+          "desc": "【测试学习使用】【mayi摄影】Canon/佳能 PowerShot SX620 HS高清长焦数码照相机",
+          "price" : 1988,
+          "selectedNum": 1,
+          "totalPrice": 1988
+        },{
+          "selected": 1, // 已选未选
+          "prodImg": "https://file.gzl.cn/group1/M00/24/BB/wKkBHlzbsAyASxCFAADuICL3d0U715_300X200.jpg",
+          "desc": "【测试学习使用】【mayi摄影】Canon/佳能 PowerShot SX620 HS高清长焦数码照相机",
+          "price" : 99.8,
+          "selectedNum": 10,
+          "totalPrice": 1988
+        }]
         }
     },
     computed: {
@@ -76,7 +82,3 @@ export default {
     },
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>

@@ -1,9 +1,9 @@
 <template>
   <div class="category-floor">
-    <globalTitle title="主标题"></globalTitle>
+    <bdTitle title="主标题"></bdTitle>
     <ul class="clearfix">
       <li class="category-item" v-for="item in 5">
-        <globalProdsketch />
+        <prodsketch />
       </li>
     </ul>
   </div>

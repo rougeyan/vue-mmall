@@ -1,14 +1,14 @@
 <template>
   <div>
-    <globalBd :title="title">
+    <bd :title="title">
       <div class="bd-products-wrap">
         <ul class="clearfix">
           <li v-for="item in 9">
-            <globalProdsketch />
+            <prodsketch />
           </li>
         </ul>
       </div>
-    </globalBd>
+    </bd>
   </div>
 </template>
 

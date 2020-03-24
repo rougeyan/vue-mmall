@@ -1,10 +1,13 @@
 <template>
+  <!-- 预下单 - 配置订单信息(收货人) -->
   <div class="home">
     <global-head />
-    <!-- // 楼层速览 -->
     <shipping-selector />
     <product-selected-list />
-    <button>提交订单</button>
+    <div>
+      <p>订单总价:19888</p>
+      <button>提交订单</button>
+    </div>
   </div>
 </template>
 
