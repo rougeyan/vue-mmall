@@ -405,3 +405,13 @@ label 同事都是由`props`上面接收;
 
 ### 递归组件(面包屑)
 ... 待整理;
+
+
+### Vue自定义的组件上@click点击事件【失效】问题
+
+### eventbus多次触发的问题
+/**
+   * [eventbus多次触发的问题](https://www.jianshu.com/p/fde85549e3b0)
+   * 大致理解为 切换路由的情况下 回重复绑定
+   *  eventbus.$on()这个事件;
+   */

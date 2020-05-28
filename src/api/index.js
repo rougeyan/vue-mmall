@@ -5,17 +5,26 @@ const qs = require('qs');
 
 // [axios文档](https://www.kancloud.cn/yunye/axios/234845)
 
+const TOKEN_KEY = 'access_token';
+
+// [http协议的RequestPayload和FormData的区别](https://www.cnblogs.com/xuzhudong/p/8487119.html)
+
 // 对于post的请求使用form data
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
 
   // 请求url带上?session_id=xxxxx;
-  let sessioId = Cookies.get('session_id');
-  if(!!sessioId){
+  // let token = Cookies.get(TOKEN_KEY);
+  let token = Cookies.get("access_token");
+  // console.log(token)
+  // return 
+  if(!!token){
     config.params={
-      session_id: sessioId
+      ...config.params,
+      [TOKEN_KEY]:token
     }
   }
   // 对与post请求 使用的是Form Data 而不是 Requset Payload 因此需要序列化参数

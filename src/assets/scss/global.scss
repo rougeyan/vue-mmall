@@ -2,8 +2,8 @@
 .global-title{
   font-size: 24px;
   font-weight: bold;
-  border-bottom: 2px solid $border-color;
-  margin-bottom: 4px;
+  border-bottom: 2px solid $bc;
+  margin-bottom: 10px;
 }
 .global-bd{
   background-color: #fff;
@@ -30,19 +30,18 @@
   height: 32px;
   color: #eee;
   &:hover{
-    background: $hover-tc;
+    background: $tch;
     color:#fff;
   }
 }
 // 全局搜索框
 .global-search-wrap{
-  height: 64px;
-  padding: 4px 12px;
+  padding: 16px 8px;
   .global-searchwrap-l, .global-searchwrap-r{
     float: left;
   }
   .global-searchwrap-r{
-    margin-top: 10px;
+    // margin-top: 10px;
   }
   .logo293X44{
     width: 293px;
@@ -75,8 +74,19 @@
 
 // 
 .global-prod-sketch{
+  display: block;
+  padding: 10px 16px;
+  .sketch-img{
+    width: 100%;
+  }
   .sketch-name{
-    text-align: center;
+    text-align: left;
     font-size: 20px;
+    margin-bottom: 4px;
+    @include singleline;
+  }
+  .sketch-desc{
+    @include multiline;
+    color: #999;
   }
 }

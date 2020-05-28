@@ -22,7 +22,7 @@
 // import Breadcrumb from "@/components/common/breadCrumb/breadcrumb.vue"
 
 export default {
-  name: "home",
+ 
   // components: {
   //   "global-nav-bar": GlobalNavBar,
   //   "global-search" : GlobalSearch,

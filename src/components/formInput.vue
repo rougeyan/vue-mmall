@@ -2,7 +2,7 @@
   <div class="formItem-InputBd">
     <label :class="{'nessary':nessary}">{{label}}：</label>
     <input 
-      type="text"
+      :type="inputType"
       placeholder="请输入" 
       :value="value"
       :readonly="readonly"
@@ -25,6 +25,10 @@ export default {
     "label": {
       type: String,
       default: "label"
+    },
+    "inputType":{
+      type: String,
+      default: "text"
     },
     "nessary":{
       type: Boolean,
@@ -76,7 +80,7 @@ export default {
       })
     },480,function($event){
       // 同步执行函数;
-      console.log("同步执行函数");
+      // console.log("同步执行函数");
       let self = this;
       self.$emit('input', $event.target.value);
     }),

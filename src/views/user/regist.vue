@@ -1,83 +1,88 @@
 <template>
   <div>
     <div class="regist-main">
-      <p class="title">{{bdTitle}}</p>
+      <p class="menberpage-title">{{title}}</p>
       <form>
         <ul>
           <li>
-            <label :class="{'nessary':userName.nessary}">用户名：</label>
-            <input type="text" placeholder="请输入用户名" v-model="userName.value" 
-            @blur="blurCheck('userName')"/>
-            <div class="error-tips" v-if="userName.tips">{{userName.tips}}</div>
+            <formInput 
+              v-model="userName" 
+              label="用户名"
+              :blurCheckRules ="['isBlank','usernameCheckValid']">
+            </formInput>
           </li>
           <li>
-            <label :class="{'nessary':userName.nessary}">密码：</label>
-            <input type="password" placeholder="请输入密码" v-model="userPwd.value" />
+            <formInput 
+              v-model="userPwd" 
+              label="密码"
+              inputType="password"
+              :blurCheckRules ="['isBlank']">
+            </formInput>
           </li>
           <li>
-            <label :class="{'nessary':userName.nessary}">确认密码：</label>
-            <input type="password" placeholder="请再输入密码" v-model="userPwdsec.value" />
+            <formInput 
+              v-model="userPwdSec" 
+              label="确认密码"
+              inputType="password"
+              :blurCheckRules ="['isBlank']">
+            </formInput>
           </li>
           <li>
-            <label :class="{'nessary':userName.nessary}">手机号码：</label>
-            <input type="phone" placeholder="请输入手机号码" v-model="userPhone.value" />
+            <formInput 
+              v-model="userPhone" 
+              label="手机号"
+              :blurCheckRules ="['isPhone']">
+            </formInput>
           </li>
           <li>
-            <label :class="{'nessary':userName.nessary}">邮箱：</label>
-            <input type="text" name="email" placeholder="请输入邮箱" v-model="userEmail.value" />
-            <div class="error-tips" v-if="userEmail.tips">{{userEmail.tips}}</div>
+            <formInput 
+              v-model="userEmail" 
+              label="邮箱地址"
+              :blurCheckRules ="['isBlank','emailCheckValid']">
+            </formInput>
           </li>
           <li>
-            <label :class="{'nessary':userName.nessary}">密码提示问题：</label>
-            <input type="text" placeholder="请选择密码提示问题" v-model="userQues.value" />
+            <formInput 
+              v-model="userQues" 
+              label="密码提示问题"
+              :blurCheckRules ="['isBlank']">
+            </formInput>
           </li>
           <li>
-            <label :class="{'nessary':userName.nessary}">密码提示答案：</label>
-            <input type="text" placeholder="请选择密码提示问题" v-model="userAnswer.value"/>
+            <formInput 
+              v-model="userAnswer" 
+              label="密码提示答案"
+              :blurCheckRules ="['isBlank']">
+            </formInput>
           </li>
         </ul>
       </form>
-      <button @click="regist">提交</button>
+      <button @click="regist">注册</button>
+      <p>登录状态</p>
+      <p>{{registStatus}}</p>
     </div>
   </div>
 </template>
 
 <script>
-import {user_regist,user_checkValid} from '@/api/userApi'
-import {formMixin} from '@/common/formMixin'
 
-// form表单种的格式以及校验由这里生成
-const formData = {
-  userEmail: {
-    value: 'testaccount@163.com',
-    blurCheckRulesType: false,
-    onChangeCheck: ['isBlank','emailFmt',function(val){
-      return user_checkValid({
-        str: val,
-        type: 'email'
-      })
-    }],
-  }, //简便格式
-  userName: {
-    value: 'testaccount',
-    blurCheckRulesType: ['isBlank',function(val){
-      return user_checkValid({
-        str: val,
-        type: 'username'
-      })
-    }]
-  },
-  userPwd: '1234', // 密码
-  userPwdsec:'1234', // 二次密码确认
-  userPhone: 12377676777, // 电话号码
-  userQues: '你最喜爱的明星是谁', // 问题
-  userAnswer: '广之旅', // 答案
-}
+import {api_user_regist} from '@/api/userApi'
+import {tese_api} from '@/api/testApi.js';
+import {formMixin} from '@/common/formMixin';
+import formInput from '@/components/formInput';
+import Cookies from 'js-cookie'
 export default {
-  mixins: [formMixin(formData)],
   data() {
     return {
-      bdTitle: '注册',
+      title: '注册账号',
+      userName: 'smgui1',
+      userPwd: '1234',
+      userPwdSec: '1234',
+      userPhone: '13711651899',
+      userQues: '123',
+      userAnswer: '123',
+      userEmail: '13711651899@qq.com',
+      registStatus: ''
     }
   },
   created() {
@@ -85,20 +90,24 @@ export default {
   methods: {
     regist(){
       var self = this;
-      user_regist({
-        userName: self.userName.value,
-        userPwdsec: self.userPwd.value,
-        userEmail: self.userEmail.value,
-        userPhone: self.userPhone.value,
-        userQues: self.userQues.value,
-        userAnswer: self.userAnswer.value
-      }).then(res=>{
-        alert(res.msg)
+      api_user_regist({
+        password: self.userPwdSec,
+        username: self.userName,
+        email: self.userEmail,
+        phone: self.userPhone,
+        question: self.userQues,
+        answer: self.userAnswer
+      }).then((res)=>{
+        if(res.status == 0){
+          self.registStatus = JSON.stringify(res);
+        }else{
+          self.registStatus = res
+        }
       })
     }
   },
   components: {
+    formInput
   },
 }
 </script>
-

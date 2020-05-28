@@ -1,7 +1,7 @@
 <template>
     <div class="home-swiper">
       <div class="img-wrap">
-        <img src="http://file.gzl.cn/group1/M00/2D/2E/wKkBHl5zQD6AMKuMAAvFIsk9nTs664.png" alt="">
+        <img src="https://file.gzl.cn/group1/M00/2A/5D/wKkBH160mniACU3gAAESIh1BCsI203.jpg" alt="">
       </div>
     </div>
 </template>

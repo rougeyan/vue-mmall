@@ -1,4 +1,4 @@
-import {user_checkValid} from '@/api/userApi'
+import {api_user_checkValid} from '@/api/userApi'
 import {regMethods,asyncMethods} from './regExp'
 export const checkValidUsername = "username";
 export const checkValidEmail = "email";

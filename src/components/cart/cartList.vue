@@ -1,46 +1,75 @@
 <template>
   <div class="shopping-cartlist-wrap">
-    <table border="1px" cellspacing="0">
-      <!-- 表头 -->
-      <tr class="table-head">
-        <th>全选
-          <input type="checkbox"/>
-        </th>
-        <th>商品信息</th>
-        <th>单价</th>
-        <th>数量</th>
-        <th>合计</th>
-        <th>操作</th>
-      </tr>
-      <!-- 内容 -->
-      <tr class="table-ctx-item" v-for="(item,idx) in cartList" :key="idx">
-        <td><input type="checkbox" :checked="item.selected == 1?'checked':''" /></td>
-        <td>
-          <div class="prod-msg">
-            <div class="img-wrap">
-              <img :src="item.prodImg" alt="">
-            </div>
-            <div class="description">{{item.desc}}</div>
-          </div>
-        </td>
-        <td><div class="single-price">￥{{item.price}}</div></td>
-        <td><div class="num-selector">
-          <input v-model="item.selectedNum" type="number"></div></td>
-        <td><div class="total-price">{{item.price*item.selectedNum}}</div></td>
-        <td><div class="delete-cart-item">删除</div></td>
-      </tr>
-        <div class="table-ctx">
-        </div>
-    </table>
-    
+    <!-- 表头 -->
+    <div class="cart-head">
+      <div class="cart-table">
+        <table cellspacing="0">
+          <tbody>
+              <tr class="table-head">
+                <th class="table-cell cell-check">
+                  <input type="checkbox"/>
+                  <span>全选</span>
+                </th>
+                <th class="table-cell cell-info">商品信息</th>
+                <th class="table-cell cell-price">单价</th>
+                <th class="table-cell cell-count">数量</th>
+                <th class="table-cell cell-total">合计</th>
+                <th class="table-cell cell-opera">操作</th>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 表内容 -->
+    <div class="cart-list">
+      <div class="cart-table" v-for="(item,idx) in cartList" :key="idx">
+        <table>
+          <tbody>
+              <tr class="table-ctx-item">
+                <!-- 索引 -->
+                <td class="table-cell cell-check">
+                  <input type="checkbox" :checked="item.selected == 1?'checked':''" />
+                </td>
+                <!-- 信息 -->
+                <td class="table-cell cell-info">
+                  <div class="prod-msg">
+                    <div class="img-wrap">
+                      <img :src="item.prodImg" alt="">
+                    </div>
+                    <div class="description">{{item.desc}}</div>
+                  </div>
+                </td>
+                <!-- 单价 -->
+                <td class="table-cell cell-price">
+                  <div class="price-symbol">{{item.price}}</div>
+                </td>
+                <!-- 数量 -->
+                <td class="table-cell cell-count">
+                  <div class="count-selector"><input v-model="item.selectedNum" type="number"></div>
+                </td>
+                <!-- 合计 -->
+                <td class="table-cell cell-total">
+                  <div class="price-symbol">{{item.price*item.selectedNum}}</div>
+                </td>
+                <!-- 操作 -->
+                <td class="table-cell cell-opera">
+                  <div class="delete-cart-item">删除</div>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="operator-wrap">
-      <div>
+      <div class="select-all">
         <input type="checkbox"/>
         <span>全选</span>
       </div>
-      <div>删除选中</div>
-      <div>总价: 1888</div>
-      <button>去结算</button>
+      <div class="delete-selected">删除选中</div>
+      <div class="total">总价:
+        <span class="price-symbol">1888</span></div>
+      <button class="to-pay">去结算</button>
       </div>
   </div>
 </template>
@@ -76,7 +105,7 @@ export default {
     },
     watch: {
     },
-    methods: {
+    metdods: {
     },
     components: {
     },

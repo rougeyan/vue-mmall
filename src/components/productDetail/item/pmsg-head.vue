@@ -3,60 +3,73 @@
     <!-- 左 -->
     <div class="msg-head-l">
       <div class="bigImages img-wrap">
-        <img src="https://file.gzl.cn/group1/M00/20/9A/wKkBH1y-thqAMni3AAE23gV04nA845_300X200.jpg" alt="">
+        <img :src="productData.mainImage" alt="">
       </div>
-      <ul class="minImages-wrap clearfix">
-        <li class="minImages img-wrap" v-for="item in 5">
-          <img src="https://file.gzl.cn/group1/M00/20/9A/wKkBH1y-thqAMni3AAE23gV04nA845_300X200.jpg" alt="">
-        </li>
+      <div class="minImages-container">
+        <ul class="minImages-wrap clearfix">
+          <li class="minImages img-wrap" v-for="item in subImagesList(productData.subImages)">
+            <img :src="item" alt="">
+          </li>
       </ul>
+      </div>
     </div>
 
     <!-- 右 -->
-    <div class="msg-head-r">
-      <p class="name">{{pname}}</p>
-      <p class="desc">{{desc}}</p>
-      <p class="price">
+    <ol class="msg-head-r products-msgs">
+      <li class="pd-name">{{productData.name}}</li>
+      <li class="pd-desc">{{productData.subtitle}}</li>
+      <li class="pd-price">
         <label>价格:</label>
-        <span>￥{{price}}</span></p>
-      <p class="repertory">
+        <span class="price-symbol">{{productData.price}}</span></li>
+      <li class="pd-repertory">
         <label>库存:</label>
-        <span>{{repertory}}</span></p>
-      <div class="select-num">
+        <span>{{productData.stock}}</span></li>
+      <li class="select-num">
         <label>数量:</label>
         <input v-model="selectNum" type="number">
-      </div>
-      <button class="add-cart">
-        添加购物车
-      </button>
-    </div>
+      </li>
+      <li>
+        <button class="add-cart">添加购物车</button>
+      </li>
+    </ol>
   </div>
 </template>
 
 <script>
 export default {
     props: {
+      "productData":{
+        type:Object,
+      },
       "pname":{
         type:String,
-        default: "产品名称"
+        default: "珠海长隆海洋王国1天游"
       },
       "desc":{
         type:String,
-        default: "产品最新简介产品最新简介产品最新简介产品最新简介"
+        default: "＊三大剧场表演＊六大乐园主题区域＊海洋大巡游花车＊海洋保卫战烟花秀＊无人机表演"
       },
       "price":{
         type: Number,
-        default: 1999
+        default: 239
       },
       "repertory":{
         type: Number,
-        default: 1000
+        default: 30
       }
     },
     data() {
         return {
-          selectNum: 1
+          selectNum: 1,
+          subImages: []
         }
+    },
+    watch: {
+      productData: {
+          handler(newValue, oldValue) {
+              console.log(newValue);
+          }
+      }
     },
     computed: {
     },
@@ -64,9 +77,13 @@ export default {
     },
     mounted() {
     },
-    watch: {
-    },
     methods: {
+      subImagesList: function(subImageList){
+        if(!subImageList){
+          return []
+        }
+        return subImageList.split(',')
+      }
     },
     components: {
     },

@@ -2,6 +2,7 @@
   <div class="error">
     <img alt="Vue logo" src="../assets/logo.png" />
     <p>404 not found</p>
+    <router-link to="/Home">首页</router-link>
   </div>
 </template>
 
@@ -10,10 +11,6 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "home",
-  components: {
-    HelloWorld
-  }
 };
 </script>
 

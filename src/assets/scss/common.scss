@@ -1,7 +1,7 @@
 // 全局样式
 @import "./_variable.scss";
 @import "./normalize.css";
-@import "./global.scss";
+// 优先级 级别common.css > global.css
 
 // 页面样式注意事项:
 /*
@@ -20,7 +20,7 @@
 body {
   font-size: 14px;
   line-height: 1.4286;
-  background-color: #f7f7f7;
+  background-color: $body-bg;
 }
 input {
   border: 0;  // 去除未选中状态边框
@@ -42,7 +42,7 @@ button{
     color: #fff;
   }
 }
-ul{
+ul, ol{
   margin: 0;
   padding: 0;
   li{
@@ -56,6 +56,40 @@ p{
 // 清除浮动
 .clearfix:after {content:"\200B"; display:block; height:0; clear:both; }
 .clearfix { zoom:1; }
+
+// table
+table{
+  width: 100%;
+}
+th.table-cell{
+  background-color: #ccc;
+}
+td.table-cell{
+  background-color: #eee;
+}
+th.table-cell, td.table-cell{
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  overflow: hidden;
+  &.cell-check{
+    width: 6%;
+    input{
+      cursor: pointer;
+    }
+  }
+  &.cell-info{
+    width: 46%;
+  }
+  &.cell-price, &.cell-count, &.cell-total, &.cell-opera{
+    width: 12%;
+  }
+}
+
+table input{
+  max-width: 100px;
+  background-color: tomato;
+}
 
 
 // 通用项... 
@@ -100,3 +134,85 @@ p{
 .flex-item{
   flex: 1;
 }
+
+.overw20{
+  width: calc(100% + 20px);
+}
+.mgr20{
+  margin-right: 20px;
+}
+.mgb10{
+  margin-bottom: 10px;
+}
+
+.price-symbol{
+  display: inline-block;
+  vertical-align: top;
+  color: #f55;
+  position: relative;
+  font-size: 20px;
+  font-weight: bold;
+  &::before{
+    content: '￥';
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
+.bg-t{
+  background-color: transparent;
+}
+// 白块 bd
+.bd-wrap{
+  border-radius: 4px;
+  padding: 16px 20px;
+  background-color: #fff;
+  margin-bottom: 16px;
+}
+.bd-title{
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid #42b983;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+}
+.bd-content{
+  margin-bottom: 10px;
+}
+
+// 底部操作部分
+.operator-wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ccc;
+  .select-all{
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .delete-selected{
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .total{
+    width: 100px;
+    flex: 1;
+    text-align: right;
+    line-height: 20px;
+    margin-right: 20px;
+  }
+  .to-pay{
+    width: 120px;
+    height: 50px;
+    display: inline-block;
+    background-color: #f55;
+    color: #fff;;
+  }
+}
+
+
+
+
+
+@import "./global.scss";

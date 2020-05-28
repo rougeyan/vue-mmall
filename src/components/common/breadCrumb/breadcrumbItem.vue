@@ -1,5 +1,5 @@
 <template>
-  <div class="breadcrumb-item">面包学</div>
+  <div class="breadcrumb-item">面包屑 > 面包屑a > 面包屑b</div>
 </template>
 
 <script>

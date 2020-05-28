@@ -1,11 +1,12 @@
 <template>
   <div class="breadcrumb">
-    面包屑>实现
-    <breadcrumbItem />
+    <breadcrumbItem/>
   </div>
 </template>
 <script>
 export default {
+  name: 'breadcrumb',
+  props: ['model'],
   data() {
     return {
     }

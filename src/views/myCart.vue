@@ -12,7 +12,7 @@ import GlobalHead from "@/components/global/globalHead.vue"
 import CartList from "@/components/cart/cartList.vue"
 
 export default {
-  name: "home",
+ 
   components: {
     "global-head" : GlobalHead,
     "cartList": CartList

@@ -16,7 +16,11 @@ function routerDefencer(router){
       next({path:'/error'})
     }
     // ...
-    console.log(to.matched.some(record => record.meta.requiresAuth));
+    if(to.matched.some(record => record.meta.requiresAuth)){
+      //  校验权限
+      // 此处校验权限
+      // console.log('需要权限校验');
+    }
     // 这里取一次user-info 取判定是否权限进入该路由
 
     // 这里还可以 通过加入keep-alive 的路由 缓存路由实例;

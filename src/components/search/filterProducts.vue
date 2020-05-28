@@ -1,10 +1,11 @@
 <template>
   <div>
     <bd :title="title">
+      <span>搜索关键词: {{$route.query.keyword}}</span>
       <div class="bd-products-wrap">
         <ul class="clearfix">
-          <li v-for="item in 9">
-            <prodsketch />
+          <li v-for="item in result.list" @click="toProductDetail(item)">
+            <prodsketch  :product="item"/>
           </li>
         </ul>
       </div>
@@ -14,14 +15,21 @@
 
 <script>
 export default {
+  props:{
+    "result": Object
+  },
   data() {
     return {
-      title: "搜索结果"
+      title: "搜索结果",
     }
   },
   created() {
+    console.log(this.props)
   },
   methods: {
+    toProductDetail(pdata){
+      this.$router.push({path: `/productDetail/${pdata.id}`})
+    }
   },
   components: {
   },
@@ -29,5 +37,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '@/assets/scss/topNavBar';
+   
 </style>

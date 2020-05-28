@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-// 允许便利文件子目录
+// 允许遍历文件子目录
 function spliteFileNameFromPath(path){
   let arr = path.split("/");
   return arr[arr.length-1]

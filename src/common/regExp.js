@@ -1,4 +1,4 @@
-import {user_checkValid} from '@/api/userApi'
+import {api_user_checkValid} from '@/api/userApi'
 
 // 正则表达式校验 (同步)
 export const regMethods = {
@@ -26,6 +26,13 @@ export const regMethods = {
       msg: reg.test(val)?'邮箱格式正确':"邮箱格式错误"
     }
   },
+  isPhone: function(val){
+    var reg = RegExp(/^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-7|9])|(?:5[0-3|5-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1|8|9]))\d{8}$/)
+    return {
+      status: reg.test(val),
+      msg: reg.test(val)?'手机格式正确':"手机格式错误"
+    }
+  },
   // 密码强度
   passwordStrongFmt: function(va){
     // todo
@@ -34,8 +41,14 @@ export const regMethods = {
 // 校验方法(异步)
 // 请求服务器, 例如模糊匹配..用户名校验等等
 export const asyncMethods = {
-  userCheckValid: function(val){
-    return user_checkValid({
+  usernameCheckValid: function(val){
+    return api_user_checkValid({
+      str: val,
+      type: 'username'
+    })
+  },
+  emailCheckValid: function(val){
+    return api_user_checkValid({
       str: val,
       type: 'email'
     })

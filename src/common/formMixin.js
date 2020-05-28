@@ -1,4 +1,4 @@
-import {user_checkValid} from '@/api/userApi'
+import {api_user_checkValid} from '@/api/userApi'
 import {regMethods} from './regExp'
 export const checkValidUsername = "username";
 export const checkValidEmail = "email";
@@ -13,7 +13,7 @@ function debounce(fun, delay) {
       clearTimeout(fun.id)
       fun.id = setTimeout(function () {
           fun.call(that, _args)
-          console.log("执行防抖函数");
+          // console.log("执行防抖函数");
       }, delay)
   }
 }
@@ -36,7 +36,7 @@ const concatFullFormItem = function(val){
   return Object.assign({},BASE_FORM_OBJECT,val)
 }
 const userchecked = function(val){
-  return user_checkValid({
+  return api_user_checkValid({
     str: val,
     type: 'email'
   })

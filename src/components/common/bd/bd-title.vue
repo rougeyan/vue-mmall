@@ -1,6 +1,7 @@
 <template>
-    <div class="global-title">
+    <div class="bd-title">
       {{title}}
+      <slot></slot>
     </div>
 </template>
 

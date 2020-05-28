@@ -1,9 +1,15 @@
 <template>
   <div class="global-nav-bar">
     <ul>
+      <li class="nav-item-wrap" v-if="loginStatus">
+        <span>用户: {{userToken}}</span>
+      </li>
       <li class="nav-item-wrap" v-for="(navitem,navIdx) in navList" :key="navitem.enkey">
         <div v-if="navitem.render" class="wrap">
-          <span>{{navitem.label}}</span>
+          <span v-if="navitem.router">
+            <router-link :to="navitem.router">{{navitem.label}}</router-link>
+          </span>
+          <span v-else>{{navitem.label}}</span>
         </div>
       </li>
     </ul>
@@ -11,47 +17,28 @@
 </template>
 
 <script>
-
-const defaultNav = [{
-    enkey: 'login',
-    label:"登陆",render:true,router: "./user/login",children:[]},
-  {
-    enkey: 'regist',
-    label:"注册",render:true,router: "./user/register",children:[]},
-  {
-    enkey: 'shoppingCart',
-    label:"购物车",render:true,router:"./user/shoppingCart",children:[]},
-  {
-    enkey: 'myOrders',
-    label:"我的订单",render:true,router:"./user/myOrder",children:[]},
-  // {
-  //   enkey: 'menberCenter',
-  //   label:"会员中心",render:true,router:"./menber/*",children:[]},
-  // {
-  //   enkey: 'aboutAuthor',
-  //   label:"关于我",render:true,router:"./about",children:[]}
-  ]
-
+import {topNav} from '@/common/const.js'
+import Cookies from 'js-cookie'
 export default {
   name: "TopNavBar",
   data() {
     return {
       loginStatus: false,
-      navList: defaultNav,
-    }
+      navList: topNav,
+      userToken: ''
+    };
   },
   created() {
-    console.log(defaultNav)
+    this.userToken = Cookies.get('access_token')
+    if(this.userToken){
+      this.loginStatus= true
+    }
   },
   methods: {
-    // 这里判定登陆
-    processNavBar(){}
   },
-  components: {
-  },
-}
+  components: {}
+};
 </script>
 
 <style scoped lang="scss">
-  @import '@/assets/scss/topNavBar';
 </style>

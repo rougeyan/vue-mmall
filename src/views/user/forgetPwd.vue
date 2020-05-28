@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="regist-main">
-      <p class="title">{{bdTitle}}</p>
+      <p class="menberpage-title">{{title}}</p>
       <form>
         <ul v-if="step == 'step-getQuestion'">
           <li>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {user_forgetGetQuestion,user_forgetCheckAnswer} from '@/api/userApi'
+import {api_user_forgetGetQuestion,api_user_forgetCheckAnswer} from '@/api/userApi'
 import {formMixin} from '@/common/formMixin'
 import Cookies from 'js-cookie'
 
@@ -49,7 +49,7 @@ export default {
   mixins: [formMixin(formData)],
   data() {
     return {
-      bdTitle: '找回密码',
+      title: '找回密码',
       step: 'step-getQuestion', // step-getQuestion step-submitCorrectAnswer step-finishedFindPassword
       // 此外这里可能或将 使用Vuex作为暂存状态 因为它是校验通过了用户名, 重新刷新页面的时候直接进入答问题部分
     }
@@ -62,7 +62,7 @@ export default {
       var self = this;
       switch(self.step){
         case 'step-getQuestion':
-          user_forgetGetQuestion({
+          api_user_forgetGetQuestion({
             username: self.userName.value
           }).then(res=>{
             if(res.status == 0){
@@ -72,7 +72,7 @@ export default {
           })
         break;
         case 'step-submitCorrectAnswer':
-          user_forgetCheckAnswer({
+          api_user_forgetCheckAnswer({
             username: self.userName.value,
             question: self.userQues.value,
             answer: self.userAnswer.value

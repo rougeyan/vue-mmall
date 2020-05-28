@@ -1,0 +1,25 @@
+.qrcodePay{
+  text-align: center;
+  .tips-order{
+    color: #999;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .tips-useAlipay{
+    color: #f55;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .qrcodespan{
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  .img-wrap{
+    display: block;
+    margin: 0 auto;
+    width: 320px;
+    height: 320px;
+    border: 1px solid #eee;
+  }
+}

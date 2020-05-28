@@ -3,6 +3,12 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+// 修复 Navigating to current location ("/xxx") is not allowed 的问题
+const routerPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error => error)
+}
+
 // [参考自:为views文件夹下的vue文件自动生成路由](https://github.com/Caaalabash/vue-blog/blob/publish/frontend/src/router.js)
 
 // https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-not-found-%E8%B7%AF%E7%94%B1
@@ -18,6 +24,24 @@ Vue.use(Router)
  * 这里可以进阶 
  * filterRouterName 通过匹配对应的 文件名 取过滤 从而不引入对应的路由;
  */
+
+ // 路由映射
+let routerMapJson = {
+  "/About.vue":'关于我',
+  "/Home.vue":'首页',
+  "/error.vue":'404',
+  "/myCart.vue":'购物车',
+  "/orderComfirmPage.vue": '预下单',
+  "/orderPay.vue":'支付',
+  "/productDetail/_pid.vue": '产品详情',
+  "/search.vue": '搜索',
+  "/user.vue": '用户',
+  "/user/electronicSign.vue": '电子签名',
+  "/user/forgetPwd.vue":'忘记密码',
+  "/user/login.vue": '登录',
+  "/user/regist.vue": '注册',
+  "/user/resetPwd.vue": '修改密码'
+}
 
 function generateRoute(options = {
   processAllIndex: true
@@ -56,7 +80,11 @@ function generateRoute(options = {
       component: () => import(`@/views${filename}`),
       children: [],
       props: false, // [布尔模式 :](https://router.vuejs.org/zh/guide/essentials/passing-props.html#%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%BC%8F) 如果 props 被设置为 true，route.params 将会被设置为组件属性。
-      meta: { requiresAuth: 'haha' }
+      meta: { 
+        requiresAuth: true,
+        // title: filename?routerMapJson[`${filename}`]:''
+        title: ''
+      }
     }
 
     if (!parentFileExist) {
@@ -76,7 +104,11 @@ const basicRoute = [
     redirect: '/Home'
   }
 ]
-const processRoutes = basicRoute.concat(generateRoute(), { path: '*', redirect: '/error?code=404' })
+
+// 理由迭代器
+
+const processRoutes = basicRoute.concat(generateRoute(), { path: '*', redirect: '/error' })
+// 所有路由
 console.log(processRoutes)
 const router = new Router({
   // Vue scrollBehavior 滚动行为
