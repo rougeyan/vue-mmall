@@ -6,9 +6,9 @@
       </li>
       <li class="nav-item-wrap" v-for="(navitem,navIdx) in navList" :key="navitem.enkey">
         <div v-if="navitem.render" class="wrap">
-          <span v-if="navitem.router">
-            <router-link :to="navitem.router">{{navitem.label}}</router-link>
-          </span>
+          <router-link :to="navitem.router" v-if="navitem.router">
+            <span>{{navitem.label}}</span>
+          </router-link>
           <span v-else>{{navitem.label}}</span>
         </div>
       </li>

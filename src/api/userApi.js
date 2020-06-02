@@ -2,7 +2,7 @@ import axios from "./index";
 const BASE_HEAD = '/api';
 const PATH_LOGIN = '/user/login.do'; // 登陆路径;
 const PATH_LOGOUT = '/user/logout.do'; // 登出路径;
-const PATH_GET_api_USER_INFO = '/user/get_user_info.do'; // 获取登陆信息
+const PATH_GET_API_USER_INFO = '/user/get_user_info.do'; // 获取登陆信息
 const PATH_REGIST = '/user/register.do'; // 注册
 const PATH_CHECK_VALID = '/user/checkValid.do'; // 检查用名  邮箱
 const PATH_FORGET_GET_QUESTION = '/user/forget_get_question.do'; // 忘记密码 获取校验问题
@@ -10,6 +10,9 @@ const PATH_FORGET_CHECK_ANSWER = '/user/forget_check_answer.do'; // 忘记密码
 const PATH_FORGET_RESET_PASSWORD = '/user/forget_reset_password.do'; // 重设密码 具备时效性;
 const PATH_RESET_PASSWORD = '/user/reset_password.do'; // 登陆状态下重置密码
 const PATH_UPDATE_INFO = '/user/update_information.do'; // 更新个人信息;
+
+
+const PATH_GET_LOGIN_USER_ID = '/user/getUserId.do'; // 更新个人信息;
 
 // 登陆 ✔
 export function api_user_login(params){  
@@ -35,7 +38,7 @@ export function api_user_logout(){
 }
 // 获取用户信息 ✔ 
 export function api_user_getUserInfo(){
-  let url =  BASE_HEAD + PATH_GET_api_USER_INFO;
+  let url =  BASE_HEAD + PATH_GET_API_USER_INFO;
   return new Promise(function(resolve,reject){
     axios.get(url).then(res => {
       resolve(res.data)
@@ -118,6 +121,18 @@ export function api_user_updateInfo(params){
   let url =  BASE_HEAD + PATH_UPDATE_INFO;
   return new Promise(function(resolve,reject){
     axios.post(url,params).then(res => {
+      resolve(res.data)
+    },err=>{
+      reject(err)
+    });
+  })
+}
+
+// getId
+export function api_user_getLoginUserId(params){
+  let url =  BASE_HEAD + PATH_GET_LOGIN_USER_ID;
+  return new Promise(function(resolve,reject){
+    axios.get(url).then(res => {
       resolve(res.data)
     },err=>{
       reject(err)

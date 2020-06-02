@@ -25,7 +25,7 @@ export default {
             mainImage: 'http://file.gzl.cn/group1/M00/28/FD/wKkBH15zQeOAfrCyAALgtQfgXUw340.jpg',
             price: 0,
             subtitle: '默认产品副标题默认产品副标题默认产品副标题默认产品副标题默认产品副标题美的鹭湖度假区深度游＊探索王国水世界＊入住岭南花园酒店公寓房＊品尝特色濑粉宴 ＜含1早1正，含无限次半山温泉＞'
-        }
+          }
         }
       }
     },

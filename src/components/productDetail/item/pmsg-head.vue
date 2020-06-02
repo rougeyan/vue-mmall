@@ -29,39 +29,26 @@
         <input v-model="selectNum" type="number">
       </li>
       <li>
-        <button class="add-cart">添加购物车</button>
+        <button class="add-cart" @click="addCart">添加购物车</button>
       </li>
     </ol>
   </div>
 </template>
 
 <script>
+import * as api from '@/api/myCartApi.js'
+import {api_user_getLoginUserId} from '@/api/userApi'
 export default {
     props: {
       "productData":{
         type:Object,
-      },
-      "pname":{
-        type:String,
-        default: "珠海长隆海洋王国1天游"
-      },
-      "desc":{
-        type:String,
-        default: "＊三大剧场表演＊六大乐园主题区域＊海洋大巡游花车＊海洋保卫战烟花秀＊无人机表演"
-      },
-      "price":{
-        type: Number,
-        default: 239
-      },
-      "repertory":{
-        type: Number,
-        default: 30
       }
     },
     data() {
         return {
           selectNum: 1,
-          subImages: []
+          subImages: [],
+          userId: -1,
         }
     },
     watch: {
@@ -74,6 +61,12 @@ export default {
     computed: {
     },
     created() {
+      var self = this;
+      api_user_getLoginUserId().then(res=>{
+        if(res.status == 0){
+          self.userId = res.data.userId;
+        }
+      })
     },
     mounted() {
     },
@@ -83,6 +76,16 @@ export default {
           return []
         }
         return subImageList.split(',')
+      },
+      addCart(){
+        var self = this;
+        api.api_cart_add_prod({
+          userId: self.userId,
+          productId: self.productData.id,
+          count: 1
+        }).then(res=>{
+          console.log(res.data);
+        })
       }
     },
     components: {

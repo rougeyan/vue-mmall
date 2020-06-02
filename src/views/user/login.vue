@@ -8,7 +8,7 @@
             <formInput 
               v-model="userName" 
               label="用户名"
-              :blurCheckRules ="['isBlank', 'usernameCheckValid']">
+              :blurCheckRules ="['isBlank']">
             </formInput>
           </li>
           <li>
@@ -59,7 +59,7 @@ export default {
         "password": self.userPwd
         }).then(res=>{
         if(res.status == 0){
-          self.loginStatus = JSON.stringify(res.data);
+          self.loginStatus = JSON.stringify(res.msg);
         }else{
           self.loginStatus = ''
         }
