@@ -1,29 +1,5 @@
 # vue-mmall
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
 ### 解决请求 参数格式问题
 [http协议的Request Payload 和 Form Data 的区别](https://www.cnblogs.com/xuzhudong/p/8487119.html)
 
@@ -35,20 +11,6 @@ Query String parameters
 [sass指南](https://www.sass.hk/) 
 
 [vue cli3使用官方方法配置sass全局变量报错](https://segmentfault.com/q/1010000020343645/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 **过去式**
@@ -409,9 +371,69 @@ label 同事都是由`props`上面接收;
 
 ### Vue自定义的组件上@click点击事件【失效】问题
 
+### 全局注册eventbus
+
 ### eventbus多次触发的问题
 /**
    * [eventbus多次触发的问题](https://www.jianshu.com/p/fde85549e3b0)
    * 大致理解为 切换路由的情况下 回重复绑定
    *  eventbus.$on()这个事件;
    */
+
+### 组件通讯
+[vue 组件通信看这篇就够了(12种通信方式) - 程序猿的生活的文章 - 知乎](https://zhuanlan.zhihu.com/p/109700915)
+
+## vue子组件怎么监听props里的值变化
+```js
+  props里面，dailyDateTable是数组，为什么watch监听不到呢？字符串就行
+
+  props: ['dailyDateTable']
+  watch: {
+      dailyDateTable: {
+          handler(newValue, oldValue) {
+              console.log(newValue);
+          }
+      }
+  },
+```
+
+### 路由问题 Navigating to current location ("/homePage") is not allowed
+[解决message: "Navigating to current location ("/homePage") is not allowed",警告的问题](https://blog.csdn.net/XUELUO123456789/article/details/103147494)
+```js
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error => error)
+}
+```
+
+### 路由参数
+1.通过query配置的：
+this.$route.query
+若害怕强制刷新丢失参数 建议使用 query模式 放在url上 
+
+ 2.通过params配置的：
+this.$route.params
+
+### axios quer params
+
+```js
+// 为给定 ID 的 user 创建请求
+axios.get('/user?ID=12345')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+// 可选地，上面的请求可以这样做
+axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
+```
+
+### 自定义全局组件
+
+[自定义全局组件](https://www.cnblogs.com/conglvse/p/9641550.html)

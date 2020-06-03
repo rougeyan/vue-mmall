@@ -2,7 +2,7 @@ import axios from "./index";
 const BASE_HEAD = '/api';
 
 // 预下单(选择配送地址页)
-const PATH_GET_ORDER_CART_PRODUCT = '/cart/get_order_cart_product.do';
+const PATH_GET_ORDER_CART_PRODUCT = '/order/get_order_cart_product.do';
 
 const PATH_CREATE_ORDER = '/order/create.do'; // 创建订单
 const PATH_CANCEL_ORDER = '/order/cancel.do'; // 取消订单
@@ -20,28 +20,26 @@ function gResolve(errorMsg,data){
   })
 }
 // // 查看购物车清单 ✔
-export function api_get_cart_list(params){  
-  let url =  BASE_HEAD + PATH_CART_LIST;
+export function api_order_getOrderCartProds(params){  
+  let url =  BASE_HEAD + PATH_GET_ORDER_CART_PRODUCT;
   return new Promise(function(resolve,reject){
-    axios.get(url).then(res => {
+    axios.post(url).then(res => {
       resolve(res.data)
     },err=>{
       reject(err)
     });
   })
 }
-// 添加到购物车
-export function api_cart_add_prod(params){  
-  let url =  BASE_HEAD + PATH_CART_ADD;
+// 添加到购物车 :shippingId=29
+export function api_order_createOrder(params){  
+  let url =  BASE_HEAD + PATH_CREATE_ORDER;
   let {productId,count,userId} = params;
   if(!productId || !count){
     return gResolve()
   }
   return new Promise(function(resolve,reject){
     axios.post(url,{
-      userId: userId,
-      productId: productId,
-      count:count
+      shippingId: params
     }).then(res => {
       resolve(res.data)
     },err=>{

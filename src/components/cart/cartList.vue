@@ -124,6 +124,8 @@ export default {
           quantity = --quantity;
         }else if(value == 'add'){
           quantity = ++quantity;
+        }else{
+          return
         }
         self.updataCartProd(item.productId,quantity);
       },
