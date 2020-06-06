@@ -437,3 +437,73 @@ axios.get('/user', {
 ### 自定义全局组件
 
 [自定义全局组件](https://www.cnblogs.com/conglvse/p/9641550.html)
+
+
+### slot中无法向父元素传参;
+子组件
+```html
+<template>
+ <modalLayer>
+   <p>我是dialog</p>
+   <button @click="close">关闭</button>
+   <button @click="clickcb">回调</button>
+ </modalLayer>
+</template>
+
+<script>
+ export default {
+
+   methods: {
+     close(){
+       this.$emit('close',1234);
+     },
+     clickcb(){
+       console.log('哈哈')
+     }
+   }
+ }
+</script>
+```
+父组件
+```html
+<template>
+ <div class="modal-layer">
+   <div class="modal-wrap">
+     <slot/>
+   </div>
+ </div>
+</template>
+
+<script>
+ export default {
+   mounted(){
+      this.$on("close",function(params){
+       console.log(params)
+     
+     })
+   },
+   methods:{
+     emitClose:function(params){
+       console.log(1234)
+     }
+   }
+ }
+</script>
+```
+
+开发一个全局modal组件, 本来打算利用slot通用外层;但是发现slot中子组件无法向父组件传参,
+遂不适用slot
+
+使用promise
+
+// [vue 采用promise方式开发弹窗插件](https://www.jianshu.com/p/9645e6a26bc2)
+
+基本思路:
+
+// 返回一些promise对象,然后移除一些
+
+这是比较重要的地方,思路为:
+  a.创建一个函数,根据参数bool值调用存贮promise结果的变量的resolve或reject属性,这个函数会被toasttemplate.vue来调用
+  b.根据vue官方文档插件开发规范,创建一个对象,用来对外暴露
+  c.在这个对象里使用vue.extend把toasttemplate.vue构造一个vue类,再由这个类生成的对象(dom)放在dom上使用
+  d.在对象里要返回一个promise对象,promise的resolve和reject存在一个变量中,由a步骤中的函数调用,并把这个函数放在新建vue类的原型上

@@ -90,3 +90,41 @@
     color: #999;
   }
 }
+// 全局模态框 及对话框
+.full-layer{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  margin: 0;
+}
+.layer-mask{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+}
+.modal-wrap, .dialog-content{
+  position: absolute;
+  top: 35%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 400px;
+  height: 200px;
+  margin: 0 auto;
+}
+.modal-footer{
+  display:flex;
+  flex-direction: row-reverse;
+  button{
+    margin-right: 20px;
+  }
+}
