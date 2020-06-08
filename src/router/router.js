@@ -27,21 +27,33 @@ Router.prototype.push = function push(location) {
 
  // 路由映射
 let routerMapJson = {
-  "/About.vue":'关于我',
-  "/Home.vue":'首页',
-  "/error.vue":'404',
-  "/myCart.vue":'购物车',
-  "/orderComfirmPage.vue": '预下单',
-  "/orderPay.vue":'支付',
-  "/productDetail/_pid.vue": '产品详情',
-  "/search.vue": '搜索',
-  "/user.vue": '用户',
-  "/user/electronicSign.vue": '电子签名',
-  "/user/forgetPwd.vue":'忘记密码',
-  "/user/login.vue": '登录',
-  "/user/regist.vue": '注册',
-  "/user/resetPwd.vue": '修改密码'
+  "/About.vue": "关于我",
+  "/Home.vue": "首页",
+  "/comfirmPreOrder.vue": "预下单",
+  "/error.vue": "404错误",
+  "/myCart.vue": "购物车",
+  "/myCenter.vue": "个人中心",
+  "/myCenter/info.vue": "测试我的信息",
+  "/myCenter/info/infotTest.vue": "测试我的路由",
+  "/myCenter/orders.vue": "我的订单",
+  "/myCenter/revisePwd.vue": "修改密码",
+  "/orderComfirmPage.vue": "预下单",
+  "/orderPay.vue": "支付",
+  "/productDetail/_pid.vue": "产品详情",
+  "/search.vue": "搜索",
+  "/simditorPage.vue": "",
+  "/user.vue": "用户",
+  "/user/checkAnswer.vue": "检查答案",
+  "/user/electronicSign.vue": "电子签名",
+  "/user/forgetPwd.vue": "忘记密码",
+  "/user/getUserQuestion.vue": "获取用户问题提示",
+  "/user/login.vue": "登录",
+  "/user/regist.vue": "注册",
+  "/user/registOld.vue": "测试",
+  "/user/resetPwd.vue": "重设密码",
+  "/user/revisePwd.vue": "修改密码",
 }
+let newObj ={}
 
 function generateRoute(options = {
   processAllIndex: true
@@ -50,6 +62,10 @@ function generateRoute(options = {
   const requireContext = require.context('./../views', true, /\.vue$/, 'lazy')
   const vueFileList = requireContext.keys().map(filename => filename.slice(1))            // ['/a/b/c.vue']
   console.log(vueFileList);
+  vueFileList.map(item=>{
+    newObj[`${item}`] = '';
+  })
+  console.log(Object.assign({},newObj,routerMapJson))
   const getFilePath = filename => filename.replace(/\.\w+$/, '')                          // '/a/b/c'
   const getFileName = filename => filename.replace(/(.*\/)*([^.]+).*/ig, '$2')            // 'c'
   const flat = arr => arr.reduce((acc, val) =>                                            // 拍平routes
@@ -74,6 +90,7 @@ function generateRoute(options = {
     if (options.processAllIndex) filePath = filePath.replace(/\/index\//g, '/')
     filePath = filePath.replace(/\/_(\w+)/g, '/:$1')
 
+    console.log(filename);
     const route = {
       name: filename,                                                                     // filename作为唯一ID
       path: filePath,
@@ -81,9 +98,21 @@ function generateRoute(options = {
       children: [],
       props: false, // [布尔模式 :](https://router.vuejs.org/zh/guide/essentials/passing-props.html#%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%BC%8F) 如果 props 被设置为 true，route.params 将会被设置为组件属性。
       meta: { 
-        requiresAuth: true,
-        // title: filename?routerMapJson[`${filename}`]:''
-        title: ''
+        requiresAuth: false,
+        title: filename?routerMapJson[`${filename}`]:'',
+        // title: '',
+        // breadcrumbs: [] // 面包屑;
+        /**
+         * 通过递归生成面包屑;
+         * {
+         *  breadName: '一级路由'
+         *  children:[{
+         *    breadName: 二级路由,
+         *    children:[...]
+         *  }]
+         * ...
+         * }
+         */
       }
     }
 
@@ -107,10 +136,11 @@ const basicRoute = [
 
 // 理由迭代器
 
-const processRoutes = basicRoute.concat(generateRoute(), { path: '*', redirect: '/error' })
+export let processRoutes = basicRoute.concat(generateRoute(), { path: '*', redirect: '/error' })
 // 所有路由
-console.log(processRoutes)
-const router = new Router({
+
+// console.log(processRoutes)
+export const router = new Router({
   // Vue scrollBehavior 滚动行为
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }
@@ -119,4 +149,4 @@ const router = new Router({
   mode: 'history'
 })
 
-export default router
+

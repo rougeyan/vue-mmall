@@ -1,12 +1,14 @@
 <template>
  <div class="full-layer" v-if="visible">
    <div class="layer-mask" @click="maskClose(maskClickClose)"></div>
-   <div class="dialog-content">
-     <p>{{title}}</p>
-     <slot></slot>
-   </div>
-   <div class="dialog-footer">
-     <slot slot="footer"></slot>
+   <div class="dialog-wrap">
+    <div class="dialog-content">
+      <p>{{title}}</p>
+      <slot></slot>
+    </div>
+    <div class="dialog-footer">
+      <slot name="modal-footer"></slot>
+    </div>
    </div>
  </div>
 </template>

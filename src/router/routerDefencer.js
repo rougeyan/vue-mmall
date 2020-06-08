@@ -1,11 +1,11 @@
-import r from './router'
+import {router} from './router'
 
 // 处理部分嵌套路由中间路由的跳转
 var processArr = ['/user.vue'];
 
 // 全局路由守卫
-function routerDefencer(router){
-  router.beforeEach((to, from, next) => {
+function routerDefencer(r){
+  r.beforeEach((to, from, next) => {
     if(processArr.includes(to.name)){
       // 路由拦截;
       // 找不到路由部分 一律指向 /error
@@ -26,7 +26,7 @@ function routerDefencer(router){
     // 这里还可以 通过加入keep-alive 的路由 缓存路由实例;
     next()
   })
-  return router
+  return r
 }
-export default routerDefencer(r)
+export default routerDefencer(router)
 // export default r

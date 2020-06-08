@@ -7,7 +7,6 @@
     </global-head>
     <button @click="getModal">getModal</button>
     <button @click="dialogVisible=true">dialogVisible</button>
-    <button @click="getModal">getModal</button>
     <div>
       <home-category />
       <home-swpier />
@@ -18,8 +17,8 @@
     <!-- <HelloWorld /> -->
     <globalDialog :visible.sync="dialogVisible"
     :maskClickClose="true">
-      <p>dialog对话框内容</p>
-      <slot name="footer">
+      <div>div - dialog content对话框内容</div>
+      <slot slot="modal-footer">
         <button @click="dialogVisible=false">关闭</button>
       </slot>
     </globalDialog>

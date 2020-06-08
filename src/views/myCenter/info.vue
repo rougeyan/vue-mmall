@@ -1,6 +1,7 @@
 <template>
     <div>
       我的信息
+      <router-view></router-view>
     </div>
 </template>
 
