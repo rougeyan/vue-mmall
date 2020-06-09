@@ -1,7 +1,5 @@
 <template>
-    <div>
-      <!-- 收货地址 -->
-    </div>
+    <div class="productMsg-footer">pmsg-footer</div>
 </template>
 
 <script>

@@ -1,6 +1,8 @@
 // 全局样式
 @import "./_variable.scss";
 @import "./normalize.css";
+@import url("http://at.alicdn.com/t/font_1874580_5fdwm4m4bnb.css");
+@import "./icon.scss";
 // 优先级 级别common.css > global.css
 
 // 页面样式注意事项:
@@ -36,11 +38,7 @@ button{
   cursor: pointer;
   padding: 6px 12px;
   border-radius: 4px;
-  border: 1px solid #eee;
-  &:hover{
-    background: #09f;
-    color: #fff;
-  }
+  border: 1px solid #eee;  
 }
 ul, ol{
   margin: 0;
@@ -57,7 +55,7 @@ p{
 .clearfix:after {content:"\200B"; display:block; height:0; clear:both; }
 .clearfix { zoom:1; }
 
-// table
+// 通用表格
 table{
   width: 100%;
 }
@@ -65,9 +63,14 @@ th.table-cell{
   background-color: #f1f1f1;
   padding: 0;
 }
+
 td.table-cell{
   background-color: #fff;
   padding: 0;
+  border-left: 1px solid #f1f1f1;
+  &:first-child{
+    border:none;
+  }
 }
 th.table-cell, td.table-cell{
   height: 32px;
@@ -86,6 +89,9 @@ th.table-cell, td.table-cell{
   }
   &.cell-price, &.cell-count, &.cell-total, &.cell-opera,&.cell-status,&.cell-totalPayed{
     width: 12%;
+  }
+  &.cell-opera{
+    cursor: pointer;
   }
   &.cell-info-52{
     width: 52%;
@@ -115,15 +121,37 @@ table input{
 .img-wrap{
   width: 200px;
   height: 200px;
+  font-size: 0;
+  vertical-align: top;
   display: inline-block;
+  background-color: #f1f1f1;
   img{
     width: 100%;
     height: 100%;
   }
 }
+
+// 加载动画(简易)
+.loading{
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+  border: 5px solid rgba(150, 150, 150, 0.2);
+  border-radius: 50%;
+  border-top-color: rgb(150, 150, 150);
+  animation: rotate 1s 0s infinite ease-in-out alternate;
+}
+@keyframes rotate {
+  0%   { transform: rotate(0);      }
+  100% { transform: rotate(360deg); }
+}
+
+
+// 清单商品信息
 .prod-msg{
   display: flex;
   align-items: center;
+  padding: 16px;
   .img-wrap{
     width: 40px;
     height: 40px;
@@ -132,6 +160,7 @@ table input{
   .description{
     flex: 1;
     text-align: left;
+    line-height: 20px;
   }
 }
 
@@ -176,6 +205,7 @@ table input{
   margin-bottom: 10px;
 }
 
+// 通用价格
 .price-symbol{
   display: inline-block;
   vertical-align: top;
@@ -211,34 +241,47 @@ table input{
 }
 
 // 底部操作部分
-.operator-wrap{
+.operation-bar{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fafafa;
-  .select-all{
-    width: 80px;
-    text-align: center;
-    cursor: pointer;
+  background-color: #ccc;
+  height: 48px;
+  .left{
+    width: 240px;
   }
-  .delete-selected{
+  .item{
+    flex: 1;
+    margin: 0 20px;
+  }
+  .buttons{
+
+  }
+
+
+
+  // 选择全部
+  .select-all,.delete-selected{
+    display: inline-block;
+    vertical-align: top;
     width: 100px;
+    height: 100%;
     text-align: center;
     cursor: pointer;
+    border: none;
   }
   .total{
-    width: 100px;
-    flex: 1;
+    display: block;
     text-align: right;
     line-height: 20px;
-    margin-right: 20px;
   }
-  .to-pay{
+  .gotoPreOrder-btn{
     width: 120px;
     height: 50px;
     display: inline-block;
     background-color: #f55;
     color: #fff;;
+    border: none;
   }
 }
 

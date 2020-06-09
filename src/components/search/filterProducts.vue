@@ -1,13 +1,17 @@
 <template>
   <div>
     <bd :title="title">
-      <span>搜索关键词: {{$route.query.keyword}}</span>
-      <div class="bd-products-wrap">
-        <ul class="clearfix">
-          <li v-for="item in result.list" @click="toProductDetail(item)">
+      <p>搜索关键词: {{$route.query.keyword}}</p>
+      <i class="loading" v-show="loading"></i>
+      <div class="bd-products-wrap" >
+        <ul class="clearfix" v-show="!loading && result.length>0">
+          <li v-for="item in result" @click="toProductDetail(item)">
             <prodsketch  :product="item"/>
           </li>
         </ul>
+        <p class="undefined-prods" v-show="!loading && result.length==0">找不到
+          <span>"{{$route.query.keyword}}"</span>相关产品
+        </p>
       </div>
     </bd>
   </div>
@@ -16,8 +20,12 @@
 <script>
 export default {
   props:{
-    "result": Object,
-    "keywords": String
+    "result": {
+      type: Array,
+      default: []
+    },
+    "keywords": String,
+    "loading": Boolean
   },
   data() {
     return {
@@ -25,7 +33,6 @@ export default {
     }
   },
   created() {
-    console.log(this.props)
   },
   methods: {
     toProductDetail(pdata){

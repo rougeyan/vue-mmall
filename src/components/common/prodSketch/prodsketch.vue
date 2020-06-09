@@ -1,16 +1,18 @@
 <template>
     <!-- 产品简介 -->
-    <div class="global-prod-sketch">
-      <!-- 产品名称 -->
-      <p class="sketch-name">{{product.name}}</p>
+    <div class="prod-sketch">
       <!-- 产品缩略图 -->
       <div class="img-wrap sketch-img">
         <img :src="product.mainImage" alt="">
       </div>
+      <!-- 产品名称 -->
+      <p class="sketch-msg">
+        <span class="name">{{product.name}}</span>
+        <span class="subtitle">{{product.subtitle}}</span>
+      </p>
       <!-- 产品价格 -->
       <div class="price-symbol sketch-price">{{product.price}}</div>
       <!-- 产品简述 -->
-      <div class="sketch-desc">{{product.subtitle}}</div>
     </div>
 </template>
 

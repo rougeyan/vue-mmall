@@ -52,44 +52,35 @@
     width: 600px;
   }
 }
-
-.bd-products-wrap{
-  ul{
-    li{
-      float: left;
-      width: 270px;
-      cursor: pointer;
-      margin: 0 20px 20px 0;
-      text-align: center;
-      &:nth-child(4n){
-        margin-right: 0;
-      }
-      &:hover{
-        background: #999;
-      }
-    }
-  }
-}
-
-
-// 
-.global-prod-sketch{
+//  通用产品白块(首页,搜索列表页)
+.prod-sketch{
   display: block;
-  padding: 10px 16px;
+  padding: 10px;
   .sketch-img{
     width: 100%;
-  }
-  .sketch-name{
-    text-align: left;
-    font-size: 20px;
     margin-bottom: 4px;
-    @include singleline;
   }
-  .sketch-desc{
+  .sketch-msg{
     @include multiline;
-    color: #999;
+    margin-bottom: 4px;
+    height: 36px;
+    overflow: hidden;
+    .name{
+      color: #333;
+      margin-right: 2px;
+    }
+    .subtitle{
+      color: #999;
+    }
+  }
+  .sketch-price{
+    display: block;
+    line-height: 1;
+    text-align: right;
   }
 }
+
+
 // 全局模态框 及对话框
 .full-layer{
   position: fixed;

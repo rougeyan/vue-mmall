@@ -4,8 +4,8 @@
       <img src="@/assets/images/easyWaklLogo.png" alt="">
     </div>
     <div class="global-searchwrap-r input-wrap">
-      <input v-model="kw" type="text" placeholder="请输入商品名称或者商品编号">
-      <button @click="clickSearch">搜索</button>
+      <input v-model="kw" type="text" placeholder="请输入商品名称或者商品编号" v-on:keyup.enter="clickSearch">
+      <button @click.enter="clickSearch">搜索</button>
     </div>
   </div>
 </template>

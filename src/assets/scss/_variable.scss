@@ -11,7 +11,8 @@ $cw: #fff; // color-white
 $tc: #42b983; // text-color
 $tch: #f55; //  text-color-hover
 $bc: #42b983; // border-color
-
+$cf1: #f1f1f1;
+$cr: #f55;
 
 @mixin global-border {
   border-radius: 4px;

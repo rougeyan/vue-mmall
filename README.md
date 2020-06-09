@@ -507,3 +507,37 @@ axios.get('/user', {
   b.根据vue官方文档插件开发规范,创建一个对象,用来对外暴露
   c.在这个对象里使用vue.extend把toasttemplate.vue构造一个vue类,再由这个类生成的对象(dom)放在dom上使用
   d.在对象里要返回一个promise对象,promise的resolve和reject存在一个变量中,由a步骤中的函数调用,并把这个函数放在新建vue类的原型上
+
+
+
+### fromInput监听输入时候动态修改值得
+[vue实现实时监听文本框内容的变化（最后一种为原生js）](https://www.cnblogs.com/dancer0321/p/9605512.html)
+
+自定义组件v-model 以及 @change事件监听
+
+### vue hover事件触发
+
+@mouseenter 和@mouseleave
+
+
+### 简易loading
+5分钟学会 CSS 动画：纯 CSS 实现 loading 效果 - 李中凯的文章 - 知乎
+https://zhuanlan.zhihu.com/p/95050501
+
+
+### eventbus
+[VUE 爬坑之旅-- eventBus 事件总线的基本使用和重复触发事件问题的解决](https://blog.csdn.net/zgh0711/article/details/80284830)
+
+建议在created里注册，在beforeDestory移出
+
+在组件内的beforeRouteLeave中移除事件监听
+
+问题来源于GitHub，查看更多答案，请查看https://github.com/haizlin/fe-interview/issues/456
+
+[EventBus注册在全局上时，路由切换时会重复触发事件，如何解决呢？](https://github.com/haizlin/fe-interview/issues/456?spm=a2c6h.13066369.0.0.26be3ad3rcVvJu)
+
+[vue中eventbus被多次触发（vue中使用eventbus踩过的坑）](https://www.jianshu.com/p/fde85549e3b0)
+
+
+### 7牛云储存
+[7牛云储存](https://developer.qiniu.com/kodo/sdk/1662/java-sdk-6)

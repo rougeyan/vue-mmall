@@ -1,34 +1,38 @@
 <template>
   <div>
-    <div class="shipping-list">
-      <ul>
+    <div class="shipping-list-wrap">
+      <ul class="shipping-list">
         <li :class="{'shipping-item':true,'selected':selectedshippingId == item.id}" v-for="item in shippingList" @click.prevent="selectShippingItem(item.id)">
-          <p>
+          <div class="msg-item">
             <label>姓名:</label>
             <span>{{item.receiverName}}</span>
-          </p>
-          <p>
+          </div>
+          <div>
             <label>所在城市:</label>
             <span>{{item.receiverProvince +item.receiverCity+item.receiverDistrict}}</span>
-          </p>
-          <p>
+          </div>
+          <div>
             <label>详细地址:</label>
             <span>{{item.receiverAddress}}</span>
-          </p>
-          <p>
+          </div>
+          <div>
             <label>收件人手机:</label>
             <span>{{item.receiverPhone+item.receiverMobile}}</span>
-          </p>
-          <p>
+          </div>
+          <div>
             <label>邮政编码</label>
             <span>{{item.receiverZip}}</span>
-          </p>
+          </div>
           <button @click.stop="delShippingItem(item.id)">删除地址</button>
         </li>
+        <li class="shipping-item add-address" @click="dialogVisible=true">新增地址</li>
       </ul>
     </div>
+    
+
     <!-- // 添加新地址   -->
-    <p> + 添加新地址</p>
+    <globalDialog :visible.sync="dialogVisible"
+    :maskClickClose="true">
       <formInput 
         v-model="add_name" 
         label="用户名"
@@ -51,7 +55,7 @@
       </formInput>
       <formInput 
         v-model="add_address" 
-        label="区/街道"
+        label="详细地址"
         :blurCheckRules ="['isBlank']">
       </formInput>
       <formInput 
@@ -69,7 +73,10 @@
         label="电话"
         :blurCheckRules ="['isBlank']">
       </formInput>
-      <button @click="addShipping">新增地址</button>
+      <slot slot="modal-footer">
+        <button @click="addShipping">新增地址</button>
+      </slot>
+    </globalDialog>
   </div>
 </template>
 
@@ -81,17 +88,19 @@ export default {
         return {
           shippingList: [],
           //新增地址
-          add_name: '我是老陈',
-          add_province: '广东省',
-          add_city: '广州市',
-          add_district: '白云区',
-          add_address: '金桂园ABC',
-          add_zip: '510403',
-          add_mobile: '13711111111',
-          add_phone: '020-1234',
+          add_name: '',
+          add_province: '',
+          add_city: '',
+          add_district: '',
+          add_address: '',
+          add_zip: '',
+          add_mobile: '',
+          add_phone: '',
           //
           selectedShippingObj: {},
           selectedshippingId: -1,
+
+          dialogVisible:false
         }
     },
     computed: {

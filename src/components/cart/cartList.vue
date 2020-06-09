@@ -1,15 +1,11 @@
 <template>
   <div class="shopping-cartlist-wrap">
     <!-- 表头 -->
-    <div class="cart-head">
-      <div class="cart-table">
-        <table cellspacing="0">
+    <div class="table-head">
+      <table cellspacing="0">
           <tbody>
               <tr class="table-head">
-                <th class="table-cell cell-check">
-                  <input type="checkbox"/>
-                  <span>全选</span>
-                </th>
+                <th class="table-cell cell-check">选择</th>
                 <th class="table-cell cell-info">商品信息</th>
                 <th class="table-cell cell-price">单价</th>
                 <th class="table-cell cell-count">数量</th>
@@ -18,13 +14,10 @@
               </tr>
           </tbody>
         </table>
-      </div>
     </div>
-
     <!-- 表内容 -->
-    <div class="cart-list">
-      <div class="cart-table" v-for="(item,idx) in cartList" :key="idx">
-        <table  cellspacing="0">
+    <div class="table-content">
+      <table cellspacing="0" v-for="(item,idx) in cartList" :key="idx">
           <tbody>
               <tr class="table-ctx-item">
                 <!-- 索引 -->
@@ -47,9 +40,7 @@
                 </td>
                 <!-- 数量 -->
                 <td class="table-cell cell-count">
-                  <span @click="reviseProdNum(item,'add')">添加</span>
-                  <div class="count-selector"><input v-model="item.quantity" type="number"></div>
-                  <span @click="reviseProdNum(item,'minus')">减少</span>
+                  <numberCount v-model="item.quantity" @change="handleQuantityChange(item)"/>
                 </td>
                 <!-- 合计 -->
                 <td class="table-cell cell-total">
@@ -62,18 +53,25 @@
               </tr>
           </tbody>
         </table>
-      </div>
+      
     </div>
-    <div class="operator-wrap">
-      <div class="select-all">
-        <input type="checkbox" :checked="allChecked"/>
-        <span @click="selectForAll">全选</span>
-      </div>
-      <div class="delete-selected" @click="delItem('selected')">删除选中</div>
-      <div class="total">总价:
+
+    <operationBar>
+      <slot slot="left">
+        <button class="select-all">
+          <input type="checkbox" :checked="allChecked"/>
+          <span @click="selectForAll">全选</span>
+        </button>
+        <button class="delete-selected" @click="delItem('selected')">删除选中</button>
+      </slot>
+      <slot slot="item">
+        <div class="total">总价:
         <span class="price-symbol">{{cartTotalPrice}}</span></div>
-      <button class="to-comfirm-order" @click="gotoPreOrder">去结算</button>
-      </div>
+      </slot>
+      <slot slot="buttons">
+        <button class="gotoPreOrder-btn" @click="gotoPreOrder">去结算</button>
+      </slot>
+    </operationBar>
   </div>
 </template>
 
@@ -113,6 +111,10 @@ export default {
           }
         })
       },
+      handleQuantityChange(e){
+        let quantity = e.quantity;
+        this.updataCartProd(e.productId,quantity);
+      },
       reviseProdNum(item,value){
         let self =this;
         let quantity = item.quantity;
@@ -123,7 +125,6 @@ export default {
         }else{
           return
         }
-        self.updataCartProd(item.productId,quantity);
       },
       // 修改数量
       updataCartProd(pid,count){

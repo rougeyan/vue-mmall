@@ -69,12 +69,12 @@ export default {
       let timer // 创建定时器;
       var self = this;
       api_order_query_Order(orderNo).then(res=>{
-        if(res.status == 0){
+        if(res.data){
            clearTimeout(timer) //清理定时任务   
           }else {
             timer = setTimeout(() => {
                 self.keepQueryOrder(self.orderNo)
-            }, 3000)
+            }, 2000)
           }
       })
     },

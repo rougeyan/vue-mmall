@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <global-head />
-    <filter-products :result="result"/>
+    <filter-products :result="result" :loading="loading"/>
   </div>
 </template>
 
@@ -13,9 +13,10 @@ import FilterProducts from "@/components/search/filterProducts.vue"
 export default {
   data() {
     return {
-      result: {}, // 结果
+      result: [], // 结果
       kw: '', 
-      categoryId:  0// 0 默认全局搜索
+      categoryId: 0,// 0 默认全局搜索
+      loading: true,
     }
   },
   created(){
@@ -26,14 +27,14 @@ export default {
   methods: {
     searching(){
       var self = this;
+      this.loading = true;
       api_global_search({
         keyword: self.kw,
         categoryId: self.categoryId
       }).then((res)=>{
         if(res.status == 0){
-          console.log(res.data)
-          this.result = res.data
-          // self.$router.push({ name: '/search.vue', params: { result: res.data}})
+          this.result = res.data.list;
+          this.loading = false;
         }
       })
     },

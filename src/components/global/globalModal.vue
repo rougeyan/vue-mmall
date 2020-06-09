@@ -26,8 +26,8 @@
      return {
        maskClickClose: true, // 点击mask关闭
        styleClassName:'', // 样式层
-       cancelText: '取消', // 显示取消按钮
-       comfirmText: '确定', // 显示确认按钮
+       cancelText: '', // 显示取消按钮
+       comfirmText: '', // 显示确认按钮
        title: '', // 标题
        show: true, // 显示状态
        content: 'this is content', // 内容
