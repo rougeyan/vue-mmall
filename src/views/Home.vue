@@ -56,7 +56,7 @@ export default {
         title:'this is title', //弹窗的标题
         content:'this is content',//弹窗的内容
         mask: true, // 显示遮罩;
-        autoHide: 50000,// 自动时间
+        autoHide: 5000,// 自动时间
       }).then(res=>{
         this.$toast({
         showComfirm: true, // 显示确认按钮

@@ -18,16 +18,6 @@ import Modaltemplate from './globalModal.vue'
  * [vue 采用promise方式开发弹窗插件](https://www.jianshu.com/p/9645e6a26bc2)
  * 
  * 调用方法
- * this.$toast({
-    showCancle: 显示取消按钮, false,//true->确认消息弹窗,false->消息提示弹窗
-    showComfirm: true, // 显示确认按钮
-    title:'this is title', //弹窗的标题
-    content_text:'this is content',//弹窗的内容
-    mask: true, // 显示遮罩;
-    autoHide: 2000,// 自动时间
-  }).then(res=>{
-  },err=>{})
-  }
  */
 
 let exportObj = {};

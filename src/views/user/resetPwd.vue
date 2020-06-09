@@ -30,7 +30,7 @@
 <script>
 
 import {api_user_forgetResetPassword} from '@/api/userApi'
-import formInput from '@/components/formInput';
+ 
 export default {
   data() {
     return {
@@ -62,8 +62,6 @@ export default {
       })
     }
   },
-  components: {
-    formInput
-  },
+ 
 }
 </script>

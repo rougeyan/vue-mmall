@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="my-center">
         <global-head />
         <div class="mycenter-wrapper">
             <div class="entrances-list">
@@ -28,8 +28,6 @@ export default {
     computed: {
     },
     created() {
-        console.log(processRoutes)
-        // 做一个js尾递归
         let myCenterRoutes = null;
         processRoutes.map((item)=>{
             if(!myCenterRoutes && item && item.name== '/myCenter.vue'){
@@ -49,6 +47,6 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-
+<style lang="scss">
+    @import '@/assets/scss/page/myCenter.scss';
 </style>

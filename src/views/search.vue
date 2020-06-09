@@ -47,6 +47,10 @@ export default {
       })
     }
   },
+  beforeDestory(){
+    // 离开search路由页面后 要销毁
+    this.$EventBus.destorySearchResult();
+  },
   components: {
     "global-head" : GlobalHead,
     "filter-products":FilterProducts

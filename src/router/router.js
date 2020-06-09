@@ -90,7 +90,6 @@ function generateRoute(options = {
     if (options.processAllIndex) filePath = filePath.replace(/\/index\//g, '/')
     filePath = filePath.replace(/\/_(\w+)/g, '/:$1')
 
-    console.log(filename);
     const route = {
       name: filename,                                                                     // filename作为唯一ID
       path: filePath,
@@ -139,7 +138,7 @@ const basicRoute = [
 export let processRoutes = basicRoute.concat(generateRoute(), { path: '*', redirect: '/error' })
 // 所有路由
 
-// console.log(processRoutes)
+console.log(processRoutes)
 export const router = new Router({
   // Vue scrollBehavior 滚动行为
   scrollBehavior(to, from, savedPosition) {

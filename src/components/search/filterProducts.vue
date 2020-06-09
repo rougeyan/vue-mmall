@@ -16,7 +16,8 @@
 <script>
 export default {
   props:{
-    "result": Object
+    "result": Object,
+    "keywords": String
   },
   data() {
     return {

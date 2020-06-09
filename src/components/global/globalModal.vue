@@ -12,8 +12,8 @@
           {{content}}
         </div>
         <div class="modal-footer">
-          <button v-show="showComfirm" @click="comfirm">确1认</button>
-          <button v-show="showCancle" @click="cancel">取消</button>
+          <button v-show="!!comfirmText" @click="comfirm">{{comfirmText}}</button>
+          <button v-show="!!cancelText" @click="cancel">{{cancelText}}</button>
         </div>
       </div>
     </div>
@@ -26,11 +26,11 @@
      return {
        maskClickClose: true, // 点击mask关闭
        styleClassName:'', // 样式层
-       showCancle: true, // 显示取消按钮
-       showComfirm: false, // 显示确认按钮
-       title: 'title', // 标题
+       cancelText: '取消', // 显示取消按钮
+       comfirmText: '确定', // 显示确认按钮
+       title: '', // 标题
        show: true, // 显示状态
-       content: 'content', // 内容
+       content: 'this is content', // 内容
        mask: true, // 是否显示遮罩
        autoHide: -1, // 自动关闭时间
      }
@@ -38,27 +38,24 @@
    created(){
    },
    mounted(){
-     var self = this;
-     if(self.autoHide && self.autoHide>0){
-       setTimeout(()=>{
-         self.show = false;
-       },self.autoHide)
-     }
-    //  this.$nextTick(function () {
-    //   debugger
-    //   // Code that will run only after the
-    //   // entire view has been rendered
-    //   })
+     // 这里不能调用 定时器, 因为此时已经渲染完毕
    },
    methods: {
+     // 调用函数初始化;
      initParams(params){
        let self = this;
        for (const key in params) {
          if (params.hasOwnProperty(key)) {
            const element = params[key];
-           self[key] = element
+           self[`${key}`] = element
          }
        }
+       // 调用定时器
+      if(self.autoHide && self.autoHide>0){
+        setTimeout(()=>{
+          self.show = false;
+        },self.autoHide)
+      }
      }, 
      comfirm(){
        this.show = false;

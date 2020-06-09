@@ -30,6 +30,7 @@
       </li>
       <li>
         <button class="add-cart" @click="addCart">添加购物车</button>
+        <button class="to-my-cart" @click="gotoMyCart">查看购物车</button>
       </li>
     </ol>
   </div>
@@ -84,8 +85,18 @@ export default {
           productId: self.productData.id,
           count: 1
         }).then(res=>{
-          console.log(res.data);
+          if(res.status == 0){
+            this.$toast({
+              cancelText: '', // 显示确认按钮
+              comfirmText: '去支付', 
+              content:'添加购物车成功',//弹窗的内容
+              autoHide: 2000,// 自动时间
+            })
+          }
         })
+      },
+      gotoMyCart(){
+        this.$router.push({path:'/myCart'})
       }
     },
     components: {

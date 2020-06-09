@@ -4,7 +4,7 @@
     <global-head />
     <bd title="收获地址">
       <bd-content>
-        <shipping-list />
+        <shipping-list @getShippingId="getShippingId"/>
       </bd-content>
     </bd>
 
@@ -14,8 +14,8 @@
       </bd-content>
       <div class="operator-wrap">
         <div class="total">总价:
-          <span class="price-symbol">1888</span></div>
-        <button class="to-pay">去支付</button>
+          <span class="price-symbol">{{productTotalPrice}}</span></div>
+        <button @click="gotoCreateOrder">去支付</button>
       </div>
     </bd>
   </div>
@@ -34,6 +34,8 @@ export default {
     data() {
         return {
           preOrderList:[],
+          shippingId: -1,
+          productTotalPrice: 0,
         }
     },
     computed: {
@@ -43,6 +45,7 @@ export default {
       api.api_order_getOrderCartProds().then(res=>{
         if(res.status ==0){
           self.preOrderList = res.data.orderItemVoList
+          self.productTotalPrice = res.data.productTotalPrice
         }
       })
     },
@@ -51,6 +54,23 @@ export default {
     watch: {
     },
     methods: {
+      getShippingId(params){
+        this.shippingId  = params;
+      },
+      gotoCreateOrder(){
+        var self = this;
+        api.api_order_createOrder(self.shippingId).then(res=>{
+          if(res.status ==0){
+            let orderNo = res.data.orderNo;
+            this.$toast({
+              content:'创建订单成功,即将进入支付页',//弹窗的内容
+            })
+            setTimeout(()=>{
+              self.$router.push({path:'/orderPay',query:{orderNo: orderNo}})
+            },2000)
+          }
+        })
+      }
     },
     components: {
       "global-head" : GlobalHead,

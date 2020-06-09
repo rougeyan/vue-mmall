@@ -24,7 +24,7 @@
     <!-- 表内容 -->
     <div class="cart-list">
       <div class="cart-table" v-for="(item,idx) in cartList" :key="idx">
-        <table>
+        <table  cellspacing="0">
           <tbody>
               <tr class="table-ctx-item">
                 <!-- 索引 -->
@@ -72,7 +72,7 @@
       <div class="delete-selected" @click="delItem('selected')">删除选中</div>
       <div class="total">总价:
         <span class="price-symbol">{{cartTotalPrice}}</span></div>
-      <button class="to-pay">去结算</button>
+      <button class="to-comfirm-order" @click="gotoPreOrder">去结算</button>
       </div>
   </div>
 </template>
@@ -103,10 +103,6 @@ export default {
     watch: {
     },
     methods: {
-      // viewUpdateCb(){
-      //   let self = this;
-      // },
-      // 获取购物车;
       getCartList(){
         var self = this;
         api.api_get_cart_list().then(res=>{
@@ -226,6 +222,9 @@ export default {
           })
 
         }
+      },
+      gotoPreOrder(){
+        this.$router.push({path:'/comfirmPreOrder'})
       }
     },
     components: {

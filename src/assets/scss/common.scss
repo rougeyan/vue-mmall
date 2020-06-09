@@ -62,14 +62,16 @@ table{
   width: 100%;
 }
 th.table-cell{
-  background-color: #ccc;
+  background-color: #f1f1f1;
+  padding: 0;
 }
 td.table-cell{
-  background-color: #eee;
+  background-color: #fff;
+  padding: 0;
 }
 th.table-cell, td.table-cell{
-  height: 40px;
-  line-height: 40px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   overflow: hidden;
   &.cell-check{
@@ -78,17 +80,33 @@ th.table-cell, td.table-cell{
       cursor: pointer;
     }
   }
+  // 主体信息
   &.cell-info{
     width: 46%;
   }
-  &.cell-price, &.cell-count, &.cell-total, &.cell-opera{
+  &.cell-price, &.cell-count, &.cell-total, &.cell-opera,&.cell-status,&.cell-totalPayed{
     width: 12%;
+  }
+  &.cell-info-52{
+    width: 52%;
+  }
+  // 二级产品项对齐
+  &.cell-info-list{
+    width: 76.07%;
+    .cell-price,.cell-count{
+      width: 15.753%;
+    }
+  }
+  // 二级菜单
+  .cell-info-sec{
+    padding: 4px;
+    margin-right: 10px;
+    border-bottom: 1px solid #000;
   }
 }
 
 table input{
   max-width: 100px;
-  background-color: tomato;
 }
 
 
@@ -101,6 +119,19 @@ table input{
   img{
     width: 100%;
     height: 100%;
+  }
+}
+.prod-msg{
+  display: flex;
+  align-items: center;
+  .img-wrap{
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+  .description{
+    flex: 1;
+    text-align: left;
   }
 }
 
@@ -184,7 +215,7 @@ table input{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ccc;
+  background-color: #fafafa;
   .select-all{
     width: 80px;
     text-align: center;

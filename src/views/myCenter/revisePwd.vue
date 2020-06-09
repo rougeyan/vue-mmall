@@ -1,6 +1,35 @@
 <template>
-    <div>
-      修改密码
+    <div class="my-info">
+        <bd title="我的个人信息">
+        <bd-content>
+          <ul>
+            <li>
+              <formInput
+                v-model="oldPwd" 
+                label="原密码"
+                :blurCheckRules ="['isBlank',]">
+              </formInput>
+            </li>
+            <li>
+              <formInput
+                v-model="pwd" 
+                label="新密码"
+                :blurCheckRules ="['isBlank',]">
+              </formInput>
+            </li>
+            <li>
+              <formInput 
+                v-model="pwdsec" 
+                label="确认密码"
+                :blurCheckRules ="['isBlank']">
+              </formInput>
+            </li>
+          </ul>
+        </bd-content>
+				<bd-footer>
+					<button @click="revisePwd">提交</button>
+				</bd-footer>
+      </bd>
     </div>
 </template>
 
@@ -10,6 +39,9 @@ export default {
     },
     data() {
         return {
+					oldPwd: '',
+					pwd: '',
+					pwdsec: '',
         }
     },
     computed: {
@@ -21,6 +53,9 @@ export default {
     watch: {
     },
     methods: {
+			revisePwd(){
+				console.log('修改成功')
+			}
     },
     components: {
     },

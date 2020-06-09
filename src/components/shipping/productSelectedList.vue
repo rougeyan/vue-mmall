@@ -17,7 +17,7 @@
 
     <div class="cart-list">
       <div class="cart-table" v-for="(item,idx) in preOrderList" :key="idx">
-        <table>
+        <table  cellspacing="0">
           <tbody>
             <tr class="table-ctx-item">
               <!-- 信息 -->

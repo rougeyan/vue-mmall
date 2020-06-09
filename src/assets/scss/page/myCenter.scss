@@ -1,0 +1,76 @@
+.mycenter-wrapper{
+  display: flex;
+}
+.entrances-list{
+  background-color: #fff;
+  border-radius: 4px;
+  width: 190px;
+  padding: 20px;
+  margin-right: 10px;
+  .entrance-item{
+    margin-bottom: 10px;
+  }
+}
+.entrance-router-View{
+  flex: 1;
+}
+
+.my-center{
+  .my-info{
+    ul{
+      li{
+        height: 32px;
+        position: relative;
+        font-size: 16px;
+        line-height: 32px;
+        margin-bottom: 24px;
+        label{
+          // width: 120px;
+          padding-left: 8px;
+          position: relative;
+          &.nessary{
+            &::after{
+              content: "*";
+              color: red;
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          }
+        }
+        input{
+          width: 300px;
+          height: 31px;
+          padding-left: 8px;
+          border: none;
+          border-bottom: 1px solid #eee;
+          &[readonly=readonly]{
+            border-bottom: none;
+          }
+        }
+        &.error{
+          input{
+            border-bottom-color: red;
+          }
+        }
+        .error-tips{
+          display: inline-block;
+          color: red;
+          font-size: 12px;
+          line-height: 32px;
+        }
+      }
+    }
+  }
+}
+.page-my-orders{
+  .orderItem{
+    margin-top: 20px;
+    border: 1px solid #ececec;
+  }
+  .orderItem-head{
+    background-color: #f1f1f1;
+    line-height: 20px;
+    padding: 8px 20px;
+  }
+}

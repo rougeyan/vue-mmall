@@ -75,7 +75,7 @@
 
 <script>
 import * as api from '@/api/shippingApi'
-import formInput from '@/components/formInput';
+ 
 export default {
     data() {
         return {
@@ -111,6 +111,7 @@ export default {
             self.shippingList = res.data.list;
             self.selectedShippingObj = self.shippingList[0];
             self.selectedshippingId = self.selectedShippingObj.id;
+            self.$emit('getShippingId',self.selectedshippingId)
           }
         })
       },
@@ -120,6 +121,7 @@ export default {
           if(res.status ==0){
             self.selectedShippingObj = res.data;
             self.selectedshippingId = self.selectedShippingObj.id;
+            self.$emit('getShippingId',self.selectedshippingId)
           }
         })
       },
@@ -149,9 +151,6 @@ export default {
           }
         })
       }
-    },
-    components: {
-      formInput
     },
 }
 </script>

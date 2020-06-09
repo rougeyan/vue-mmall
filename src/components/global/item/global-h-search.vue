@@ -35,11 +35,14 @@ export default {
       if(!self.onSearchPage){
         self.$router.push({path:'/search',query:{keyword: self.kw}})
       }else{
-        // self.$router.push({path:'/search',query:{keyword: self.kw}})
+        // 修改url的关键字
+        self.$router.push({path:'/search',query:{keyword: self.kw}})
         this.$EventBus.emitSearchResult({keyword: self.kw})
       }
     }
   },
+  beforeDestroy(){
+  }
 }
 </script>
 

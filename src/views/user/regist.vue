@@ -69,7 +69,7 @@
 import {api_user_regist} from '@/api/userApi'
 import {tese_api} from '@/api/testApi.js';
 import {formMixin} from '@/common/formMixin';
-import formInput from '@/components/formInput';
+ 
 import Cookies from 'js-cookie'
 export default {
   data() {
@@ -106,8 +106,6 @@ export default {
       })
     }
   },
-  components: {
-    formInput
-  },
+ 
 }
 </script>
