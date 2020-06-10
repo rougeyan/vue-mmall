@@ -1,8 +1,29 @@
-# vue-mmall
+# vue基础
+## 生命周期
+[生命周期](https://segmentfault.com/a/1190000008010666?utm_source=tag-newest)
+```js
+* beforeCreated // computed 不能使用
+* created  // 创建完成 但是未挂载 // 对data做一些数据处理 $el 还不在
+* beforeMounte // 编译/挂载前
+* mounted // 编译/挂载之后
+
+* beforeUpdate // 更新组件之前(一般适用于 组件props传递的参数有变化后)
+* updated // 组件更新后
+* activated  // 对`keep-alive`, 组件被激活时调用
+* deactivated  // 对`keep-alive`, 组件被激活时调用
+
+* beforeDestory // 组件销毁前;
+* destoryed // 组件销毁完成
+
+```
+### computed 和methods 区别
+[浅析Vue中computed与method的区别](https://segmentfault.com/a/1190000014478664?utm_source=tag-newest)
 
 
-# vue.js 组件通讯
+# 组件通讯
 *参考文献
+
+[【2019 前端进阶之路】Vue 组件间通信方式完整版](https://zhuanlan.zhihu.com/p/60250686)
 
 [vue 组件通信看这篇就够了(12种通信方式) - 程序猿的生活的文章 - 知乎](https://zhuanlan.zhihu.com/p/109700915)
 
@@ -82,8 +103,31 @@ eventbus.$emit('update',(target)=>{
 
 待补充..
 
+# 指令
+## 指令 - v-for
+### 对象遍历渲染且修改对象,不触发重新渲染
+```html
+// example
+<el-collapse-transition>
+  <el-form :model="deviceAttributes" label-width="100px">
+    <template v-for="(value,key) in deviceAttributes">
+      <el-form-item :label=value>
+        <el-input class="attrInput" v-model="deviceAttributes[key]"/>
+        <el-button class="attrBtn" type="primary" size="mini" @click="delkey" v-if="judgeOrginalAttr(key)">删除</el-button>
+      </el-form-item>
+    </template>
+  </el-form>
+</el-collapse-transition>
+```
+注意事项: 
+假如我动态给修改,给对象增加属性
 
-# 修饰符 `.sync` 双向绑定
+实际上 页面是不会有变化的;
+
+解决办法: 要通过改变引用方式;
+
+# 修饰符
+## 修饰符 - `.sync` 双向绑定
 参考文献
 
 [彻底明白VUE修饰符sync](https://www.jianshu.com/p/d42c508ea9de)
@@ -176,6 +220,9 @@ this.$emit('blur',...args)
 ### vue hover事件相关
   使用`@mouseenter` 和 `@mouseleave`
 
+### 修饰符 .native
+[vue组件添加事件@click.native](https://www.cnblogs.com/lianxisheng/p/10381431.html)
+
 ## 自定义组件 - 全局组件(formInput)
 
 ### 深入了解 v-model 原理
@@ -234,6 +281,15 @@ this.$emit('input', value);
 [自定义全局组件](https://www.cnblogs.com/conglvse/p/9641550.html)
 
 
+### 监听 input框 输入时候变动且 即可修改
+[vue实现实时监听文本框内容的变化（最后一种为原生js）](https://www.cnblogs.com/dancer0321/p/9605512.html)
+
+```js
+  <input type="text" v-model="items.type" ref="myinput" /> 
+  // 通过$ref原生修改;
+  this.$refs.myinput.value
+```
+
 ## 自定义全局组件 - Modal框
 开发一个全局modal组件, 经过一番折腾,遂整理一下以免遗忘.
 
@@ -266,7 +322,8 @@ this.$emit('input', value);
 
 
 
-# `<slot/>`标签理解及实践
+# 标签 
+## 标签- `<slot/>`标签理解及实践
 *参考文献
 
 [vue 里面的slot属性](https://blog.csdn.net/weixin_41646716/article/details/80450873)
@@ -381,6 +438,12 @@ this.$router.push({ name: "pointCheckEdit", params: { checkId: -1 } });
 },
 ```
 
+## router 动态引入组件的几种方式
+
+component: () => import './views/About.vue') require
+
+[component：(resolve) => require是什么意思？](https://segmentfault.com/q/1010000017913060)
+
 ## axios query params
 
 ```js
@@ -413,6 +476,28 @@ VueRouter.prototype.push = function push(location) {
 
 # Vue-cli项目相关
 
+[3.0初体验参考](https://blog.csdn.net/qq_36407748/article/details/80739787)
+
+[vue-cli 3.0脚手架配置及扩展](https://blog.csdn.net/franks_t_d/article/details/80740268)
+
+[vue2.5/vue-cli3.0版本更新引发的一些常见问题](https://segmentfault.com/a/1190000014219426?utm_source=channel-hottest)
+
+
+## 环境变量
+```js
+//  vue-cli 2.0 判定环境
+  process.env.NODE_ENV !== 'production'
+// vue-cli 3.0 环境 需要加入VUE_APP_ ***
+```
+
+## vscode 设置vue模板
+[新建vue文件设置vue模板](https://segmentfault.com/a/1190000015336481?utm_source=tag-newest)
+
+## vue.config.js 配置
+vue-cli2.x 是存在`config`配置文件夹; vue-cli3.x 模板没有该文件夹,
+在根目录下创建vue.config.js 文件, 具体内容参详
+[vue.config.js](https://cli.vuejs.org/zh/config/#vue-config-js)
+
 ## 引入全局变量scss 错位问题
 
 **sass 指南 官方**
@@ -439,6 +524,24 @@ npm config set registry https://registry.npmjs.org/
 *3* 重置查看配置指令
 
 npm config list -l
+
+## 使用sass 全部变量
+在`vue.config.js` 添加`css`部分代码即可;
+```js
+module.exports = {
+  devServer: {
+  }
+  css: {// 使用scss 全局变量;
+    loaderOptions: {
+      sass: {
+        data: `
+          @import "@/common/css/_variable.scss";
+        `
+      }
+    }
+  }
+}
+```
  
 
 ## 安装node-sass 报错 (python未安装)
@@ -451,27 +554,72 @@ npm install --global --production windows-build-tools
 ```
 
 
+# vue全局api
 
+## vue.use()  // globaldialog
+[浅谈Vue.use](https://segmentfault.com/a/1190000012296163)
+
+[关于Vue.use()详解](https://www.jianshu.com/p/89a05706917a)
+## vue.extend()
 
 # Vue相关高阶
 
+[vue技术分享之你可能不知道的7个秘密](https://zhuanlan.zhihu.com/p/86157966)
+[仿nuxt.js，自动构建路由，释放你的双手？！](https://zhuanlan.zhihu.com/p/88895615)
+
 # 其他
 
-### fromInput监听输入时候动态修改值得
-[vue实现实时监听文本框内容的变化（最后一种为原生js）](https://www.cnblogs.com/dancer0321/p/9605512.html)
-
 自定义组件v-model 以及 @change事件监听
+
+## 简易映射数据字典
+对于一些系统是具备数据字典的,但对于没有数据字典的系统来说可以创建的字典
+
+通过 v-model的绑定value的时候,我们需要做一个映射, 把当前映射的值通过 数据字典修饰出来
+
+```jsx
+let  sexValue =$.ajax();  // sex 的值为 male / female
+
+// simple enum
+let sexDictionary = {
+  "male": "男" // 男
+  "female:": "女"  // 女
+}
+
+<myInput v-model="sexValue">
+// 用computed方法
+<style>
+  computed:{  
+    data(sex){ 
+        return sexDictionary[sex]
+    }
+  }
+</style>
+```
+
+注意的是 computed是理解计算,里面不能包含异步操作;
+
+若需要异步获取数据字典,则需要methods来修饰
 
 ## 简易轮询
 [js 实现简单的轮询](https://www.cnblogs.com/phermis/p/11394508.html)
 
 
+
+
+
+
+
+
+
+
+# 待整理
 ## css 属性选择器
 ```css
 input[readonly=readonly]{
   text-align: center;
 }
 ```
+
 ## 简易loading
 5分钟学会 CSS 动画：纯 CSS 实现 loading 效果 - 李中凯的文章 - 知乎
 https://zhuanlan.zhihu.com/p/95050501
@@ -483,18 +631,16 @@ https://zhuanlan.zhihu.com/p/95050501
 
 Query String parameters 
 
-
-
-## computed 立即计算 不能使用异步函数;
-```js
-若一些数值是通过数据字段转换的例如 
-
-var obj = {gender: 0 // 0| 1}  我需要通过异步获取数据字段进行对它转换
-
-不能使用异步;
-需要用methods 去转换
-```
-
+http: get/post参数 // 回顾图解http;
+[http请求参数之Query String Parameters、Form Data、Request Payload](https://www.jianshu.com/p/c81ec1a547ad)
+ 浏览器 url参数?id=frontCode&paramsid=haha&
+ http://www.gzl.cn/index.html?id=1234&page=1234
+ 请求头部:
+ requst Payload
+ {userName: "admin", userPwd: "123"}
+ form Data 中的一些参数 obj{};
+ post 请求中 把params参数放在body里面;
+ 通过 一般来说设
 
 
 
@@ -502,91 +648,9 @@ var obj = {gender: 0 // 0| 1}  我需要通过异步获取数据字段进行对�
 ## 需要了解路由中 注册的name 和组件中使用的name 和keep-alive 的name 对应关系;
 
 
-
-## vue v-for 可以对对象进行遍历
-``vue
-<el-collapse-transition>
-  <el-form :model="deviceAttributes" label-width="100px">
-    <template v-for="(value,key) in deviceAttributes">
-      <el-form-item :label=value>
-        <el-input class="attrInput" v-model="deviceAttributes[key]"/>
-        <el-button class="attrBtn" type="primary" size="mini" @click="delkey" v-if="judgeOrginalAttr(key)">删除</el-button>
-      </el-form-item>
-    </template>
-  </el-form>
-</el-collapse-transition>
-```
-
-注意事项: 
-假如我动态给对象增加属性的,实际上 页面是不会有变化的;
-要通过改变引用方式;
-
-
-## 关于v-model 和 .sync修饰符的异同之处;
-
-
-## 关于组件事件的修饰符 .native
-[vue组件添加事件@click.native](https://www.cnblogs.com/lianxisheng/p/10381431.html)
-
-## 关于输入框的或自定义组件监听值的变化
-1. 使用 `@input` 监听做值回调;
-```html
-<template>
-  <input 
-    type="text"
-    placeholder="请输入" 
-    :value="value" 
-    @input="handleInput"
-    />
-</template>
-```
-2. 使用watch针对data中的值
-使用场景: 若在data里面有设置属性的话 / value 是个obj 需要deep监听;
-```html
-<script>
-{
-  watch{
-    value: function(){
-      // todo something
-    }
-  }
-}
-
-</script>
-```
-
-
-
-## v-model 显示 与数据分离;
-v-model 对应的是 oneDayOneTimes;
-实际上显示的是一天一检修;
-```json
-// 使用枚举
-//
-planOptions:{
-  "oneDayOneTimes": 一天一检,
-  "oneDayTwoTimes": 一天一检
-}
-
-// 时间上使用的
-computed:{
-  
-  data(params){ // params = "oneDayOneTimes"
-      return planOptions[params] // 一天一检;
-  }
-}
-
-```
-
-
-
-
-## 高阶方法
-[vue技术分享之你可能不知道的7个秘密](https://zhuanlan.zhihu.com/p/86157966)
-[仿nuxt.js，自动构建路由，释放你的双手？！](https://zhuanlan.zhihu.com/p/88895615)
-
-
-
-
 ## 7牛云储存
 [7牛云储存](https://developer.qiniu.com/kodo/sdk/1662/java-sdk-6)
+
+## async await 优于 promiose
+
+[async await 优于 promiose](https://zhuanlan.zhihu.com/p/26260061)
