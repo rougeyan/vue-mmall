@@ -1,72 +1,370 @@
 # vue-mmall
 
-### 解决请求 参数格式问题
-[http协议的Request Payload 和 Form Data 的区别](https://www.cnblogs.com/xuzhudong/p/8487119.html)
 
-Query String parameters 
+# vue.js 组件通讯
+*参考文献
 
-### 引入全局变量scss 错位问题
+[vue 组件通信看这篇就够了(12种通信方式) - 程序猿的生活的文章 - 知乎](https://zhuanlan.zhihu.com/p/109700915)
 
-**sass 指南 官方**
-[sass指南](https://www.sass.hk/) 
+## 父子间通讯  - 父传子 (通过props传递)
+参考文献
 
-[vue cli3使用官方方法配置sass全局变量报错](https://segmentfault.com/q/1010000020343645/)
+[vue组件之属性Props](https://www.cnblogs.com/wentutu/p/10930399.html)
 
+[Vue父组件向子组件传值以及data和props的区别](https://www.cnblogs.com/qqhfeng/p/11483929.html)
 
-**过去式**
-
-### vue-cli3 安装
-
-### 网络较慢  使用淘宝镜像
-
-设成淘宝的
-
-npm config set registry http://registry.npm.taobao.org/
-
-2.换成原来的
-
-npm config set registry https://registry.npmjs.org/
-
-
-查看配置指令
-
-npm config list -l
- 
-
-### 安装node-sass 报错 (python未安装)
-报错: python 未安装
-`Error: Can't find Python executable "python", you can set the PYTHON env variable.`
-* 解决方法
-使用powershell 全局安装
-```
-npm install --global --production windows-build-tools
-```
-
-### computed 立即计算 不能使用异步函数;
+###  监听props变化
 ```js
-若一些数值是通过数据字段转换的例如 
+watch: {
+  value:{
+      handler (newV, oldV) {
+        // do something, 可使用this
+        console.log(newV,oldV)
+      },
+      deep:true: //深度监听，可监听到对象、数组的变化
+     }
+},
+```
+### props其他
+[在vue中子组件修改props引发的对js深拷贝和浅拷贝的思考](https://www.cnblogs.com/hutuzhu/p/10119698.html);
 
-var obj = {gender: 0 // 0| 1}  我需要通过异步获取数据字段进行对它转换
-
-不能使用异步;
-需要用methods 去转换
+## 父子间通讯  - 子传父 $.on, $emit
+```html
+// 父组件
+<parent @updateValue="methods">
+<script>
+// 子组件
+methods:{
+  emitParent(
+    this.$emit('updateValue',value) 
+  )
+}
+</script>
 ```
 
+## eventBus(通过创建new Vue实例)
+类似于 $.on(), $.emit(), 但是是注册在`new Vue()`上
+```js
+// eventbus.js
+import Vue from 'vue';  
+export default new Vue(); 
 
-### 关于vue-route的更多详解
+// main.js
+import * as eventbus from '@/utils/event.js'
+Vue.prototype.$EventBus = eventbus; // 全局引入eventbus
+
+// 组件中调用
+eventbus.$on('update',(target)=>{
+  // todo
+})
+eventbus.$emit('update',(target)=>{
+  // todo
+})
+```
+
+### [问题] 全局注册的eventbus多次触发的问题
+[eventbus多次触发的问题](https://www.jianshu.com/p/fde85549e3b0)
+
+[VUE 爬坑之旅-- eventBus 事件总线的基本使用和重复触发事件问题的解决](https://blog.csdn.net/zgh0711/article/details/80284830)
+
+[EventBus注册在全局上时，路由切换时会重复触发事件，如何解决呢？](https://github.com/haizlin/fe-interview/issues/456?spm=a2c6h.13066369.0.0.26be3ad3rcVvJu)
+
+[vue中eventbus被多次触发（vue中使用eventbus踩过的坑）](https://www.jianshu.com/p/fde85549e3b0)
+
+建议在created里注册，在beforeDestory移出
+在组件内的beforeRouteLeave中移除事件监听
+问题来源于GitHub，查看更多答案，请查看https://github.com/haizlin/fe-interview/issues/456
+
+大致理解为 切换路由的情况下, 因为eventBus是注册在全局上,
+来回切换路由不会销毁事件,只会重复绑定
+
+## Vuex
+
+待补充..
+
+
+# 修饰符 `.sync` 双向绑定
+参考文献
+
+[彻底明白VUE修饰符sync](https://www.jianshu.com/p/d42c508ea9de)
+
+[vue 之 .sync 修饰符](https://www.cnblogs.com/foreveronlymiss/p/foreveronlymiss.html)
+
+[深入理解vue 修饰符sync【 vue sync修饰符示例】](https://www.jianshu.com/p/6b062af8cf01)
+
+
+某些场景下 需要使用双向绑定的情况:
+例如例: 对话框组件
+其内部自行绑定按钮触发显示/隐藏;
+外部通过props的也可以控制显示/隐藏;
+
+此时内部,和外部均修改了prop的属性`.sync`就适用了
+
+# 自定义组件 及 自定义事件(v-model, @change, @blur, @change, @input ...)
+
+## 自定义组件 - 自定义属性
+[自定义组件 的自定义属性](https://blog.csdn.net/weixin_30706691/article/details/98916849)
+
+属性是有区分动态属性跟静态属性的,本质上都是通过props传递 一个是静态一个是动态罢了
+```html
+<component
+  v-model = "label"
+  :labelA = "varLable" // 动态
+  labelB = "lable" // 静态
+></componet>
+
+labelA / lableB 均是由`props`上面接收;
+```
+## 自定义组件 - 自定义事件 @focus / @blur / @input / @change 
+<!-- 子组件中 -->
+```html
+<input 
+  type="text"
+  placeholder="请输入" 
+  :value="value" 
+  @change="handleChange"
+  @input="handleInput"
+  @focus="handleFocus"
+  @blur="handleBlur"
+  />
+<script>
+methods: {
+  updataData(key,val){
+    // this.$emit('change', val)
+    this.$emit('input', val); // v-model语法糖 监听 
+  },
+  handleInput($event){
+    console.log('onhandleInput');
+    this.updataData('value',$event.target.value);
+  },
+  handleChange($event){
+    console.log('onhandleChange');
+    this.updataData('value',$event.target.value);
+  },
+  handleBlur(){
+    this.$emit('blur', event);
+  },
+  handleFocus(){},
+}
+</script>
+```
+
+子组件触发个类事件 `handleXXXX`的方法;
+
+然后通过事件派发器
+```js
+this.$emit('blur',...args)
+```
+向上传递触发 对应具名的 `@blur` 监听器然后执行handleBlur的方法()
+
+```html
+  <formInput 
+    v-model="usertest.value"
+    @blur="handleBlur"
+  ></formInput>
+  <script>
+  // 这个监听器的事件是在父组件定义的;
+  handleBlur(args){
+    // todo something // 获取...args的参数
+    // console.log(...args)
+  }
+  </script>
+```
+
+### Vue自定义的组件上 `@click`点击事件失效
+  自定义组件中无法 绑定事件
+### vue hover事件相关
+  使用`@mouseenter` 和 `@mouseleave`
+
+## 自定义组件 - 全局组件(formInput)
+
+### 深入了解 v-model 原理
+* 参考文献
+[vue 自定义组件使用v-model](https://www.jianshu.com/p/3dbbbc7a259c)
+
+[自定义组件中如何使用v-model进行双向绑定呢？](https://www.cnblogs.com/coffeelovetea/p/8326115.html)
+
+[ElementUI 是如何实现父子组件的双向绑定的?](https://segmentfault.com/q/1010000008928889)
+
+[自定义 Vue 中的 v-model 双向绑定](https://segmentfault.com/a/1190000018893494)
+```html
+<input
+  :value="currentValue"
+  @input="handleInput"
+>
+<!-- 
+  其他写法: 直接写在dom上
+  <input v-bind:value="something"  v-on:input="something = $event.target.value">
+  简写：
+  <input :value="something"  @input="something = $event.target.value"> -->
+```
+method:
+
+```js
+handleInput(event) {
+    const value = event.target.value;
+    this.$emit('input', value);
+    // this.setCurrentValue(value);
+    // this.$emit('change', value);
+},
+```
+其实就是emit了input事件，并将更改后的值传出去。文档如下
+
+文档中已经提到v-model等效于：
+
+```html
+<el-input :value="input" @input="value => { input = value }" placeholder="请输入内容"></el-input>
+```
+
+原理
+
+对于一个带有 v-model 的组件（核心用法），它应该如下：
+
+* 带有v-model的父组件通过绑定的value值（即v-model的绑定值）传给子组件，子组件通过 prop接收一个 value;
+* 子组件利用 $emit 触发 input 事件，并传入新值value给父组件;
+* 父组件监听更新值及后续操作;
+```js
+this.$emit('input', value);
+```
+
+注意:
+假如我绑定是是一个obj的value,也可以整个更新后的`Object`传出去: 具体请看
+[v-model绑定一个对象，组件内部分别负责不同字段的场景实现](https://www.cnblogs.com/kidsitcn/p/11769579.html)
+
+[自定义全局组件](https://www.cnblogs.com/conglvse/p/9641550.html)
+
+
+## 自定义全局组件 - Modal框
+开发一个全局modal组件, 经过一番折腾,遂整理一下以免遗忘.
+
+考究过`element-ui`的示例代码,
+理解 `简易全局组件(提示,消息框,)`, 复杂全局组件(自定义内容对话框)`
+
+### 简易部分;
+*参考文献
+
+[vue 采用promise方式开发弹窗插件](https://www.jianshu.com/p/9645e6a26bc2)
+
+通过`this.$toast(params)`来调用
+
+思路为:
+  a.创建一个函数,根据参数bool值调用存贮promise结果的变量的resolve或reject属性,这个函数会被toasttemplate.vue来调用
+  b.根据vue官方文档插件开发规范,创建一个对象,用来对外暴露
+  c.在这个对象里使用vue.extend把toasttemplate.vue构造一个vue类,再由这个类生成的对象(dom)放在dom上使用
+  d.在对象里要返回一个promise对象,promise的resolve和reject存在一个变量中,由a步骤中的函数调用,并把这个函数放在新建vue类的原型上
+
+### 复杂全局组件(自定义全局组件)
+通过`<自定义dialog>标签`来调用
+
+之前
+本来打算利用slot通用外层;但是发现slot中子组件无法向父元素通讯
+遂slot并不适用;
+因此像复杂的全局组件 通过带`<slot>`的标签
+来触发显示,而不是像简易的全局组件通过`this.$toast`等
+
+### 其他...
+
+
+
+# `<slot/>`标签理解及实践
+*参考文献
+
+[vue 里面的slot属性](https://blog.csdn.net/weixin_41646716/article/details/80450873)
+
+slot 可以理解为整理盒,一开始界定边界,让标签安放;
+常用于一些通用无状态容器里面展示标签里面
+
+```html
+<!-- my-components.vue  定义-->
+<template>
+  <div>
+    <slot name="header"></slot>
+    <slot></slot>
+    <slot name="footer"></slot>
+  </div>
+</template>
+<!-- 调用 -->
+<my-components>
+  <slot slot="header">星期一</slot> // 此标签会被匿名<slot name="header">里面
+  <p>今天天气真好!!</p>  // 此标签会被匿名<slot/>里面
+</my-components>
+```
+
+### 注意事项:
+* slot中无法向父元素通讯
+
+*参考文献
+
+[vue子组件作为slot如何触发父组件的事件，slot踩坑记录](https://blog.csdn.net/weixin_42565137/article/details/99676543)
+
+错误示例
+```vue
+<template>
+ <parent-components>
+   <p>我是dialog</p>
+   <button @click="closeEmit">关闭</button>
+   <button @click="clickcb">回调</button>
+ </parent-components>
+</template>
+
+<script>
+ export default {
+   methods: {
+     closeEmit(){
+       this.$emit('close','value');
+     },
+     clickcb(){
+       console.log('哈哈')
+     }
+   }
+ }
+</script>
+
+// parent-components.vue(父组件)
+<!-- parent-components -->
+<template>
+   <div class="modal-wrap">
+     <slot/>
+   </div>
+</template>
+
+<script>
+ export default {
+   mounted(){
+      this.$on("close",function(params){
+       console.log(params)
+     })
+   },
+   methods:{
+   }
+ }
+</script>
+
+```
+
+# Vue-router
+参考文献
+
 [vue-router 常用知识点一](https://www.jianshu.com/p/e3d834b64313)
 
-this.$route 配合组件带来的耦合问题
+## 路由参数获取
 
-### 关于vue-router
+1.通过query配置的： `this.$route.query.xxx`
+若害怕强制刷新丢失参数 建议使用 query模式 放在url上 
+
+2.通过params配置的：
+this.$route.params 
+
+## 编程式路由使用
 
 ```js
 const userId = '123'
-router.push({ name: 'user', params: { userId }}) // -> /user/123
+this.$router.push({ name: 'user', params: { userId }}) // -> /user/123
 
-router.push({ path: `/user/${userId}` }) // -> /user/123
+this.$router.push({ path: `/user/${userId}` }) // -> /user/123
 // 这里的 params 不生效
-router.push({ path: '/user', params: { userId }}) // -> /user
+
+// router.push({ path: '/user', params: { userId }})
 ```
 
 ```js
@@ -83,85 +381,129 @@ this.$router.push({ name: "pointCheckEdit", params: { checkId: -1 } });
 },
 ```
 
-### 需要了解路由中 注册的name 和组件中使用的name 和keep-alive 的name 对应关系;
+## axios query params
 
-### 父组件传参的prop为子组件展示注意的问题
-父组件传参的prop为子组件展示,
-// 保持数据 => 单项数据流
-子组件复制一份pros的数据作为renderData;
-需要更新到父组件的时候
-使用$emit() 触发组件更新
+```js
+// 为给定 ID 的 user 创建请求
+axios.get('/user?ID=12345')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
-有比较多的缺陷, 
-
-如果去监听这个props的变化?
-
-### 关于props  单项数据流 去 修改props 情况的时候
-
-[在vue中子组件修改props引发的对js深拷贝和浅拷贝的思考](https://www.cnblogs.com/hutuzhu/p/10119698.html);
-
-引用类型进行数据拷贝
-
-但是
-
-### 关于 .sync 的同步props数据 的修饰符使用技巧
-
-[彻底明白VUE修饰符sync](https://www.jianshu.com/p/d42c508ea9de)
-[vue 之 .sync 修饰符](https://www.cnblogs.com/foreveronlymiss/p/foreveronlymiss.html)
-
-某些场景下 需要使用双向绑定的情况
-例如:
-
-对话框就是一个组件
-内部自行关闭;
-外部通过props的也可以控制显示/隐藏
-
-此时内部修改了prop的属性;
-外部又修改了props的属性;此时会报;
-
-使用 .sync来同步数据的流动
-```html
-// 父元素使用 v-bind:dialogVisibled.sync="openDevice" 
-<deviceDialog v-on:closeDeviceDialog="openDevice=false"  v-on:submitDeviceDialog="submitDevice" v-bind:dialogVisibled.sync="openDevice"></deviceDialog>
-
-// 子组件
-<script>
-  this.$emit('update:dialogVisibled',newValue) 来触发属性的更新
-</script>
+// 可选地，上面的请求可以这样做
+axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
 ```
 
-### v-model 显示 与数据分离;
-v-model 对应的是 oneDayOneTimes ;
-实际上显示的是一天一检修;
-```json
-// 使用枚举
-//
-planOptions:{
-  "oneDayOneTimes": 一天一检,
-  "oneDayTwoTimes": 一天一检
+
+## Chrome报错 Navigating to current location ("/homePage") is not allowed
+[解决message: "Navigating to current location ("/homePage") is not allowed",警告的问题](https://blog.csdn.net/XUELUO123456789/article/details/103147494)
+```js
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error => error)
 }
+```
 
-// 时间上使用的
-computed:{
-  
-  data(params){ // params = "oneDayOneTimes"
-      return planOptions[params] // 一天一检;
-  }
+# Vue-cli项目相关
+
+## 引入全局变量scss 错位问题
+
+**sass 指南 官方**
+[sass指南](https://www.sass.hk/) 
+
+[vue cli3使用官方方法配置sass全局变量报错](https://segmentfault.com/q/1010000020343645/)
+
+
+**过去式**
+
+## vue-cli3 安装
+
+## 使用淘宝镜像解决NPM安装依赖包过慢的问题
+
+*1* 淘宝镜像源
+
+npm config set registry http://registry.npm.taobao.org/
+
+*2* 重置
+
+npm config set registry https://registry.npmjs.org/
+
+
+*3* 重置查看配置指令
+
+npm config list -l
+ 
+
+## 安装node-sass 报错 (python未安装)
+报错: python 未安装
+`Error: Can't find Python executable "python", you can set the PYTHON env variable.`
+* 解决方法
+使用powershell 全局安装
+```
+npm install --global --production windows-build-tools
+```
+
+
+
+
+# Vue相关高阶
+
+# 其他
+
+### fromInput监听输入时候动态修改值得
+[vue实现实时监听文本框内容的变化（最后一种为原生js）](https://www.cnblogs.com/dancer0321/p/9605512.html)
+
+自定义组件v-model 以及 @change事件监听
+
+## 简易轮询
+[js 实现简单的轮询](https://www.cnblogs.com/phermis/p/11394508.html)
+
+
+## css 属性选择器
+```css
+input[readonly=readonly]{
+  text-align: center;
 }
-
 ```
-### vue props监听变化的几种方式
+## 简易loading
+5分钟学会 CSS 动画：纯 CSS 实现 loading 效果 - 李中凯的文章 - 知乎
+https://zhuanlan.zhihu.com/p/95050501
 
-使用
-```jsx
-this.$emit("eventsName",value) 
-// 去触发
 
-<haha v-on:eventsName="bindEvent"></haha>
+
+## 解决请求 参数格式问题
+[http协议的Request Payload 和 Form Data 的区别](https://www.cnblogs.com/xuzhudong/p/8487119.html)
+
+Query String parameters 
+
+
+
+## computed 立即计算 不能使用异步函数;
+```js
+若一些数值是通过数据字段转换的例如 
+
+var obj = {gender: 0 // 0| 1}  我需要通过异步获取数据字段进行对它转换
+
+不能使用异步;
+需要用methods 去转换
 ```
 
 
-### vue v-for 可以对对象进行遍历
+
+
+
+## 需要了解路由中 注册的name 和组件中使用的name 和keep-alive 的name 对应关系;
+
+
+
+## vue v-for 可以对对象进行遍历
 ``vue
 <el-collapse-transition>
   <el-form :model="deviceAttributes" label-width="100px">
@@ -180,77 +522,13 @@ this.$emit("eventsName",value)
 要通过改变引用方式;
 
 
-### 其他一些高阶用法
-
-[vue技术分享之你可能不知道的7个秘密](https://zhuanlan.zhihu.com/p/86157966)
-[仿nuxt.js，自动构建路由，释放你的双手？！](https://zhuanlan.zhihu.com/p/88895615)
+## 关于v-model 和 .sync修饰符的异同之处;
 
 
-### 关于自定义组件的 v-model  @blur 及其他一些自定义组件的属性使用
-
-<!-- 省略两个v-on v-change 实现双向绑定 -->
-
-[ElementUI 是如何实现父子组件的双向绑定的?](https://segmentfault.com/q/1010000008928889)
-[v-model绑定一个对象，组件内部分别负责不同字段的场景实现](https://www.cnblogs.com/kidsitcn/p/11769579.html)
-[vue自定义select组件 v-model语法糖](https://www.cnblogs.com/024-faith/p/select.html)
-[vue 自定义组件使用v-model](https://www.cnblogs.com/coffeelovetea/p/8326115.html)
-[自定义 Vue 中的 v-model 双向绑定](https://segmentfault.com/a/1190000018893494)
-
-```html
-<input type="text" placeholder="请输入" 
-    :value="value" 
-    @change="updataData('value',$event.target.value)"
-    @input="updataData2('value',$event.target.value)"/>
-
-<script>
- methods: {
-    updataData(key,val){
-      this.$emit('change', val)
-      this.$emit('input', val);
-    },
-  },
-  </script>
-```
-
-### 关于v-model 和 .sync修饰符的异同之处;
-[深入理解vue 修饰符sync【 vue sync修饰符示例】](https://www.jianshu.com/p/6b062af8cf01)
-[vue 自定义组件使用v-model](https://www.jianshu.com/p/3dbbbc7a259c)
-
-
-### props 属性详解
-[Vue父组件向子组件传值以及data和props的区别](https://www.cnblogs.com/qqhfeng/p/11483929.html)
-[vue组件之属性Props](https://www.cnblogs.com/wentutu/p/10930399.html)
-
-1.在父组件中定义 msg 属性
-```js
-    data:{
-      msg:'123 -我是父组件中的数据'
-    },
-```
-2.引用子组件
-父组件可以在引用子组件的时候，通过属性绑定的形式，把需要传递给子组件的数据，以属性绑定的形式，传递到子组件内部，供子组件使用。
-
-把父组件传递过来的 msg 属性，绑定到子组件的 parentmsg 属性上。
-
-```html
-<com1 :parentmsg="msg"></com1>
-```
-3. 在子组件定义部分，需要把父组件传递过来的 parentmsg 属性，先在props数组中定义一下（代表这个属性是由父组件传递过来的），这样，才能使用这个数据
-props:['parentmsg'],
-4.在子组件中使用
-```html
-  template:"<h1>这是子组件--{{parentmsg}}</h1>",
-```
-5.子组件中data和props的区别
-子组件中的data数据，不是通过父组件传递的是子组件私有的，是可读可写的。
-
-子组件中的所有 props中的数据，都是通过父组件传递给子组件的，是只读的。
-
-
-### 关于组件事件的修饰符 .native
+## 关于组件事件的修饰符 .native
 [vue组件添加事件@click.native](https://www.cnblogs.com/lianxisheng/p/10381431.html)
 
-### 关于输入框的或自定义组件监听值的变化
+## 关于输入框的或自定义组件监听值的变化
 1. 使用 `@input` 监听做值回调;
 ```html
 <template>
@@ -277,267 +555,38 @@ props:['parentmsg'],
 </script>
 ```
 
-### 关于子组件 @focus / @blur / @input / @change 
-<!-- 子组件中 -->
-```html
-<input 
-  type="text"
-  placeholder="请输入" 
-  :value="value" 
-  @change="handleChange"
-  @input="handleInput"
-  @focus="handleFocus"
-  @blur="handleBlur"
-  />
-<script>
-methods: {
-  updataData(key,val){
-    // this.$emit('change', val)
-    this.$emit('input', val); // v-model语法糖 监听 
 
 
-    // v-on:input="mes= $event.target.value"
-  },
-  handleInput($event){
-    console.log('onhandleInput');
-    this.updataData('value',$event.target.value);
-  },
-  handleChange($event){
-    console.log('onhandleChange');
-    this.updataData('value',$event.target.value);
-  },
-  handleBlur(){
-    this.$emit('blur', event);
-  },
-  handleFocus(){},
+## v-model 显示 与数据分离;
+v-model 对应的是 oneDayOneTimes;
+实际上显示的是一天一检修;
+```json
+// 使用枚举
+//
+planOptions:{
+  "oneDayOneTimes": 一天一检,
+  "oneDayTwoTimes": 一天一检
 }
-</script>
-```
 
-子组件触发个类事件 `handleXXXX`的方法;
-
-然后通过事件派发器
-```js
-this.$emit('blur',...args)
-```
-向上传递触发 handlerbbb的方法()
-
-```html
-  <formInput 
-    v-model="usertest.value"
-    @blur="handlerbbb"
-  ></formInput>
-  <script>
-  // 这个监听器的事件是在父组件定义的;
-  handlerbbb(args){
-    // todo something // 获取...args的参数
-    // console.log(...args)
+// 时间上使用的
+computed:{
+  
+  data(params){ // params = "oneDayOneTimes"
+      return planOptions[params] // 一天一检;
   }
-  </script>
-```
-### 关于自定义组件的自定义属性
-
-[自定义组件 v-mode 及属性](https://blog.csdn.net/weixin_30706691/article/details/98916849)
-
-属性是有区分动态属性跟静态属性的
-```html
-<component
-  v-model = "label"
-  :label = "varLable"
-  label = "lable"
-></componet>
-
-label 同事都是由`props`上面接收;
-```
-
-### 关于slot 的理解
-[vue 里面的slot属性](https://blog.csdn.net/weixin_41646716/article/details/80450873)
-在一些自定义标签中内部想假如插槽
-```html
-<component
-  v-model = "label"
-  :label = "varLable"
-  label = "lable"
->
-// 我需要在这里插入我需要的东西
-<>
-</componet>
-```
-
-
-### 递归组件(面包屑)
-... 待整理;
-
-
-### Vue自定义的组件上@click点击事件【失效】问题
-
-### 全局注册eventbus
-
-### eventbus多次触发的问题
-/**
-   * [eventbus多次触发的问题](https://www.jianshu.com/p/fde85549e3b0)
-   * 大致理解为 切换路由的情况下 回重复绑定
-   *  eventbus.$on()这个事件;
-   */
-
-### 组件通讯
-[vue 组件通信看这篇就够了(12种通信方式) - 程序猿的生活的文章 - 知乎](https://zhuanlan.zhihu.com/p/109700915)
-
-## vue子组件怎么监听props里的值变化
-```js
-  props里面，dailyDateTable是数组，为什么watch监听不到呢？字符串就行
-
-  props: ['dailyDateTable']
-  watch: {
-      dailyDateTable: {
-          handler(newValue, oldValue) {
-              console.log(newValue);
-          }
-      }
-  },
-```
-
-### 路由问题 Navigating to current location ("/homePage") is not allowed
-[解决message: "Navigating to current location ("/homePage") is not allowed",警告的问题](https://blog.csdn.net/XUELUO123456789/article/details/103147494)
-```js
-const routerPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location) {
-  return routerPush.call(this, location).catch(error => error)
 }
+
 ```
 
-### 路由参数
-1.通过query配置的：
-this.$route.query
-若害怕强制刷新丢失参数 建议使用 query模式 放在url上 
-
- 2.通过params配置的：
-this.$route.params
-
-### axios quer params
-
-```js
-// 为给定 ID 的 user 创建请求
-axios.get('/user?ID=12345')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-// 可选地，上面的请求可以这样做
-axios.get('/user', {
-    params: {
-      ID: 12345
-    }
-  })
-```
-
-### 自定义全局组件
-
-[自定义全局组件](https://www.cnblogs.com/conglvse/p/9641550.html)
-
-
-### slot中无法向父元素传参;
-子组件
-```html
-<template>
- <modalLayer>
-   <p>我是dialog</p>
-   <button @click="close">关闭</button>
-   <button @click="clickcb">回调</button>
- </modalLayer>
-</template>
-
-<script>
- export default {
-
-   methods: {
-     close(){
-       this.$emit('close',1234);
-     },
-     clickcb(){
-       console.log('哈哈')
-     }
-   }
- }
-</script>
-```
-父组件
-```html
-<template>
- <div class="modal-layer">
-   <div class="modal-wrap">
-     <slot/>
-   </div>
- </div>
-</template>
-
-<script>
- export default {
-   mounted(){
-      this.$on("close",function(params){
-       console.log(params)
-     
-     })
-   },
-   methods:{
-     emitClose:function(params){
-       console.log(1234)
-     }
-   }
- }
-</script>
-```
-
-开发一个全局modal组件, 本来打算利用slot通用外层;但是发现slot中子组件无法向父组件传参,
-遂不适用slot
-
-使用promise
-
-// [vue 采用promise方式开发弹窗插件](https://www.jianshu.com/p/9645e6a26bc2)
-
-基本思路:
-
-// 返回一些promise对象,然后移除一些
-
-这是比较重要的地方,思路为:
-  a.创建一个函数,根据参数bool值调用存贮promise结果的变量的resolve或reject属性,这个函数会被toasttemplate.vue来调用
-  b.根据vue官方文档插件开发规范,创建一个对象,用来对外暴露
-  c.在这个对象里使用vue.extend把toasttemplate.vue构造一个vue类,再由这个类生成的对象(dom)放在dom上使用
-  d.在对象里要返回一个promise对象,promise的resolve和reject存在一个变量中,由a步骤中的函数调用,并把这个函数放在新建vue类的原型上
 
 
 
-### fromInput监听输入时候动态修改值得
-[vue实现实时监听文本框内容的变化（最后一种为原生js）](https://www.cnblogs.com/dancer0321/p/9605512.html)
-
-自定义组件v-model 以及 @change事件监听
-
-### vue hover事件触发
-
-@mouseenter 和@mouseleave
+## 高阶方法
+[vue技术分享之你可能不知道的7个秘密](https://zhuanlan.zhihu.com/p/86157966)
+[仿nuxt.js，自动构建路由，释放你的双手？！](https://zhuanlan.zhihu.com/p/88895615)
 
 
-### 简易loading
-5分钟学会 CSS 动画：纯 CSS 实现 loading 效果 - 李中凯的文章 - 知乎
-https://zhuanlan.zhihu.com/p/95050501
 
 
-### eventbus
-[VUE 爬坑之旅-- eventBus 事件总线的基本使用和重复触发事件问题的解决](https://blog.csdn.net/zgh0711/article/details/80284830)
-
-建议在created里注册，在beforeDestory移出
-
-在组件内的beforeRouteLeave中移除事件监听
-
-问题来源于GitHub，查看更多答案，请查看https://github.com/haizlin/fe-interview/issues/456
-
-[EventBus注册在全局上时，路由切换时会重复触发事件，如何解决呢？](https://github.com/haizlin/fe-interview/issues/456?spm=a2c6h.13066369.0.0.26be3ad3rcVvJu)
-
-[vue中eventbus被多次触发（vue中使用eventbus踩过的坑）](https://www.jianshu.com/p/fde85549e3b0)
-
-
-### 7牛云储存
+## 7牛云储存
 [7牛云储存](https://developer.qiniu.com/kodo/sdk/1662/java-sdk-6)
