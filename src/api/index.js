@@ -1,7 +1,8 @@
-
 import axios from "axios";
 import Cookies from 'js-cookie'
+import loginModal from '@/components/global/loginModal.js'
 const qs = require('qs');
+
 
 // [axios文档](https://www.kancloud.cn/yunye/axios/234845)
 
@@ -19,8 +20,6 @@ axios.interceptors.request.use(function (config) {
   // 请求url带上?session_id=xxxxx;
   // let token = Cookies.get(TOKEN_KEY);
   let token = Cookies.get("access_token");
-  // console.log(token)
-  // return 
   if(!!token){
     config.params={
       ...config.params,
@@ -41,6 +40,14 @@ axios.interceptors.request.use(function (config) {
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
+  // C端用户未登录
+  if(response.data.status == 100005){
+    loginModal.open({
+      title: '用户请登录',
+      maskClickClose: true,
+    })
+    // 调用登录弹窗
+  }
   return response;
 }, function (error) {
   // 对响应错误做点什么

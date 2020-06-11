@@ -68,11 +68,11 @@ export default {
   created() {
     var self = this;
     this.bigImageContainer = this.productData.mainImage;
-    api_user_getLoginUserId().then(res => {
-      if (res.status == 0) {
-        self.userId = res.data.userId;
-      }
-    });
+    // api_user_getLoginUserId().then(res => {
+    //   if (res.status == 0) {
+    //     self.userId = res.data.userId;
+    //   }
+    // });
   },
   methods: {
     subImagesList: function(subImageList) {
@@ -94,13 +94,21 @@ export default {
               cancelText: "", // 显示确认按钮
               comfirmText: "去支付",
               content: "添加购物车成功", //弹窗的内容
-              autoHide: 2000 // 自动时间
+              autoHide: 2500 // 自动时间
+            }).then(res=>{
+              this.gotoMyCart();
             });
           }
         });
     },
     gotoMyCart() {
-      this.$router.push({ path: "/myCart" });
+      // 优先检查登录状态;
+      api_user_getLoginUserId().then(res => {
+        if (res.status == 0) {
+          self.userId = res.data.userId;
+          this.$router.push({ path: "/myCart" });
+        }
+      });
     },
     setBigImage(url){
       this.bigImageContainer = url;

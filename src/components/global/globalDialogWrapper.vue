@@ -30,7 +30,7 @@
    methods:{
      maskClose(){
        if(this.maskClickClose){
-         this.$emit('update:visible',false)
+         this.$emit('update:visible',false);
        }
      }
    },

@@ -15,13 +15,13 @@
     <home-floor v-for="item in 3"  :key="item" :class='item==1?"double-deck":""'/>
     <global-footer></global-footer>
     <!-- <HelloWorld /> -->
-    <globalDialog :visible.sync="dialogVisible"
+    <globalDialogWrapper :visible.sync="dialogVisible"
     :maskClickClose="true">
       <div>div - dialog content对话框内容</div>
       <slot slot="modal-footer">
         <button @click="dialogVisible=false">关闭</button>
       </slot>
-    </globalDialog>
+    </globalDialogWrapper>
   </div>
 </template>
 

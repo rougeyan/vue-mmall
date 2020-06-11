@@ -1,3 +1,5 @@
+const path = require('path')
+const resolve = dir => path.join(__dirname, dir)
 // vue.config.js 配置说明
 // 这里只列一部分，具体配置惨考文档啊
 module.exports = {
@@ -60,6 +62,23 @@ module.exports = {
   productionSourceMap: false,
   // devServer:{type:Object} 3个属性host,port,https
   // 它支持webPack-dev-server的所有选项
+  chainWebpack: config => {
+    // 添加别名
+    config.resolve.alias
+      // .set('vue$', 'vue/dist/vue.esm.js')
+      .set('@', resolve('src'))
+      // .set('@assets', resolve('src/assets'))
+      // .set('@scss', resolve('src/assets/scss'))
+      // .set('@components', resolve('src/components'))
+      // .set('@plugins', resolve('src/plugins'))
+      // .set('@views', resolve('src/views'))
+      // .set('@router', resolve('src/router'))
+      // .set('@store', resolve('src/store'))
+      // .set('@layouts', resolve('src/layouts'))
+      // .set('@static', resolve('src/static'))
+      // 默认
+      .set('@api',resolve('src/api'))
+  },
   // 跨域处理:
   devServer: {
     port: 8082, // 端口号

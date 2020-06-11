@@ -654,3 +654,29 @@ http: get/post参数 // 回顾图解http;
 ## async await 优于 promiose
 
 [async await 优于 promiose](https://zhuanlan.zhihu.com/p/26260061)
+
+
+## webpack的常用处理插件配置
+* babel 处理es6/ es7 语法 es5
+* 小图片转发成base64
+* 开启gzip
+* 去掉console.log
+* 集成上传
+* 图片压缩
+* 添加别名 alias
+
+## webpack
+
+webpack中配置es6/es7转义成ES5
+vue-cli3.0中是默认使用babel.config.js, 默认是
+
+* 配置ES6/ES7 语法转义为ES5
+
+vue-cli3.0 默认使用 Babel 7 + babel-loader + @vue/babel-preset-app，但是可以通过 babel.config.js 配置使用任何其它 Babel 预设选项或插件。
+
+
+[vuecli4.0 常用的一些打包配置](https://github.com/staven630/vue-cli4-config#log)
+
+
+### https://segmentfault.com/q/1010000013421150
+关于axios封装，如何在拦截器里的错误回调里优雅的引用模态框组件
