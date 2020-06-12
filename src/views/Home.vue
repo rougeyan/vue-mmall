@@ -3,6 +3,7 @@
     <global-head>
       <slot slot="global-h-breadCrumb">
         <p>分类 13855252522@test987.com</p>
+        <p>更新 随意更新</p>
       </slot>
     </global-head>
     <button @click="getModal">getModal</button>

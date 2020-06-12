@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from "@/store/index.js";
 import Modaltemplate from './globalModal.vue'
 
 /**
@@ -38,7 +39,9 @@ exportObj.install = function(Vue,options={}){
     // 这里是为了防止重复创建较多的组件
     // 所以每次重新都是基于原来的VueComponents来重新渲染内容;
     if(!toast){
-          toast = new VueToast().$mount()  //创建实例
+          toast = new VueToast(
+            store // 存储stroe
+          ).$mount()  //创建实例
           document.body.appendChild(toast.$el)  //挂载实例
       }
       if(!!toast && !!toast.initParams){

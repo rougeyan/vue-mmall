@@ -72,6 +72,10 @@ export default {
         }
       })
     },
+    // 存储登录状态
+    setLoginStatusInStore(){
+
+    },
     getUserinfo(){
       var self = this;
       api_user_getUserInfo().then(res=>{

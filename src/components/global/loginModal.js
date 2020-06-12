@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import store from "@/store/index.js";
 import Modaltemplate from './loginModal.vue'
 /**
  * 
@@ -13,7 +14,9 @@ let instance;
 export default {
   open(options = {}) {
     if (!instance) {
-      instance = new Indicator(
+      instance = new Indicator({
+          store
+        }
         // { el: document.createElement('div')}
       ).$mount();
     }
