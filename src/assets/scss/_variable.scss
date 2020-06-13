@@ -44,3 +44,10 @@ $cr: #f55;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+@mixin sketch-box-border-shadow{
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.24);
+  &:hover{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+}

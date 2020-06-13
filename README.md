@@ -683,6 +683,9 @@ vue-cli3.0 默认使用 Babel 7 + babel-loader + @vue/babel-preset-app，但是�
 
 ### 对于全局模态框 并非挂在到#app里面
 
+#### vuex 注入到全局组件里面
+[](vuex组件里打印this.$store.state为undefined,求解？)
+
 需要实例化的时候 主动通过 挂在store上路
 
 ```js
@@ -712,3 +715,34 @@ computed是可以依赖追踪, $store引用发生变化 它相应也变法
 
 
 而 computed 则是通过【依赖追踪】实现的，计算属性在它的相关依赖发生改变时会重新求值（可参考vue官方教程对计算属性的描述），所以你可以使用 computed 去引用 Vuex 状态变量，从而使得依赖追踪生效
+
+
+### vuex 使用教程参考
+[vuex基本使用](https://segmentfault.com/a/1190000019894774)
+[Vuex入门篇——基本使用](https://zhuanlan.zhihu.com/p/98925963)
+
+
+### nginx 翻乡代理到tomcat中丢失session 
+https://blog.csdn.net/xiaweiyidengzhewo/article/details/80921750
+
+[解决nginx使用proxy_pass反向代理时,session,cookie丢失的问题](https://blog.csdn.net/Michaelwubo/article/details/81216991)
+[解决nginx使用proxy_pass反向代理时,session丢失的问题](https://www.cnblogs.com/zangdalei/p/6021352.html)
+[nginx问题——session丢失](https://blog.csdn.net/xiaweiyidengzhewo/article/details/80921750)
+[Nginx 反向代理导致的 session 丢失的解决方法](https://blog.csdn.net/qq_26975307/article/details/104440540)
+### 针对
+nginx api-mmall域名设置 location
+
+proxy_pass http://127.0.0.1:8093;
+proxy_set_header Host $host;
+proxy_set_header Referer $http_referer；
+proxy_set_header X-Real-Ip $remote_addr;
+proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
+
+
+tomcat 中的jsessionid 需要访问jsp页面才有 不访问没有jsessionid?
+
+
+http://api-mmall.yzhold.com/user/get_user_info.do
+
+
+因为设定了 在/api 路劲上 所以你没办法在  http://vuemmall.yzhold.com/ 上查看

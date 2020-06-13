@@ -3,17 +3,17 @@
     <global-head>
       <slot slot="global-h-breadCrumb">
         <p>分类 13855252522@test987.com</p>
-        <p>更新 随意更新</p>
       </slot>
     </global-head>
     <button @click="getModal">getModal</button>
     <button @click="dialogVisible=true">dialogVisible</button>
     <div>
-      <home-category />
+      <home-category  :categoryList="category"/>
       <home-swpier />
     </div>
     <!-- // 楼层速览 -->
-    <home-floor v-for="item in 3"  :key="item" :class='item==1?"double-deck":""'/>
+    <home-floor :productsList="phoneProductsList" :title="phoneParams.title" class="double-deck"/>
+    <home-floor :productsList="travelProductsList" :title="travelParams.title" />
     <global-footer></global-footer>
     <!-- <HelloWorld /> -->
     <globalDialogWrapper :visible.sync="dialogVisible"
@@ -34,17 +34,35 @@ import HomeSwiper from "@/components/home/homeSwiper.vue"
 import HomeFloor from "@/components/home/homeFloor.vue"
 import GlobalFooter from "@/components/global/globalFooter.vue"
 
-// import {api_user_login} from '@/api/userApi'
+import {api_categoryId_search,api_get_categorys} from '@/api/homePageApi'
 
 export default {
   data() {
     return {
       dialogVisible: false,
+      phoneParams:{
+        title: '手机',
+        categoryId: 100012, // 数据库写死的
+      },
+      phoneProductsList:[],
+      travelParams:{
+        title: '旅游产品',
+        categoryId: 100003, // 数据库写死的
+      },
+      travelProductsList:[],
+
+      category: [] // 分类;
     }
   },
  
   created(){
-
+    this.getPhoneCategory();
+    this.getTravelCategory();
+    api_get_categorys().then(res=>{
+      if(res.status == 0){
+        this.category = res.data;
+      }
+    })
   },
   mounted(){
   },
@@ -67,7 +85,17 @@ export default {
         mask: true, // 显示遮罩;
       })
       },err=>{})
-      }
+    },
+    getPhoneCategory(){
+      api_categoryId_search(this.phoneParams).then(res=>{
+        this.phoneProductsList = res.data.list;
+      })
+    },
+    getTravelCategory(){
+      api_categoryId_search(this.travelParams).then(res=>{
+        this.travelProductsList = res.data.list;
+      })
+    }
   },
   components: {
     "global-head" : GlobalHead,

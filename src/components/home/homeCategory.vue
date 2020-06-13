@@ -1,15 +1,15 @@
 <template>
   <div class="category-wrap">
     <!-- 一级分类 -->
+    <p class="title">热搜</p>
     <ul class="category-1st-wrap">
-      <li class="category-1nd-item" v-for="item in 24">
+      <li class="category-1nd-item" v-for="item in categoryList" :key="item.id" @click="toSearchByCategroyId(item)">
+        {{item.name}}
         <!-- 二级分类 -->
-        <ul class="category-2nd-wrap">
+        <!-- <ul class="category-2nd-wrap">
           <li class="category-2nd-item" v-for="(item,index) in 20">酒{{index}}水</li>
-        </ul>
+        </ul> -->
       </li>
-      <li class="category-1st-item"></li>
-      <li class="category-1st-item"></li>
     </ul>
   </div>
 </template>
@@ -17,6 +17,14 @@
 <script>
 
 export default {
+  props:{
+    categoryList:{
+      type: Array,
+      default: function(){
+        return []
+      }
+    }
+  },  
   data() {
     return {
     }
@@ -24,6 +32,9 @@ export default {
   created() {
   },
   methods: {
+    toSearchByCategroyId(item){
+      this.$router.push({path:'/search',query:{keyword: item.name}})
+    }
   },
   components: {
   },

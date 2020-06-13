@@ -1,9 +1,9 @@
 <template>
-  <div class="category-floor">
-    <bd-title class="global-title" title="主标题" />
+  <div class="category-floor" v-if="productsList &&productsList.length>0">
+    <bd-title class="global-title" :title="title" />
     <ul class="clearfix overw20 ">
-      <li class="category-item mgr20 mgb10" v-for="item in 6">
-        <prodsketch />
+      <li class="category-item mgr20 mgb20" v-for="(item,idx) in productsList" :key="idx" @click="toProductDetail(item)">
+        <prodsketch :product="item"/>
       </li>
     </ul>
   </div>
@@ -12,6 +12,13 @@
 <script>
 
 export default {
+  props:{
+    productsList:{
+      type: Array,
+      default: []
+    },
+    title: String
+  },
   data() {
     return {
     }
@@ -19,6 +26,9 @@ export default {
   created() {
   },
   methods: {
+    toProductDetail(param){
+      this.$router.push({path:`/productDetail/${param.id}`})
+    }
   },
   components: {
   },

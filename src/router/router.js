@@ -129,7 +129,13 @@ function generateRoute(options = {
 const basicRoute = [
   {
     path: '/',
-    redirect: '/Home'
+    component: () => import(`@/views/Home`),
+    children: [],
+    props: false, // [布尔模式 :](https://router.vuejs.org/zh/guide/essentials/passing-props.html#%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%BC%8F) 如果 props 被设置为 true，route.params 将会被设置为组件属性。
+    meta: { 
+      requiresAuth: false,
+      title: '首页'
+    }
   }
 ]
 
