@@ -52,6 +52,7 @@ let routerMapJson = {
   "/user/registOld.vue": "测试",
   "/user/resetPwd.vue": "重设密码",
   "/user/revisePwd.vue": "修改密码",
+  "/admin.vue": '管理者后台入口'
 }
 let newObj ={}
 
@@ -144,7 +145,7 @@ const basicRoute = [
 export let processRoutes = basicRoute.concat(generateRoute(), { path: '*', redirect: '/error' })
 // 所有路由
 
-console.log(processRoutes)
+// console.log(processRoutes)
 export const router = new Router({
   // Vue scrollBehavior 滚动行为
   scrollBehavior(to, from, savedPosition) {

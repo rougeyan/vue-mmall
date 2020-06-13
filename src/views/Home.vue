@@ -37,6 +37,7 @@ import GlobalFooter from "@/components/global/globalFooter.vue"
 import {api_categoryId_search,api_get_categorys} from '@/api/homePageApi'
 
 export default {
+  name: "Home",
   data() {
     return {
       dialogVisible: false,
@@ -65,6 +66,9 @@ export default {
     })
   },
   mounted(){
+  },
+  activated(){
+    console.log(1234)
   },
   methods: {
     getModal(){
