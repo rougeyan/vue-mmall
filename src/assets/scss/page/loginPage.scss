@@ -67,7 +67,7 @@
           border-bottom-color: red;
         }
       }
-      .error-tips{
+      .error-msg{
         width: 100%;
         padding-left: 8px;
         position: absolute;
@@ -80,6 +80,11 @@
   }
 }
 
+p.forgetPasswod{
+  color: #09f;
+  margin: 10px 0; 
+  cursor: pointer;
+}
 .menberpage-title{
   text-align: center;
   font-size: 40px;

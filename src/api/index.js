@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from 'js-cookie'
-import loginModal from '@/components/global/loginModal.js'
+import loginDialog from '@/components/global/loginDialog.js'
 const qs = require('qs');
 
 
@@ -42,7 +42,7 @@ axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   // C端用户未登录
   if(response.data.status == 100005){
-    loginModal.open({
+    loginDialog.open({
       title: '用户请登录',
       maskClickClose: true,
     })

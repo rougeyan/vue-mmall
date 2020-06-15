@@ -11,7 +11,7 @@
       @focus="handleFocus"
       @blur="handleBlur"
       />
-    <div class="error-tips" v-if="errorTips">{{errorTips}}</div>
+    <div class="error-msg" v-if="errorTips">{{errorTips}}</div>
   </div>
 </template>
 

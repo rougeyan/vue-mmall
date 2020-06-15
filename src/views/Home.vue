@@ -2,11 +2,10 @@
   <div class="home">
     <global-head>
       <slot slot="global-h-breadCrumb">
-        <p>分类 13855252522@test987.com</p>
-      </slot>
+        <p class="important-msg">
+          本项目是个人测试环境项目,线上所有物品均为虚拟产品,不会产生真实订单。请勿进行真实交易支付。
+        </p></slot>
     </global-head>
-    <button @click="getModal">getModal</button>
-    <button @click="dialogVisible=true">dialogVisible</button>
     <div>
       <home-category  :categoryList="category"/>
       <home-swpier />
@@ -37,7 +36,7 @@ import GlobalFooter from "@/components/global/globalFooter.vue"
 import {api_categoryId_search,api_get_categorys} from '@/api/homePageApi'
 
 export default {
-  name: "Home",
+  name: "home",
   data() {
     return {
       dialogVisible: false,
@@ -57,6 +56,14 @@ export default {
   },
  
   created(){
+    if(process.env.NODE_ENV === "production"){
+        this.$toast({
+        title:'注意', //弹窗的标题
+        content:'本项目是个人基于课程学习练手的地方,线上所有物品均为虚拟产品,不会产生真实订单。请勿进行真实交易支付。',//弹窗的内容
+        mask: true, // 显示遮罩;
+        autoHide: 5000,// 自动时间
+      })
+    }
     this.getPhoneCategory();
     this.getTravelCategory();
     api_get_categorys().then(res=>{
@@ -71,25 +78,6 @@ export default {
     console.log(1234)
   },
   methods: {
-    getModal(){
-      var self = this;
-      this.$toast({
-        showComfirm: true, // 显示确认按钮
-        showCancle: true,//true->确认消息弹窗,false->消息提示弹窗
-        title:'this is title', //弹窗的标题
-        content:'this is content',//弹窗的内容
-        mask: true, // 显示遮罩;
-        autoHide: 5000,// 自动时间
-      }).then(res=>{
-        this.$toast({
-        showComfirm: true, // 显示确认按钮
-        showCancle: false,//true->确认消息弹窗,false->消息提示弹窗
-        title:'this is second title', //弹窗的标题
-        content:'this is second content',//弹窗的内容
-        mask: true, // 显示遮罩;
-      })
-      },err=>{})
-    },
     getPhoneCategory(){
       api_categoryId_search(this.phoneParams).then(res=>{
         this.phoneProductsList = res.data.list;
@@ -112,4 +100,8 @@ export default {
 </script>
 <style lang="scss">
   @import '@/assets/scss/page/homePage.scss';
+  .important-msg{
+    color: red;
+    font-size: 24px;
+  }
 </style>

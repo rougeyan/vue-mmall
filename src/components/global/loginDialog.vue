@@ -11,8 +11,6 @@
       :blurCheckRules ="['isBlank']">
     </formInput>
     <button @click="login">登录</button>
-    <p>登录状态{{loginStatus}}</p>
-    <p>store的值为{{dept}}</p>
   </globalDialogWrapper>
 </template>
 

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import store from "@/store/index.js";
-import Modaltemplate from './loginModal.vue'
+import Modaltemplate from './loginDialog.vue'
 /**
  * 
  * new Indicator({ el: document.createElement('div')})与

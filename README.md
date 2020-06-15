@@ -746,3 +746,31 @@ http://api-mmall.yzhold.com/user/get_user_info.do
 
 
 因为设定了 在/api 路劲上 所以你没办法在  http://vuemmall.yzhold.com/ 上查看
+
+
+### v-if和v-for 优先级与解决弊端
+
+由于v-for的优先级比v-if高，所以导致每循环一次就会去v-if一次，而v-if是通过创建和销毁dom元素来控制元素的显示与隐藏，所以就会不停的去创建和销毁元素，造成页面卡顿，性能下降。
+
+解决办法：在v-for的外层或内层包裹一个元素来使用v-if
+
+### watch和computed的区别
+watch作用通常是由一个值影响多个值的改变并且能监听到这个值变化时，会去执行一个回调函数，此时我们可以在这个回调函数中做一些逻辑处理
+computed是根据依赖的值衍生出一个新的值，并且依赖的值可以有多个，只有当被依赖的值发生改变时，才会重新去执行计算
+
+### vue中的事件修饰符主要有哪些？分别是什么作用
+.stop: 阻止事件冒泡
+.native: 绑定原生事件
+.once: 事件只执行一次
+.self:将事件绑定在自身身上，相当于阻止事件冒泡
+.prevent: 阻止默认事件
+.caption: 用于事件捕获
+
+### keep-alive
+用于缓存vue实例; 
+keep-alive是用于做组件缓存的，只会执行一次，不会被销毁。被keep-alive包裹的组件，没有create和beforeDestroyed等方法，但是有activated和deactivated方法。
+
+里面有include 和exclude 一个被包含的组件名称`组件中name` 非路由name; 
+
+
+[2020前端最新面试题（vue篇）](https://blog.csdn.net/Aria_Miazzy/article/details/106230030)

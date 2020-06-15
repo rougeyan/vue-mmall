@@ -1,6 +1,6 @@
 <template>
     <div>
-      这里是管理后台;
+      暂不开放
     </div>
 </template>
 

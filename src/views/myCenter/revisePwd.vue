@@ -1,6 +1,6 @@
 <template>
     <div class="my-info">
-        <bd title="我的个人信息">
+        <bd title="修改密码">
         <bd-content>
           <ul>
             <li>

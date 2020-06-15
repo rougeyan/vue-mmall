@@ -15,16 +15,18 @@
             <formInput 
               v-model="userPwd" 
               label="密码"
+              inputType="password"
               :blurCheckRules ="['isBlank']">
             </formInput>
           </li>
         </ul>
       </form>
-      <p>登录状态</p>
-      <p>{{loginStatus}}</p>
-      <button @click="login">登陆</button>
-      <button @click="logout">登出</button>
-      <button @click="getUserinfo">用户信息</button>
+      <button @click="loginbtn">登陆</button>
+      <router-link to="/user/getUserQuestion">
+        <p class="forgetPasswod">忘记密码?</p>
+      </router-link>
+      <!-- <button @click="logout">登出</button>
+      <button @click="getUserinfo">用户信息</button> -->
     </div>
   </div>
 </template>
@@ -33,70 +35,53 @@
 
 import {api_user_login,
         api_user_logout,
-        api_user_getUserInfo} from '@/api/userApi'
-import {tese_api} from '@/api/testApi.js';
-import {formMixin} from '@/common/formMixin';
- 
-import Cookies from 'js-cookie'
+        api_user_getUserInfo} from '@/api/userApi';
+import {redirectByLoginedMixin} from '@/mixins/redirectByLoginedMixin';
+import {loginedMixin} from '@/mixins/loginMixin';
+
 export default {
+  mixins: [redirectByLoginedMixin,loginedMixin],
   data() {
     return {
-      title: '登陆',
-      userName: undefined,
-      userPwd: undefined,
-      loginStatus: '',
+      title: '登陆'
     }
   },
   created() {
-    this.getUserinfo();
+    this.checkLoginStatusRedirect();
+    this.getUserInfo();
   },
   methods: {
-    login(){
+    loginbtn(){
       var self = this;
-      // 做非空校验
-      api_user_login({
-        "username": self.userName,
-        "password": self.userPwd
-        }).then(res=>{
+      this.login().then(res=>{
         if(res.status == 0){
-          self.loginStatus = JSON.stringify(res.msg);
+          self.$toast({
+            title:'', 
+            style: 'success-tips',
+            content: res.msg,
+            mask: true,
+            autoHide: 2000,
+          }).then(res=>{
+            self.checkLoginStatusRedirect();
+          })
         }else{
-          self.loginStatus = ''
+          self.$toast({
+            title:'',
+            style: 'error-tips',
+            content: res.msg,
+            mask: true, 
+            autoHide: 2000,
+          })
         }
       })
     },
-    logout(){
-      api_user_logout().then(res=>{
-        if(res.status == 0){
-          alert("登出成功")
-        }
-      })
-    },
-    // 存储登录状态
-    setLoginStatusInStore(){
-
-    },
-    getUserinfo(){
-      var self = this;
-      api_user_getUserInfo().then(res=>{
-        if(res.status == 0){
-          self.loginStatus = JSON.stringify(res.data);
-        }else{
-          self.loginStatus = ''
-        }
-      })
-    },
-    testapi(){
-      tese_api().then(res=>{
-        console.log(res)
-      })
-    },
-    testUserTest(){
-      console.log(this.usertest);
-    },
-    handlerbbblur(e){
-      console.log(e);
-    }
+    // logout(){
+    //   api_user_logout().then(res=>{
+    //     if(res.status == 0){
+    //       alert("登出成功")
+    //     }
+    //   })
+    // },
   },
  
 }

@@ -58,8 +58,6 @@
         </ul>
       </form>
       <button @click="regist">注册</button>
-      <p>登录状态</p>
-      <p>{{registStatus}}</p>
     </div>
   </div>
 </template>
@@ -67,14 +65,21 @@
 <script>
 
 import {api_user_regist} from '@/api/userApi'
-import {tese_api} from '@/api/testApi.js';
-import {formMixin} from '@/common/formMixin';
- 
-import Cookies from 'js-cookie'
+import {redirectByLoginedMixin} from '@/mixins/redirectByLoginedMixin';
+import {loginedMixin} from '@/mixins/loginMixin';
 export default {
+  mixins: [redirectByLoginedMixin,loginedMixin],
   data() {
     return {
       title: '注册账号',
+      registStatus: '',
+      // userName: '',
+      // userPwd: '',
+      // userPwdSec: '',
+      // userPhone: '',
+      // userQues: '',
+      // userAnswer: '',
+      // userEmail: '',
       userName: 'smgui1',
       userPwd: '1234',
       userPwdSec: '1234',
@@ -82,7 +87,6 @@ export default {
       userQues: '123',
       userAnswer: '123',
       userEmail: '13711651899@qq.com',
-      registStatus: ''
     }
   },
   created() {
@@ -98,11 +102,28 @@ export default {
         question: self.userQues,
         answer: self.userAnswer
       }).then((res)=>{
+        // 重定向到登录状态
         if(res.status == 0){
-          self.registStatus = JSON.stringify(res);
+          self.$toast({
+            title:'', 
+            style: 'success-tips',
+            content: res.msg,
+            mask: true,
+            autoHide: 2000,
+            promiseCallback: true,
+          }).then(res=>{
+            self.redirectUrl('/user/login');
+          })
         }else{
-          self.registStatus = res
+          self.$toast({
+            title:'',
+            style: 'error-tips',
+            content: res.msg,
+            mask: true, 
+            autoHide: 2000,
+          })
         }
+
       })
     }
   },

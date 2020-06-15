@@ -4,8 +4,9 @@
       <img src="@/assets/images/easyWaklLogo.png" alt="">
     </div>
     <div class="global-searchwrap-r input-wrap">
-      <input v-model="kw" type="text" placeholder="请输入商品名称或者商品编号" v-on:keyup.enter="clickSearch">
+      <input v-model="kw" type="text" placeholder="试试搜索: 手机 旅游 小米 华为" v-on:keyup.enter="clickSearch">
       <button @click.enter="clickSearch">搜索</button>
+      <!-- <p>请输入商品名称或者商品编号</p> -->
     </div>
   </div>
 </template>
@@ -19,7 +20,6 @@ export default {
     }
   },
   created(){
-    console.log(this.$route.name)
     this.onSearchPageFuc()
   },
   methods: {

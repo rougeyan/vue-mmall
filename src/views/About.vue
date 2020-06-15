@@ -83,39 +83,39 @@
 <style scope lang="scss">
 .about {
   font-size: 18px;
-}
-label {
-  font-weight: bold;
-}
-a {
-  color: $tc;
-}
-span {
-  color: $tc;
-  cursor: pointer;
-}
-.blue {
-  color: #09f;
-}
-.tc {
-  color: $tc;
-}
-i {
-  color: #09f;
-  cursor: pointer;
-}
-p {
-  margin-bottom: 12px;
-}
-strong {
-  font-size: 24px;
-}
-.textred {
-  color: red;
-}
-ol {
-  li {
-    list-style-type: disc;
+  label {
+    font-weight: bold;
+  }
+  a {
+    color: $tc;
+  }
+  span {
+    color: $tc;
+    cursor: pointer;
+  }
+  .blue {
+    color: #09f;
+  }
+  .tc {
+    color: $tc;
+  }
+  i {
+    color: #09f;
+    cursor: pointer;
+  }
+  p {
+    margin-bottom: 12px;
+  }
+  strong {
+    font-size: 24px;
+  }
+  .textred {
+    color: red;
+  }
+  ol {
+    li {
+      list-style-type: disc;
+    }
   }
 }
 </style>
