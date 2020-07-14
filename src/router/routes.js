@@ -6,109 +6,110 @@ import Home from "../views/Home.vue";
 const routes = [
   {
     path: "/",
-    component: Home
+    component: Home,
   },
   {
     path: "/Home",
-    component: Home
+    component: Home,
+    name: '首页',
+    meta: {
+      inTopNav: 1
+    },
   },
   {
     path: "/ComfirmPreOrder",
     name: '预下单',
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ComfirmPreOrder.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/ComfirmPreOrder.vue")
   },
   {
     path: "/MyCart",
     name: '我的购物车',
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MyCart.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/MyCart.vue"),
+    meta: {
+      inTopNav: 4
+    },
   },
   {
     path: "/User",
     name: '用户',
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../layouts/BlankLayout.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "../layouts/BlankLayout.vue"),
     children: [
       {
         path: "/User/checkAnswer",
-        name: '用户- 检查答案',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/User/checkAnswer.vue"),
+        name: '检查答案',
+        component: () => import(/* webpackChunkName: "about" */ "../views/User/checkAnswer.vue"),
       },
       {
         path: "/User/forgetPwd",
-        name: '用户 - 忘记密码',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/User/forgetPwd.vue"),
+        name: '忘记密码',
+        component: () => import(/* webpackChunkName: "about" */ "../views/User/forgetPwd.vue"),
       },
       {
         path: "/User/getUserQuestion",
-        name: '用户- 获取用户校验问题',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/User/getUserQuestion.vue"),
+        name: '获取用户校验问题',
+        component: () => import(/* webpackChunkName: "about" */ "../views/User/getUserQuestion.vue"),
       },
       {
         path: "/User/login",
-        name: '用户- 登录',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/User/login.vue"),
+        name: '登录',
+        component: () => import(/* webpackChunkName: "about" */ "../views/User/login.vue"),
+        meta: {
+          inTopNav: 2
+        },
       },
       {
         path: "/User/regist",
-        name: '用户 - 注册',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/User/regist.vue"),
+        name: '注册',
+        component: () => import(/* webpackChunkName: "about" */ "../views/User/regist.vue"),
+        meta: {
+          inTopNav: 3
+        },
       },
       {
         path: "/User/resetPwd",
-        name: '用户- 重置密码',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/User/resetPwd.vue"),
+        name: '重置密码',
+        component: () => import(/* webpackChunkName: "about" */ "../views/User/resetPwd.vue"),
       },
       {
         path: "/User/revisePwd",
-        name: '用户- 修改密码',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/User/revisePwd.vue"),
+        name: '修改密码',
+        component: () => import(/* webpackChunkName: "about" */ "../views/User/revisePwd.vue"),
       },
     ]
   },
   {
     path: "/PersonalCenter",
     name: '个人中心',
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/PersonalCenter.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter.vue"),
     redirect: "/PersonalCenter/info", // 重定向到我的信息栏;
+    meta: {
+      inTopNav: 5
+    },
     children:[
       {
         path: "/PersonalCenter/info",
         name: '个人中心 - 我的信息',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/PersonalCenter/info"),
+        component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/info"),
       },
       {
         path: "/PersonalCenter/revisePwd",
         name: '个人中心 - 修改密码',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/PersonalCenter/revisePwd.vue"),
+        component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/revisePwd.vue"),
       },
       {
         path: "/PersonalCenter/orders",
         name: '个人中心 - 订单信息',
-        component: () =>
-          import(/* webpackChunkName: "about" */ "../views/PersonalCenter/orders.vue"),
+        component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/orders.vue"),
       },
     ]
   },
   {
     path: "/ProductDetail/:pid",
-    name: "关于我",
+    name: "产品详情",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ProductDetail/_pid.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/ProductDetail/_pid.vue")
   },
   {
     path: "/About",
@@ -116,8 +117,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
     path: "/Search",
@@ -125,8 +125,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Search.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/Search.vue")
   },
   {
     path: "/OrderPay",
@@ -134,8 +133,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/OrderPay.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/OrderPay.vue")
   },
   {
     path: "/error",
@@ -143,8 +141,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/error.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/error.vue"),
   },
 ];
 

@@ -16,7 +16,7 @@ import '@/components/autoRegistComponents.js'
 
 
 // 简易模态框(非复杂自定义内容)
-import modals from '@/components/simpleModal/simpleModal.js'
+import modals from '@/components/common/simpleModal/simpleModal.js'
 Vue.use(modals)
 
 Vue.config.productionTip = false;
