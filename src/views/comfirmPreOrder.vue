@@ -1,36 +1,35 @@
 <template>
   <!-- 预下单 - 配置订单信息(收货人) -->
-  <div class="home">
-    <global-head />
-    <bd title="收获地址">
-      <bd-content>
-        <shipping-list @getShippingId="getShippingId" />
-      </bd-content>
-    </bd>
-
-    <bd title="商品清单">
-      <bd-content>
-        <product-selected-list :preOrderList="preOrderList" />
-        <operationBar>
-          <slot slot="item">
-            <div class="total">
-              总价:
-              <span class="price-symbol">{{productTotalPrice}}</span>
-            </div>
-          </slot>
-          <slot slot="buttons">
-            <button class="gotoPreOrder-btn" @click="gotoCreateOrder">去支付</button>
-          </slot>
-        </operationBar>
-      </bd-content>
-    </bd>
-  </div>
+  <BaseLayout>
+    <div class="home">
+      <bd title="收获地址">
+        <bd-content>
+          <shipping-list @getShippingId="getShippingId" />
+        </bd-content>
+      </bd>
+      <bd title="商品清单">
+        <bd-content>
+          <product-selected-list :preOrderList="preOrderList" />
+          <operationBar>
+            <slot slot="item">
+              <div class="total">
+                总价:
+                <span class="price-symbol">{{productTotalPrice}}</span>
+              </div>
+            </slot>
+            <slot slot="buttons">
+              <button class="gotoPreOrder-btn" @click="gotoCreateOrder">去支付</button>
+            </slot>
+          </operationBar>
+        </bd-content>
+      </bd>
+    </div>
+  </BaseLayout>
 </template>
 
 <script>
 // @ is an alias to /src
 import * as api from "@/api/orderApi.js";
-import GlobalHead from "@/components/global/globalHead.vue";
 import ShippingList from "@/components/shipping/shippingList.vue";
 import ProductSelectedList from "@/components/shipping/productSelectedList.vue";
 
@@ -79,7 +78,6 @@ export default {
     }
   },
   components: {
-    "global-head": GlobalHead,
     "shipping-list": ShippingList,
     "product-selected-list": ProductSelectedList
   }

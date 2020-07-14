@@ -1,15 +1,12 @@
 <template>
-  <div class="home">
-    <global-head />
-    <!-- // 楼层速览 -->
+  <BaseLayout>
     <cartList/>
-  </div>
+  </BaseLayout>
 </template>
 
 <script>
 // @ is an alias to /src
 import * as api from '@/api/myCartApi.js'
-import GlobalHead from "@/components/global/globalHead.vue"
 import CartList from "@/components/cart/cartList.vue"
 
 export default {
@@ -23,7 +20,6 @@ export default {
     
   },
   components: {
-    "global-head" : GlobalHead,
     "cartList": CartList
   }
 };

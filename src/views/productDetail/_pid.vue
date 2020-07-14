@@ -1,14 +1,12 @@
 <template>
-  <div class="home">
-    <global-head/>
+  <BaseLayout>
     <product-Msg :productMsg="productData"/>
-  </div>
+  </BaseLayout>
 </template>
 
 <script>
 import {api_get_product_detail} from '@/api/productApi.js'
 // @ is an alias to /src
-import GlobalHead from "@/components/global/globalHead.vue"
 import ProductMsg from "@/components/productDetail/productMsg.vue"
 
 export default {
@@ -37,7 +35,6 @@ export default {
     }
   },
   components: {
-    "global-head" : GlobalHead,
     "product-Msg": ProductMsg
   }
 };

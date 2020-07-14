@@ -1,8 +1,5 @@
 <template>
-  <div class="home">
-    <global-head />
-    <!-- // 楼层速览 -->
-
+  <BaseLayout>
     <bd title="订单支付">
       <bd-content>
         <button>订单号:{{orderNo}}</button>
@@ -20,13 +17,12 @@
         </div>
       </bd-content>
     </bd>
-  </div>
+  </BaseLayout>
 </template>
 
 <script>
 // @ is an alias to /src
 import {api_order_payOrder,api_order_query_Order} from '@/api/orderApi.js'
-import GlobalHead from "@/components/global/globalHead.vue"
 import ProductSelectedList from "@/components/shipping/productSelectedList.vue"
 
 export default {
@@ -83,7 +79,6 @@ export default {
     }
   },
   components: {
-    "global-head" : GlobalHead,
     "product-selected-list" : ProductSelectedList
   }
 };

@@ -8,8 +8,10 @@ import store from "./store/index.js";
 import "@/assets/scss/common.scss"
 import * as eventbus from '@/utils/event.js'
 
-// 自动通用组件注册
+// 自动注册 框架及通用组件
+import '@/layouts/autoRegistLayouts.js'
 import '@/components/autoRegistComponents.js'
+
 
 // 自定义通用模态框
 import modals from '@/components/global/globalModal.js'

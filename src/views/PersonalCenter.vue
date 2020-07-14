@@ -1,22 +1,20 @@
 <template>
-    <div class="my-center">
-        <global-head />
+    <BaseLayout>
         <div class="mycenter-wrapper">
-            <div class="entrances-list">
-                <div class="entrance-item" v-for="item in letfRoutes" :key="item.name">
-                    <!-- todo something 这里还可以递归 -->
-                    <router-link :to="item.path">{{item.path}}</router-link></div>
-            </div>
-            <div class="entrance-router-View">
-                <router-view />
-            </div>
+        <div class="entrances-list">
+            <div class="entrance-item" v-for="item in letfRoutes" :key="item.name">
+                <!-- todo something 这里还可以递归 -->
+                <router-link :to="item.path">{{item.path}}</router-link></div>
+        </div>
+        <div class="entrance-router-View">
+            <router-view />
         </div>
     </div>
+    </BaseLayout>
 </template>
 
 <script>
 import {processRoutes} from '@/router/router.js'
-import GlobalHead from "@/components/global/globalHead.vue"
 export default {
     props: {
     },

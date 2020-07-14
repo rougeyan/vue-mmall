@@ -28,7 +28,7 @@ const routes = [
     path: "/User",
     name: '用户',
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/User.vue"),
+      import(/* webpackChunkName: "about" */ "../layouts/BlankLayout.vue"),
     children: [
       {
         path: "/User/checkAnswer",

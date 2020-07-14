@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <UserLayout>
     <div class="regist-main">
       <p class="menberpage-title">{{title}}</p>
       <form>
@@ -59,7 +59,7 @@
       </form>
       <button @click="regist">注册</button>
     </div>
-  </div>
+  </UserLayout>
 </template>
 
 <script>

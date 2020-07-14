@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <UserLayout>
     <div class="regist-main">
       <p class="menberpage-title">{{title}}</p>
       <form>
@@ -17,7 +17,7 @@
       <p>{{status}}</p>
       <button @click="commit">提交</button>
     </div>
-  </div>
+  </UserLayout>
 </template>
 
 <script>

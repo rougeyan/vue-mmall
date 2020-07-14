@@ -1,14 +1,12 @@
 <template>
-  <div class="home">
-    <global-head />
+  <BaseLayout>
     <filter-products :result="result" :loading="loading"/>
-  </div>
+  </BaseLayout>
 </template>
 
 <script>
 // @ is an alias to /src
 import {api_global_search} from '@/api/productApi.js'
-import GlobalHead from "@/components/global/globalHead.vue"
 import FilterProducts from "@/components/search/filterProducts.vue"
 export default {
   data() {
@@ -53,7 +51,6 @@ export default {
     this.$EventBus.destorySearchResult();
   },
   components: {
-    "global-head" : GlobalHead,
     "filter-products":FilterProducts
   }
 };
