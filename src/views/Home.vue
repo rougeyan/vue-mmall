@@ -9,13 +9,13 @@
     <home-floor :productsList="phoneProductsList" :title="phoneParams.title" class="double-deck"/>
     <home-floor :productsList="travelProductsList" :title="travelParams.title" />
     <!-- <HelloWorld /> -->
-    <globalDialogWrapper :visible.sync="dialogVisible"
+    <DialogWrapper :visible.sync="dialogVisible"
     :maskClickClose="true">
       <div>div - dialog content对话框内容</div>
       <slot slot="modal-footer">
         <button @click="dialogVisible=false">关闭</button>
       </slot>
-    </globalDialogWrapper>
+    </DialogWrapper>
 
   </div>
   </BaseLayout>

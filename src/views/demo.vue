@@ -9,13 +9,13 @@
     <button @click="dialogVisible=true">标签模态框</button>
 
 
-    <globalDialogWrapper :visible.sync="dialogVisible"
+    <DialogWrapper :visible.sync="dialogVisible"
     :maskClickClose="true">
       <div>div - dialog content对话框内容</div>
       <slot slot="modal-footer">
         <button @click="dialogVisible=false">关闭</button>
       </slot>
-    </globalDialogWrapper>
+    </DialogWrapper>
   </div>
 </template>
 

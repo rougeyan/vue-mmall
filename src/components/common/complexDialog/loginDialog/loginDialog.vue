@@ -1,5 +1,5 @@
 <template>
-  <globalDialogWrapper :title="title" :visible.sync="visible" :maskClickClose="maskClickClose">
+  <DialogWrapper :title="title" :visible.sync="visible" :maskClickClose="maskClickClose">
     <formInput 
       v-model="userName" 
       label="用户名"
@@ -11,7 +11,7 @@
       :blurCheckRules ="['isBlank']">
     </formInput>
     <button @click="login">登录</button>
-  </globalDialogWrapper>
+  </DialogWrapper>
 </template>
 
 <script>
@@ -44,7 +44,6 @@ export default {
       login(){
         var self = this;
         // 做非空校验
-        debugger
         api_user_login({
           "username": self.userName,
           "password": self.userPwd

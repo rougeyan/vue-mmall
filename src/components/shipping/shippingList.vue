@@ -31,7 +31,7 @@
     
 
     <!-- // 添加新地址   -->
-    <globalDialogWrapper :visible.sync="dialogVisible"
+    <DialogWrapper :visible.sync="dialogVisible"
     :maskClickClose="true">
       <formInput 
         v-model="add_name" 
@@ -76,7 +76,7 @@
       <slot slot="modal-footer">
         <button @click="addShipping">新增地址</button>
       </slot>
-    </globalDialogWrapper>
+    </DialogWrapper>
   </div>
 </template>
 

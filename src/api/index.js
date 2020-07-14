@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from 'js-cookie'
-import loginDialog from '@/components/global/loginDialog.js'
+import loginDialog from '@/components/common/complexDialog/loginDialog/loginDialog.js'
 const qs = require('qs');
 
 

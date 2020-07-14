@@ -37,10 +37,9 @@ const REQUIRE_PATH = require.context(
   './common', true, /.vue$/
    //找到components文件夹下以.vue命名的文件
 )
-const REQUIRE_PATH2 = require.context(
-  './global', true, /.vue$/
-   //找到components文件夹下以.vue命名的文件
-)
+// const REQUIRE_PATH2 = require.context(
+//   './global', true, /.vue$/
+//    //找到components文件夹下以.vue命名的文件
+// )
 
 registerToVue(REQUIRE_PATH);
-registerToVue(REQUIRE_PATH2);

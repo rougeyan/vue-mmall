@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import store from "@/store/index.js";
-import Modaltemplate from './globalModal.vue'
+import Modaltemplate from './simpleModal.vue'
 /**
  * 
  * 只使用于简易的 Message 消息提示,MessageBox 弹框,Notification 通知 
