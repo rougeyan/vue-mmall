@@ -1,6 +1,6 @@
 <template>
-  <BaseLayout>
-    <filter-products :result="result" :loading="loading"/>
+  <BaseLayout ref="searchPage">
+    <filter-products :result="resultList" :loading="loading" :keywords="reloadResult"/>
   </BaseLayout>
 </template>
 
@@ -8,47 +8,50 @@
 // @ is an alias to /src
 import {api_global_search} from '@/api/productApi.js'
 import FilterProducts from "@/components/search/filterProducts.vue"
+import {searchProductMixin} from '@/mixins/searchProductMixin';
 export default {
+  mixins: [searchProductMixin],
   data() {
     return {
-      result: [], // 结果
       kw: '', 
-      categoryId: 0,// 0 默认全局搜索
+      categoryId: 0, // 0 默认全局搜索
       loading: true,
+      resultList: [],
+      reflesh: false
+    }
+  },
+  // computed里面只能用于同步函数
+  computed:{
+    reloadResult(){
+      // 监听关键字 每次commit 都调用一次searching
+      if(this.reflesh == true){
+        return this.$store.state.searchKeyWords
+      }
+      this.searching(this.$store.state.searchKeyWords)
+      return this.$store.state.searchKeyWords
     }
   },
   created(){
+    // 允许 强制刷新情况下继续搜索
     this.kw = this.$route.query.keyword;
-    this.searching();
-    this.listenKeywordsChange()
+    this.searching(this.kw);
+    this.reflesh = true;
   },
   methods: {
-    searching(){
+    searching(params){
       var self = this;
       this.loading = true;
-      api_global_search({
-        keyword: self.kw,
-        categoryId: self.categoryId
-      }).then((res)=>{
+      // dispatch 记录model值;
+      this.$store.dispatch('SEARCH_RESULT',{
+        keyword: params || self.kw,
+        categoryId: self.categoryId,
+      }).then(res=>{
         if(res.status == 0){
-          this.result = res.data.list;
           this.loading = false;
+          this.resultList = res.data.list
         }
       })
     },
-    listenKeywordsChange(){
-      var self = this;
-      this.$EventBus.listenSearchResult((res)=>{
-        if(res.keyword){
-          self.kw = res.keyword;
-          self.searching();
-        }
-      })
-    }
-  },
-  beforeDestory(){
-    // 离开search路由页面后 要销毁
-    this.$EventBus.destorySearchResult();
   },
   components: {
     "filter-products":FilterProducts

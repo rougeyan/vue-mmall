@@ -32,6 +32,5 @@ function getTopNav(){
     }
   })
   return newArr
-} 
-console.log(sort(getTopNav()))
+}
 export const topNav = sort(getTopNav())

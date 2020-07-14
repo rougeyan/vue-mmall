@@ -75,7 +75,7 @@ export default {
       })
     },
     goToMyCenterOrder(){
-      this.$router.push({path:`/myCenter/orderDetail/${this.orderNo}`})
+      this.$router.push({path:`/PersonalCenter/order/${this.orderNo}`})
     }
   },
   components: {

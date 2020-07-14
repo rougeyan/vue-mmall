@@ -34,7 +34,6 @@ let routerMapJson = {
   "/myCart.vue": "购物车",
   "/myCenter.vue": "个人中心",
   "/myCenter/info.vue": "测试我的信息",
-  "/myCenter/info/infotTest.vue": "测试我的路由",
   "/myCenter/orders.vue": "我的订单",
   "/myCenter/revisePwd.vue": "修改密码",
   "/orderComfirmPage.vue": "预下单",

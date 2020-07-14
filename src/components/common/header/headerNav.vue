@@ -44,9 +44,6 @@ export default {
     processTopNav(params){
       var self= this;
       let loginMsg = params;
-      if(!loginMsg){
-        return topNav
-      }
       let processNav = topNav.map((item)=>{
         // self.includeArr.includes(item.path);
         if(loginMsg && loginMsg.username && self.includeArr.includes(item.path)){
@@ -56,7 +53,6 @@ export default {
         item.render = true;
         return item
       })
-      console.log(processNav)
       return processNav
     }
   },

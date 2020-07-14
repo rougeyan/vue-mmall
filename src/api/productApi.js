@@ -34,7 +34,7 @@ export function api_get_product_detail(params){
  */
 export function api_global_search(params){
   let url =  BASE_HEAD + PATH_SEARCH_PRODUCTLIST_BY_KEYWORD_CATEGORYID;
-  let {keyword,categoryId ,orderBy} = params;
+  let {keyword,categoryId ,orderBy,pageSize,pageNum} = params;
   if(!params || !keyword || !(categoryId>=0)){
     return gResolve()
   }
@@ -45,6 +45,8 @@ export function api_global_search(params){
         keyword: keyword,
         categoryId: categoryId,
         orderBy: orderBy?orderBy:'price_desc',
+        pageSize: pageSize || 10,
+        pageNum: pageNum || 1
       }
     }).then(res => {
       resolve(res.data)

@@ -21,10 +21,10 @@
 					<ul class="myOrder-list">
 						<li class="orderItem" v-for="(item,idx) in orderLists" :key="idx" v-if="item.orderItemVoList.length>0">
 							<div class="orderItem-head">
-								<span>订单号{{item.orderNo}}</span>
+								<span>订单号:{{item.orderNo}}</span>
 								<span>创建时间:{{item.createTime}}</span>
-								<span>订单状态: {{item.statusDesc}}</span>
-								<span @click="toOrderDetail(item)">查看订单详情</span>
+								<!-- <span>订单状态: {{item.statusDesc}}</span> -->
+								<span class="gotoOrderDetail" @click="toOrderDetail(item)">查看订单详情</span>
 							</div>
 							<table class="orderItem-content" cellspacing="0">
 								<tbody>
@@ -60,7 +60,7 @@
 										<td class="table-cell cell-totalPayed">
 											<p>{{item.payment}}</p>
 										</td>
-										<td class="table-cell cell-orderStatus">
+										<td :class="['table-cell','cell-orderStatus',item.statusDesc=='未支付'?'red':'']">
 											<p>{{item.statusDesc}}</p>
 										</td>
 									</tr>
@@ -71,7 +71,7 @@
 					<!-- 表内容 -->
         </bd-content>
         <bd-footer>
-            分页器
+            // todo 分页器
         </bd-footer>
       </bd>
     </div>
@@ -105,7 +105,7 @@ export default {
 				},
 				toOrderDetail(item){
 					var self =this;
-					self.$router.push({path:`/myCenter/orderDetail/${item.orderNo}`})
+					self.$router.push({path:`/PersonalCenter/order/${item.orderNo}`})
 				}
     },
     components: {

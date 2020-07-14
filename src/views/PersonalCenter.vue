@@ -2,9 +2,9 @@
     <BaseLayout>
         <div class="mycenter-wrapper">
         <div class="entrances-list">
-            <div class="entrance-item" v-for="item in letfRoutes" :key="item.name">
+            <div class="entrance-item" v-for="item in letfRoutes" :key="item.path">
                 <!-- todo something 这里还可以递归 -->
-                <router-link :to="item.path">{{item.path}}</router-link></div>
+                <router-link :to="item.path">{{item.name}}</router-link></div>
         </div>
         <div class="entrance-router-View">
             <router-view />
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {processRoutes} from '@/router/router.js'
+import routes from '@/router/routes.js'
 export default {
     props: {
     },
@@ -26,9 +26,10 @@ export default {
     computed: {
     },
     created() {
+        console.log(routes)
         let myCenterRoutes = null;
-        processRoutes.map((item)=>{
-            if(!myCenterRoutes && item && item.name== '/myCenter.vue'){
+        routes.map((item)=>{
+            if(!myCenterRoutes && item && item.path== "/PersonalCenter"){
                 myCenterRoutes = item;
             }
         })

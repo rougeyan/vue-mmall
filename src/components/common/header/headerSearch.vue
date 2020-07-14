@@ -12,33 +12,37 @@
 </template>
 
 <script>
+import {searchProductMixin} from '@/mixins/searchProductMixin';
 export default {
+  mixins: [searchProductMixin],
   data() {
     return {
       kw: '',
-      onSearchPage: false,
+      // onSearchPage: false,
     }
   },
   created(){
-    this.onSearchPageFuc()
+    // this.onSearchPageFuc()
   },
   methods: {
-    onSearchPageFuc(){
-      if(this.$route.name == '/search.vue'){
-        this.onSearchPage = true;
-        return 
-      }
-      this.onSearchPage = false
-    },
+    // onSearchPageFuc(){
+    //   if(this.$route.path == '/Search'){
+    //     this.onSearchPage = true;
+    //     return 
+    //   }
+    //   this.onSearchPage = false
+    // },
     clickSearch(){
       var self = this;
-      if(!self.onSearchPage){
-        self.$router.push({path:'/search',query:{keyword: self.kw}})
-      }else{
-        // 修改url的关键字
-        self.$router.push({path:'/search',query:{keyword: self.kw}})
-        this.$EventBus.emitSearchResult({keyword: self.kw})
-      }
+      this.saveSearchKeyWordsInStore(self.kw);
+      self.$router.push({path:'/search',query:{keyword: self.kw}})
+      // if(!self.onSearchPage){
+      
+      // }else{
+      //   // 修改url的关键字
+      //   self.$router.push({path:'/search',query:{keyword: self.kw}})
+      //   this.$EventBus.emitSearchResult({keyword: self.kw})
+      // }
     }
   },
 }

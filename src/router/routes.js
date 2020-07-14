@@ -88,18 +88,26 @@ const routes = [
     children:[
       {
         path: "/PersonalCenter/info",
-        name: '个人中心 - 我的信息',
+        name: '我的信息',
         component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/info"),
       },
       {
         path: "/PersonalCenter/revisePwd",
-        name: '个人中心 - 修改密码',
+        name: '修改密码',
         component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/revisePwd.vue"),
       },
       {
         path: "/PersonalCenter/orders",
-        name: '个人中心 - 订单信息',
+        name: '订单列表',
         component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/orders.vue"),
+      },
+      {
+        path: "/PersonalCenter/order/:orderNo",
+        name: '订单详情',
+        component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/_orderNo.vue"),
+        meta:{
+          notInLeftNav:true
+        }
       },
     ]
   },

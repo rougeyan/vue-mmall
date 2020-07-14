@@ -1,11 +1,13 @@
 // 异步的moudile.js
-const ASET_DEPT = 'ASET_DEPT'
+import {api_global_search} from '@/api/productApi.js'
+const SEARCH_RESULT = 'SEARCH_RESULT'
 const actions = {
-    [ASET_DEPT](context,payload){
-        // 异步操作;
-        setTimeout(()=>{
-            context.commit('SET_DEPT',payload.dept);
-        },2000)
+    [SEARCH_RESULT](context,payload){
+        return api_global_search(payload).then(res=>{
+            // 更新结果
+            context.commit('SEARCH_RESULT',res.data);
+            return res
+        })
     },
 }
 export default actions;

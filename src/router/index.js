@@ -5,6 +5,11 @@ import Home from "../views/Home.vue";
 import routes from './routes';
 
 Vue.use(VueRouter);
+// 修复 Navigating to current location ("/xxx") is not allowed 的问题
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error => error)
+}
 
 // const routes = [
 //   {
