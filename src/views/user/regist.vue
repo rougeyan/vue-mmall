@@ -80,13 +80,13 @@ export default {
       // userQues: '',
       // userAnswer: '',
       // userEmail: '',
-      userName: 'smgui1',
+      userName: 'smgui01',
       userPwd: '1234',
       userPwdSec: '1234',
-      userPhone: '13711651899',
-      userQues: '123',
-      userAnswer: '123',
-      userEmail: '13711651899@qq.com',
+      userPhone: '13711111115',
+      userQues: '987654321',
+      userAnswer: '123333',
+      userEmail: '13711111115@qq.com',
     }
   },
   created() {

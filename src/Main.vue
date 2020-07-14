@@ -22,6 +22,7 @@ export default {
     // 通过eventbus来缓存路由
   },
   mounted() {
+
   },
   watch: {
   },

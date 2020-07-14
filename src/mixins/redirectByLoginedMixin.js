@@ -1,4 +1,5 @@
-// 一些页面在登录状态下无法访问配置M
+// 敏感操作需要登录;
+// 一些页面在登录状态下无法访问配置
 import { mapState } from "vuex";
 export const redirectByLoginedMixin = {
   computed :{
@@ -6,7 +7,6 @@ export const redirectByLoginedMixin = {
       userLoginStatus: state =>state.userLoginStatus
     })
   },
-  // watch: injectFormWatchData,
   methods: {
     redirectUrl(path,query,params){
       var self = this;

@@ -104,7 +104,6 @@ export default {
         answer: self.userAnswer
       }).then((res)=>{
         if(res.status == 0){
-          debugger
           this.reviseStatus = false;
           console.log(res.data);
         }

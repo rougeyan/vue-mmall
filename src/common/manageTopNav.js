@@ -1,6 +1,12 @@
 import {processRoutes} from '@/router/router.js' // 路由
 // 我需要在首页展示的菜单;
-const navArrays = ["/myCenter.vue", "/myCart.vue", "/Home.vue", "/About.vue", "/admin.vue", "/user/login.vue", "/user/regist.vue"];
+const navArrays = ["/myCenter.vue", 
+  "/myCart.vue", 
+  "/Home.vue", 
+  "/About.vue", 
+  "/admin.vue", 
+  "/user/login.vue", 
+  "/user/regist.vue"];
 
 let navArraysObj = [];
 

@@ -1,5 +1,7 @@
 <template>
-  <div class="breadcrumb-item">面包屑 > 面包屑a > 面包屑b</div>
+  <div>
+    <!-- <div class="breadcrumb-item">面包屑 > 面包屑a > 面包屑b</div> -->
+  </div>
 </template>
 
 <script>

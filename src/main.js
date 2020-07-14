@@ -1,6 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router/routerDefencer";
+// 自动路由
+// import router from "./router/routerDefencer";
+// 手动路由路由
+import router from "./router/index";
 import store from "./store/index.js";
 import "@/assets/scss/common.scss"
 import * as eventbus from '@/utils/event.js'
@@ -14,7 +17,7 @@ Vue.use(modals)
 
 Vue.config.productionTip = false;
 
-// 全局引入eventbus
+// 全局引入eventbus(在跨路由组件每次都要销毁),适合与 单路由下通讯;
 Vue.prototype.$EventBus = eventbus;
 new Vue({
   router,

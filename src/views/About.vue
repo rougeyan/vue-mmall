@@ -80,6 +80,29 @@
     </p>
   </div>
 </template>
+<script>
+export default {
+  props: {
+  },
+  data() {
+    return {}
+  },
+  computed: {
+  },
+  created() {
+    // 通过eventbus来缓存路由
+  },
+  mounted() {
+
+  },
+  watch: {
+  },
+  methods: {
+  },
+  components: {
+  },
+}
+</script>
 <style scope lang="scss">
 .about {
   font-size: 18px;

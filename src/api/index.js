@@ -26,7 +26,7 @@ axios.interceptors.request.use(function (config) {
       [TOKEN_KEY]:token
     }
   }
-  // 对与post请求 使用的是Form Data 而不是 Requset Payload 因此需要序列化参数
+  // 配合Form Data使用 后端不须使用 @RequestBody 
   if(config.method == "post"){
     // post请求序列化
     config.data = qs.stringify(config.data);
