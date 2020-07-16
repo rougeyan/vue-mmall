@@ -23,10 +23,7 @@ export default {
   // computed里面只能用于同步函数
   computed:{
     reloadResult(){
-      // 监听关键字 每次commit 都调用一次searching
-      if(this.reflesh == true){
-        return this.$store.state.searchKeyWords
-      }
+      // 监听关键字SearchKeyWords 每次commit 都调用一次searching
       this.searching(this.$store.state.searchKeyWords)
       return this.$store.state.searchKeyWords
     }
@@ -34,8 +31,8 @@ export default {
   created(){
     // 允许 强制刷新情况下继续搜索
     this.kw = this.$route.query.keyword;
-    this.searching(this.kw);
-    this.reflesh = true;
+    this.saveSearchKeyWordsInStore(this.kw);
+    console.log(`reflesh:::${this.reflesh}`)
   },
   methods: {
     searching(params){

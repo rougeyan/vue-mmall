@@ -67,7 +67,7 @@ export default {
       }
     })
     // this.testSocketIo();
-    this.testSuccessSocet();
+    // this.testSuccessSocet();
     /**
      *  Request URL: ws://localhost:8081/ws.do?id=10087
      *               ws://localhost:8081/ws.do/?id=10087&EIO=3&transport=websocket
