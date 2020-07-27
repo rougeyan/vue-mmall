@@ -1,4 +1,4 @@
-import {router} from './router'
+import {autoRouter} from './autoRouter'
 
 // 处理部分嵌套路由中间路由的跳转
 var processArr = ['/user.vue'];
@@ -13,7 +13,7 @@ function routerDefencer(r){
       // 跳转到
       // 这里记录用户访问的一些数据
       // 阻止访问;
-      next({path:'/error'})
+      next({path:'/Error'})
     }
     // ...
     if(to.matched.some(record => record.meta.requiresAuth)){
@@ -28,5 +28,5 @@ function routerDefencer(r){
   })
   return r
 }
-export default routerDefencer(router)
+export default routerDefencer(autoRouter)
 // export default r

@@ -1,8 +1,4 @@
 import Home from "../views/Home.vue";
-// import About from "../views/About.vue";
-// import ComfirmPreOrder from "../views/ComfirmPreOrder.vue";
-// import MyCart from "../views/MyCart.vue";
-// import PersonalCenter from "../views/PersonalCenter.vue";
 const routes = [
   {
     path: "/",
@@ -104,10 +100,7 @@ const routes = [
       {
         path: "/PersonalCenter/order/:orderNo",
         name: '订单详情',
-        component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/_orderNo.vue"),
-        meta:{
-          notInLeftNav:true
-        }
+        component: () => import(/* webpackChunkName: "about" */ "../views/PersonalCenter/_orderNo.vue")
       },
     ]
   },
@@ -125,7 +118,10 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    meta: {
+      inTopNav: 5
+    },
   },
   {
     path: "/Search",
@@ -144,12 +140,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ "../views/OrderPay.vue")
   },
   {
-    path: "/error",
+    path: "/Error",
     name: "404",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/error.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "../views/Error.vue"),
   },
 ];
 

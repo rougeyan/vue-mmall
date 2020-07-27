@@ -33,7 +33,7 @@
         </li>
         <li>
           <button class="add-cart" @click="addCart">添加购物车</button>
-          <button class="to-my-cart" @click="gotoMyCart">立即购买</button>
+          <!-- <button class="to-my-cart" @click="gotoMyCart">立即购买</button> -->
         </li>
       </ol>
     </bd>

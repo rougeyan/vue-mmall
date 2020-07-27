@@ -29,7 +29,7 @@ export default {
   },
   computed:{
     navList(){
-      // 引用的status 会重新执行一次;
+      // 引用的state(如登录后修改了状态) 会重新执行一次;
       return this.processTopNav(this.$store.state.userLoginStatus)
     },
     welcomeUser(){

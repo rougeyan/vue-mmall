@@ -26,7 +26,6 @@ export default {
     computed: {
     },
     created() {
-        console.log(routes)
         let myCenterRoutes = null;
         routes.map((item)=>{
             if(!myCenterRoutes && item && item.path== "/PersonalCenter"){

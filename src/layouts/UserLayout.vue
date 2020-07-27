@@ -7,13 +7,12 @@
             <img src="@/assets/images/easyWaklLogo.png" alt="">
           </div>
           <div class="regist-nav">
-            <span>已有账户?</span>
-            <span @click="console.log(1234)">请登录></span>
+            <router-link  v-show="!hasAccount" to="/User/regist">没有账户?请注册</router-link>
+            <router-link v-show="hasAccount" to="/User/login">已有账户?请登录</router-link>
           </div>
         </div>
       </header>
       <slot></slot>
-      <!-- <router-view /> -->
       </div>
     </div>
 </template>
@@ -23,12 +22,16 @@ export default {
     props: {
     },
     data() {
-        return {
-        }
+      return {
+        hasAccount: false
+      }
     },
     computed: {
     },
     created() {
+      if(this.$route.path == '/User/regist'){
+        this.hasAccount = true;
+      }
     },
     mounted() {
     },
