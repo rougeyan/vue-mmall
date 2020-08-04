@@ -62,7 +62,7 @@ export default {
     this.getTravelCategory();
     api_get_categorys().then(res=>{
       if(res.status == 0){
-        this.category = res.data;
+        this.category = res.data.list;
       }
     })
   },
